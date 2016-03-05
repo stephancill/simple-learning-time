@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		D48CEB5D1C85BA5B00047DD3 /* SpriteManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = D48CEB5C1C85BA5A00047DD3 /* SpriteManager.swift */; };
 		D4D347A51C6C77D900518E76 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = D4D347A41C6C77D900518E76 /* AppDelegate.swift */; };
 		D4D347A71C6C77D900518E76 /* GameScene.sks in Resources */ = {isa = PBXBuildFile; fileRef = D4D347A61C6C77D900518E76 /* GameScene.sks */; };
 		D4D347A91C6C77D900518E76 /* GameScene.swift in Sources */ = {isa = PBXBuildFile; fileRef = D4D347A81C6C77D900518E76 /* GameScene.swift */; };
@@ -16,6 +17,7 @@
 		D4D347B31C6C77D900518E76 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = D4D347B11C6C77D900518E76 /* LaunchScreen.storyboard */; };
 		D4D347BE1C6C77DA00518E76 /* SimpleLearningTimeTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = D4D347BD1C6C77DA00518E76 /* SimpleLearningTimeTests.swift */; };
 		D4D347C91C6C77DA00518E76 /* SimpleLearningTimeUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = D4D347C81C6C77DA00518E76 /* SimpleLearningTimeUITests.swift */; };
+		D4FD477D1C86CDB900C8FB87 /* Maths.swift in Sources */ = {isa = PBXBuildFile; fileRef = D4FD477C1C86CDB900C8FB87 /* Maths.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -36,6 +38,7 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		D48CEB5C1C85BA5A00047DD3 /* SpriteManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SpriteManager.swift; sourceTree = "<group>"; };
 		D4D347A11C6C77D900518E76 /* SimpleLearningTime.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = SimpleLearningTime.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		D4D347A41C6C77D900518E76 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		D4D347A61C6C77D900518E76 /* GameScene.sks */ = {isa = PBXFileReference; lastKnownFileType = file.sks; path = GameScene.sks; sourceTree = "<group>"; };
@@ -51,6 +54,7 @@
 		D4D347C41C6C77DA00518E76 /* SimpleLearningTimeUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = SimpleLearningTimeUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		D4D347C81C6C77DA00518E76 /* SimpleLearningTimeUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SimpleLearningTimeUITests.swift; sourceTree = "<group>"; };
 		D4D347CA1C6C77DA00518E76 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		D4FD477C1C86CDB900C8FB87 /* Maths.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Maths.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -104,11 +108,13 @@
 				D4D347A41C6C77D900518E76 /* AppDelegate.swift */,
 				D4D347A61C6C77D900518E76 /* GameScene.sks */,
 				D4D347A81C6C77D900518E76 /* GameScene.swift */,
+				D48CEB5C1C85BA5A00047DD3 /* SpriteManager.swift */,
 				D4D347AA1C6C77D900518E76 /* GameViewController.swift */,
 				D4D347AC1C6C77D900518E76 /* Main.storyboard */,
 				D4D347AF1C6C77D900518E76 /* Assets.xcassets */,
 				D4D347B11C6C77D900518E76 /* LaunchScreen.storyboard */,
 				D4D347B41C6C77D900518E76 /* Info.plist */,
+				D4FD477C1C86CDB900C8FB87 /* Maths.swift */,
 			);
 			path = SimpleLearningTime;
 			sourceTree = "<group>";
@@ -266,8 +272,10 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				D48CEB5D1C85BA5B00047DD3 /* SpriteManager.swift in Sources */,
 				D4D347A91C6C77D900518E76 /* GameScene.swift in Sources */,
 				D4D347AB1C6C77D900518E76 /* GameViewController.swift in Sources */,
+				D4FD477D1C86CDB900C8FB87 /* Maths.swift in Sources */,
 				D4D347A51C6C77D900518E76 /* AppDelegate.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -362,6 +370,7 @@
 				IPHONEOS_DEPLOYMENT_TARGET = 9.2;
 				MTL_ENABLE_DEBUG_INFO = YES;
 				ONLY_ACTIVE_ARCH = YES;
+				PROVISIONING_PROFILE = "";
 				SDKROOT = iphoneos;
 				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
 				TARGETED_DEVICE_FAMILY = "1,2";
@@ -400,6 +409,7 @@
 				GCC_WARN_UNUSED_VARIABLE = YES;
 				IPHONEOS_DEPLOYMENT_TARGET = 9.2;
 				MTL_ENABLE_DEBUG_INFO = NO;
+				PROVISIONING_PROFILE = "";
 				SDKROOT = iphoneos;
 				TARGETED_DEVICE_FAMILY = "1,2";
 				VALIDATE_PRODUCT = YES;
@@ -497,6 +507,7 @@
 				D4D347CF1C6C77DA00518E76 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 		D4D347D01C6C77DA00518E76 /* Build configuration list for PBXNativeTarget "SimpleLearningTimeTests" */ = {
 			isa = XCConfigurationList;
@@ -505,6 +516,7 @@
 				D4D347D21C6C77DA00518E76 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 		D4D347D31C6C77DA00518E76 /* Build configuration list for PBXNativeTarget "SimpleLearningTimeUITests" */ = {
 			isa = XCConfigurationList;
@@ -513,6 +525,7 @@
 				D4D347D51C6C77DA00518E76 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
 	};

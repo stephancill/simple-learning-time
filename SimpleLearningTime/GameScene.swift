@@ -54,10 +54,8 @@ class GameScene: SKScene {
                 
                 if (startMovement) {       // Don't act if 1st itearion (1st iteration values reset hand position)
                     
-//                    spriteMgr.executeRotation(deltaTouchAngle, nodeID: currentNodeID, scene: self)
-                    spriteMgr.clockElements[currentNodeID].zRotation += CGFloat(deltaTouchAngle)
+                    spriteMgr.rotateElement(deltaTouchAngle, nodeID: currentNodeID)
                     
-                
                 }
                 
                 startMovement = true
@@ -76,21 +74,24 @@ class GameScene: SKScene {
         for touch in touches {
             
             let touchLocation = touch.locationInView(touch.view)
-            let node = self.nodeAtPoint(touchLocation)
-            print(touchLocation)
+            var node = self.nodeAtPoint(touchLocation)
+            let nodes = self.nodesAtPoint(touchLocation)
+            for n in nodes {
+                print("\(n.name)")
+                if (interactiveElements.contains(Int(n.name!)!)) {
+                    node = n
+                }
+            }
             
             if (node.name != "scene"){
-                print(node.name)
-                if (interactiveElements.contains(Int(node.name!)!)) {
+//                print(node.name)
                     
-                    currentNode = node
-                    currentNodeID = Int(node.name!)!
-                    interactivityEnabled = true
-                    
-                }
-                
+                currentNode = node
+                currentNodeID = Int(node.name!)!
+                interactivityEnabled = true
                 first = touchLocation
             
+                
             }
             
         }
@@ -110,11 +111,9 @@ class GameScene: SKScene {
     
     }
     
-    override func update(currentTime: NSTimeInterval) {
-        
-    }
 
 }
+//
 // Add hour and minute hand as children of center points with features surrounding the clock that can rotate as seen here http://stackoverflow.com/questions/19045067/is-it-possible-to-rotate-a-node-around-an-arbitrary-point-in-spritekit
 // SCRAP EVERYTHING, USE element.ZROTATION
 // Fix distanceRotated 

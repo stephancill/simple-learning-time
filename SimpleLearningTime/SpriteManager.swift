@@ -46,10 +46,11 @@ class SpriteManager {
         
     }
     
-    func initElements (mid: CGPoint, scalar: Float, scene: GameScene, hourRot: Float?, minRot: Float?) -> Void{
+    func initElements (mid:CGPoint, scalar:Float, scene:SKScene, hourRotDegrees:Double = 0, minRotDegrees:Double = 0) -> Void{
 
         
         var layer = 0
+        var interactiveLayer = 0
         for element in clockElements {
             
             element.name = String(layer)
@@ -59,14 +60,15 @@ class SpriteManager {
             
             print(element.name)
             
-            if (donotRender.contains(layer)){
+            if (interactiveElements.contains(layer)){
                 // Interactive
-//                element.anchorPoint = CGPoint(x: 0.5,y: 0)
-//                element.userInteractionEnabled = true
-//                clockElements[layer - 3].addChild(element)
+                switch (interactiveLayer){
+                case (0): element.zRotation = CGFloat(minRotDegrees * math.pi / 180)
+                case (1): element.zRotation = CGFloat(hourRotDegrees * math.pi / 180)
+                default: continue
+                }
+                interactiveLayer++
             } else {
-//                element.anchorPoint = CGPoint(x: 0.5,y: 0.5)
-                
                 
             }
             scene.addChild(element)
@@ -79,6 +81,12 @@ class SpriteManager {
     
     }
     
+    func rotateElement (delta: Double, nodeID: Int) {
+    
+        spriteMgr.clockElements[nodeID].zRotation += CGFloat(delta)
+        
+    }
+
 
     
 }

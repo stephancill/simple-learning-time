@@ -11,7 +11,7 @@ let spriteMgr: SpriteManager = SpriteManager()
 let math: mf = mf()
 
 class GameScene: SKScene {
-    let clockIntervalRadianConst: Double = -360/(180/math.pi)/12/5;
+//    let clockIntervalRadianConst: Double = -360/(180/math.pi)/12/5;
     var middle: CGPoint = CGPoint(x: 0, y: 0)
     var first: CGPoint = CGPoint(x: CGFloat(0.0), y: CGFloat(0.0))
 
@@ -27,6 +27,8 @@ class GameScene: SKScene {
     
     var rotate: SKAction = SKAction()
     
+    var currentTimeHour: CGFloat = 0
+    var currentTimeMin: CGFloat = 0
     
     override func didMoveToView(view: SKView) {
         
@@ -56,6 +58,7 @@ class GameScene: SKScene {
                     
                     spriteMgr.rotateElement(deltaTouchAngle, nodeID: currentNodeID)
                     
+                    
                 }
                 
                 startMovement = true
@@ -74,7 +77,7 @@ class GameScene: SKScene {
         for touch in touches {
             
             let touchLocation = touch.locationInView(touch.view)
-            var node = self.nodeAtPoint(touchLocation)
+            var node: SKNode = SKNode()
             let nodes = self.nodesAtPoint(touchLocation)
             
             for n in nodes {
@@ -84,17 +87,16 @@ class GameScene: SKScene {
                     node = n
                     break
                 }
+            
             }
             
-            if (node.name != "scene"){
-//                print(node.name)
-                if (interactiveElements.contains(Int(node.name!)!)) {
+            if (node.name != nil){
+
                     currentNode = node
                     currentNodeID = Int(node.name!)!
                     interactivityEnabled = true
                     first = touchLocation
-                }
-                
+
             }
             
         }
@@ -104,7 +106,23 @@ class GameScene: SKScene {
     
     override func touchesEnded(touches: Set<UITouch>, withEvent event: UIEvent?) {
         
-        spriteMgr.adjustElement(currentNodeID)
+        
+        /*Snapping*/
+        var hours = spriteMgr.clockElements[3].zRotation / CGFloat(math.clockHourIntervalConst)
+        var mins = spriteMgr.clockElements[2].zRotation / CGFloat(math.clockMinuteIntervalConst)
+        
+        print("MINS: Rounded: \(round(mins)) - Raw: \(mins) = Diff: \(round(mins)-mins)")
+        print("HOURS: Rounded: \(round(hours)) - Raw: \(hours) = Diff: \(round(hours)-hours)")
+        
+        spriteMgr.clockElements[3].zRotation = CGFloat(math.clockHourIntervalConst) * floor(hours) + CGFloat(math.clockHourIntervalConst / 60) * mins
+        spriteMgr.clockElements[2].zRotation = CGFloat(math.clockMinuteIntervalConst) * round(mins)
+        
+        hours = spriteMgr.clockElements[1].zRotation / CGFloat(math.clockHourIntervalConst)
+        mins = spriteMgr.clockElements[2].zRotation / CGFloat(math.clockMinuteIntervalConst)
+        
+        print("Mins \(Int(mins))")
+        print("Hours: \(Int(hours))")
+        
         /*Reset*/
         currentNode = SKNode()
         currentNodeID = 0     // Turns out -1 is not a good placeholder

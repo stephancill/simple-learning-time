@@ -89,8 +89,13 @@ class SpriteManager {
     
     func adjustElement (nodeID: Int) {
     
-        clockElements[nodeID].zRotation -= clockElements[nodeID].zRotation % CGFloat(-360/(180/math.pi)/12/5)
-        
+        let constant = CGFloat(-360/(180/math.pi)/12/5)
+        let rotation = clockElements[nodeID].zRotation
+        if (abs(rotation%constant) < abs(constant/2)) {
+            clockElements[nodeID].zRotation += clockElements[nodeID].zRotation % constant
+        } else {
+            clockElements[nodeID].zRotation -= clockElements[nodeID].zRotation % constant
+        }
     }
 
 

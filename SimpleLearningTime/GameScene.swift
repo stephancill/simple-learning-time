@@ -76,10 +76,13 @@ class GameScene: SKScene {
             let touchLocation = touch.locationInView(touch.view)
             var node = self.nodeAtPoint(touchLocation)
             let nodes = self.nodesAtPoint(touchLocation)
+            
             for n in nodes {
                 print("\(n.name)")
+                
                 if (interactiveElements.contains(Int(n.name!)!)) {
                     node = n
+                    break
                 }
             }
             

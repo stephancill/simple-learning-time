@@ -13,7 +13,8 @@ import Foundation
 class mf {
     
     /*Constants*/
-    var clockIntervalRadianConst = -0.1047197551;   // -360/(180/math.pi)/12/5
+    var clockMinuteIntervalConst = -0.1047197551    //-360/(180/math.pi)/12/5
+    var clockHourIntervalConst = -0.523595          //-360/(180/math.pi)/12
     var pi = 3.1415926535
     
     /*Functions*/

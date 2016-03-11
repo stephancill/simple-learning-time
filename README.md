@@ -22,7 +22,7 @@ An educational mobile application for reading of analogue time
 
 ## Known issues:
 
-- [x] Touch location becomes inaccurate after changing `zRotation` of SKSpriteNode in scene (hour, minute).
+- [x] Touch location becomes inaccurate after changing `zRotation` of SKSpriteNode in scene (hour, minute) due to layer 1 appearing on top of everything else. Bizarre.
    - Solution: use nodesAtPoint(touchLocation) instead of nodeAtPoint and manipulate the preferred node.
 
 

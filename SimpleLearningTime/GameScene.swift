@@ -85,12 +85,12 @@ class GameScene: SKScene {
             
             if (node.name != "scene"){
 //                print(node.name)
-                    
-                currentNode = node
-                currentNodeID = Int(node.name!)!
-                interactivityEnabled = true
-                first = touchLocation
-            
+                if (interactiveElements.contains(Int(node.name!)!)) {
+                    currentNode = node
+                    currentNodeID = Int(node.name!)!
+                    interactivityEnabled = true
+                    first = touchLocation
+                }
                 
             }
             
@@ -101,7 +101,7 @@ class GameScene: SKScene {
     
     override func touchesEnded(touches: Set<UITouch>, withEvent event: UIEvent?) {
         
-        
+        spriteMgr.adjustElement(currentNodeID)
         /*Reset*/
         currentNode = SKNode()
         currentNodeID = 0     // Turns out -1 is not a good placeholder

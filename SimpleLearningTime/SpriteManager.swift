@@ -78,12 +78,18 @@ class SpriteManager {
         }
         print("Setup: [2/2]Sprites initialised")
         
-    
+        
     }
     
     func rotateElement (delta: Double, nodeID: Int) {
     
-        spriteMgr.clockElements[nodeID].zRotation += CGFloat(delta)
+        clockElements[nodeID].zRotation += CGFloat(delta)
+        
+    }
+    
+    func adjustElement (nodeID: Int) {
+    
+        clockElements[nodeID].zRotation -= clockElements[nodeID].zRotation % CGFloat(-360/(180/math.pi)/12/5)
         
     }
 

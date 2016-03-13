@@ -11,7 +11,8 @@ let cm: ClockManager = ClockManager()
 let math: mf = mf()
 
 class GameScene: SKScene {
-//    let clockIntervalRadianConst: Double = -360/(180/math.pi)/12/5;
+
+    
     var middle: CGPoint = CGPoint(x: 0, y: 0)
     var first: CGPoint = CGPoint(x: CGFloat(0.0), y: CGFloat(0.0))
 

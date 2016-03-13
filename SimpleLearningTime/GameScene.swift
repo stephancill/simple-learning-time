@@ -8,10 +8,10 @@
 import SpriteKit
 
 let cm: ClockManager = ClockManager()
+let dtm: DigitalTimeManager = DigitalTimeManager()
 let math: mf = mf()
 
 class GameScene: SKScene {
-
     
     var middle: CGPoint = CGPoint(x: 0, y: 0)
     var first: CGPoint = CGPoint(x: CGFloat(0.0), y: CGFloat(0.0))
@@ -42,6 +42,8 @@ class GameScene: SKScene {
         middle = CGPoint(x: size.width * 0.5, y: size.height * 0.5)
         cm.initElements(middle, scalar: 0.4, scene: self)
         print(middle)
+//        dtm.initElements(cm.time, mid: middle, scalar: 0.4, scene: self)
+        
         
     
     }

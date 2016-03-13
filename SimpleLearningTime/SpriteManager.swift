@@ -8,11 +8,9 @@
 
 import SpriteKit
 
-//var interactiveElements: [Int] = [1, 2]
-var donotRender: [Int] = [2,3]
 var interactiveElements: [Int] = [2,3]
 
-class SpriteManager {
+class ClockManager {
     
     
     var spriteClockPlaceholder = SKSpriteNode()
@@ -27,6 +25,8 @@ class SpriteManager {
     var spriteDigitalDigits = SKSpriteNode()
     
     var clockElements: [SKSpriteNode]   // Allows for convenient iteration
+    
+    var time = (CGFloat(0), CGFloat(0))
 
     
     init (){
@@ -99,7 +99,29 @@ class SpriteManager {
         }
     
     }
-
+    
+    func snap () {
+    
+        var hours = clockElements[3].zRotation / CGFloat(math.clockHourIntervalConst) % 12
+        var mins = floor(clockElements[2].zRotation / CGFloat(math.clockMinuteIntervalConst)) % 60
+        
+        if (hours < 0){ hours = 12 + hours}
+        if (mins < 0){ mins = 60 + mins}
+        
+        print("Hours: \(hours)")
+        print("Mins: \(mins)")
+        //            print("MINS: Rounded: \(round(mins)%60) - Raw: \(mins%60) = Diff: \(round(mins)-mins)")
+        //            print("HOURS: Rounded: \(round(hours)%24) - Raw: \(hours%24) = Diff: \(round(hours)-hours)")
+        
+        clockElements[3].zRotation = CGFloat(CGFloat(math.clockHourIntervalConst)) * floor(hours) + ((CGFloat(math.clockHourIntervalConst / 60) * mins))
+        clockElements[2].zRotation = CGFloat(math.clockMinuteIntervalConst) * round(mins)
+        
+        hours = floor(hours)
+        mins = round(mins)
+        
+        time = (hours, mins)
+        
+    }
 
     
 }

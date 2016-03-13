@@ -7,7 +7,7 @@
 //
 import SpriteKit
 
-let spriteMgr: SpriteManager = SpriteManager()
+let cm: ClockManager = ClockManager()
 let math: mf = mf()
 
 class GameScene: SKScene {
@@ -31,6 +31,7 @@ class GameScene: SKScene {
     var currentTimeHour: CGFloat = 0
     var currentTimeMin: CGFloat = 0
     
+    var tmpRotation: CGFloat = 0
     override func didMoveToView(view: SKView) {
         
         
@@ -38,7 +39,7 @@ class GameScene: SKScene {
         self.name = "scene"
 
         middle = CGPoint(x: size.width * 0.5, y: size.height * 0.5)
-        spriteMgr.initElements(middle, scalar: 0.4, scene: self)
+        cm.initElements(middle, scalar: 0.4, scene: self)
         print(middle)
         
     
@@ -52,16 +53,19 @@ class GameScene: SKScene {
                 
                 currentTouchAngle = math.angleBetween(middle, P2: first , P3: touch.locationInView(self.view))
                 deltaTouchAngle = currentTouchAngle-lastTouchAngle
-                if (abs(deltaTouchAngle-lastDeltaTouchAngle) > 0.9) {deltaTouchAngle = 0.0001 * (deltaTouchAngle/deltaTouchAngle)}
                 lastTouchAngle = currentTouchAngle
+                
+                if (abs(deltaTouchAngle-lastDeltaTouchAngle) > 0.9) {deltaTouchAngle = -0.0001 * (deltaTouchAngle/deltaTouchAngle)}     // Prevent jumping
                 lastDeltaTouchAngle = deltaTouchAngle
                 
+                print(deltaTouchAngle)
                 if (startMovement) {       // Don't act if 1st itearion (1st iteration values reset hand position)
                     
-                    spriteMgr.rotateElement(deltaTouchAngle, nodeID: currentNodeID)
+                    cm.rotateElement(deltaTouchAngle, nodeID: currentNodeID)
                     
-                    if (currentNodeID == 2) {
-                        spriteMgr.rotateElement(deltaTouchAngle/12, nodeID: 3)
+                    if (currentNodeID == 2 ) {
+                        
+                        cm.rotateElement(deltaTouchAngle/12, nodeID: 3)
                     }
                     
                 }
@@ -110,24 +114,17 @@ class GameScene: SKScene {
     }
     
     override func touchesEnded(touches: Set<UITouch>, withEvent event: UIEvent?) {
-        /*Snapping*/
+        
+        
+        /* Snapping and time setting */
         if (interactivityEnabled) {
             
-            let hours = spriteMgr.clockElements[3].zRotation / CGFloat(math.clockHourIntervalConst) % 24
-            let mins = spriteMgr.clockElements[2].zRotation / CGFloat(math.clockMinuteIntervalConst) % 60
-            
-            print("MINS: Rounded: \(round(mins)%60) - Raw: \(mins%60) = Diff: \(round(mins)-mins)")
-            print("HOURS: Rounded: \(round(hours)%24) - Raw: \(hours%24) = Diff: \(round(hours)-hours)")
-            
-            spriteMgr.clockElements[3].zRotation = CGFloat(math.clockHourIntervalConst) * round(hours) + ((CGFloat(math.clockHourIntervalConst / 60) * mins))
-            spriteMgr.clockElements[2].zRotation = CGFloat(math.clockMinuteIntervalConst) * round(mins)
-            
-            print("Mins \(round(mins))\(spriteMgr.clockElements[2].zRotation)")
-            print("Hours: \(round(hours)), \(spriteMgr.clockElements[3].zRotation)")
+            cm.snap()
+            print(cm.time)
         
         }
         
-        /*Reset*/
+        /* Reset */
         currentNode = SKNode()
         currentNodeID = 0     // Turns out -1 is not a good placeholder
         interactivityEnabled = false

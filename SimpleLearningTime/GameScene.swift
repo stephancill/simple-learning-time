@@ -42,7 +42,7 @@ class GameScene: SKScene {
         middle = CGPoint(x: size.width * 0.5, y: size.height * 0.5)
         cm.initElements(middle, scalar: 0.4, scene: self)
         print(middle)
-//        dtm.initElements(cm.time, mid: middle, scalar: 0.4, scene: self)
+        dtm.initElements(cm.time, mid: middle, scalar: 0.4, scene: self)
         
         
     
@@ -83,12 +83,12 @@ class GameScene: SKScene {
     
     override func touchesBegan(touches: Set<UITouch>, withEvent event: UIEvent?) {
         
-        
         print("Touches began")
         
         for touch in touches {
             
             let touchLocation = touch.locationInView(touch.view)
+            print(touchLocation)
             var node: SKNode = SKNode()
             let nodes = self.nodesAtPoint(touchLocation)
             
@@ -123,7 +123,8 @@ class GameScene: SKScene {
         if (interactivityEnabled) {
             
             cm.snap()
-            print(cm.time)
+            dtm.set(cm.time, scene: self, scalar: 0.4)
+//            print(cm.time)
         
         }
         

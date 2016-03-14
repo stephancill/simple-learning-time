@@ -34,7 +34,6 @@ class DigitalTimeManager {
         for digit in itertime {
             
             xpos = Double(mid.x) - (2 * digitWidth * Double(scalar))
-            //            let xpos = 0
             
             let digitSprite = SKSpriteNode(texture: SKTexture(rect: CGRect(x: Double(digit)!/10, y: 0.0, width: 0.1, height: 1.0), inTexture: spritesheetfull.texture!))
             

@@ -64,11 +64,11 @@ class GameScene: SKScene {
                 print(deltaTouchAngle)
                 if (startMovement) {       // Don't act if 1st itearion (1st iteration values reset hand position)
                     
-                    cm.rotateElement(deltaTouchAngle, nodeID: currentNodeID)
+                    cm.rotate(deltaTouchAngle, nodeID: currentNodeID)
                     
                     if (currentNodeID == 2 ) {
                         
-                        cm.rotateElement(deltaTouchAngle/12, nodeID: 3)
+                        cm.rotate(deltaTouchAngle/12, nodeID: 3)
                     }
                     
                 }
@@ -124,7 +124,6 @@ class GameScene: SKScene {
             
             cm.snap()
             dtm.set(cm.time, scene: self, scalar: 0.4)
-//            print(cm.time)
         
         }
         

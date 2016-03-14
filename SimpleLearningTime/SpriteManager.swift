@@ -89,7 +89,7 @@ class ClockManager {
         
     }
     
-    func rotateElement (delta: Double, nodeID: Int) {
+    func rotate (delta: Double, nodeID: Int) {
     
         clockElements[nodeID].zRotation += CGFloat(delta)
         
@@ -98,10 +98,10 @@ class ClockManager {
     
     func snap () {
     
-        var hours = clockElements[3].zRotation / CGFloat(math.clockHourIntervalConst) % 12
+        var hours = clockElements[3].zRotation / CGFloat(math.clockHourIntervalConst) % 24
         var mins = floor(clockElements[2].zRotation / CGFloat(math.clockMinuteIntervalConst)) % 60
         
-        if (hours < 0){ hours = 12 + hours}     // If number of hours counter is negative, subtract it from 12.
+        if (hours < 0){ hours = 24 + hours}     // If number of hours counter is negative, subtract it from 12.
         if (mins < 0){ mins = 60 + mins}        // If number of minutes counter is negative, subtract it from 12.
         
         // Hour position = (hour interval * current hour) + (hour interval/60 * minutes)
@@ -124,37 +124,27 @@ class ClockManager {
 
 class DigitalTimeManager {
 
-//    var spritesheet: SKTexture = SKTexture(imageNamed: "imageDigitalDigits")
     var spritesheetfull = SKSpriteNode(imageNamed: "imageDigitalDigits")
     var displayTime: [SKSpriteNode] = []
-    var fourdigitTime = []
     
     let digitHeight = 100
     let digitWidth = 56
     
     func initElements (time:(CGFloat, CGFloat), mid:CGPoint, scalar:Float, scene:SKScene) {
     
-//        var test = SKSpriteNode(texture: SKTexture(rect: CGRect(x: digitWidth*0, y: 0, width: digitWidth, height: digitHeight), inTexture: spritesheet))
         let itertime = stringsToList(String(time.0), m: String(time.1))
         print("Initialising dtm")
         
-        
         var indexCount = 0
         for digit in itertime {
-//            var element = displayTime[indexCount]
-//            element = SKSpriteNode(texture: SKTexture(rect: CGRect(x: digitWidth*Int(digit)!, y: 0, width: digitWidth, height: digitHeight), inTexture: spritesheet))
-//            element.position = CGPoint(x: mid.x-CGFloat((digitWidth*2)+digitWidth*indexCount), y: mid.y+CGFloat(digitHeight*2))
-//            
-//            displayTime[indexCount] = element
-//            scene.addChild(displayTime[indexCount])
-            let n = Double(digit)!/10
-            let spritesheet = SKSpriteNode(texture: SKTexture(rect: CGRect(x: n, y: 0.0, width: 0.1, height: 1.0), inTexture: spritesheetfull.texture!))
-//            print("\(spritesheetfull.texture!.size().height), \(spritesheetfull.texture!.size().width)")
-            spritesheet.position = CGPoint(x: 22.24 * Double(indexCount),y: 0)
-            spritesheet.size = CGSize(width: spritesheet.size.width * CGFloat(scalar), height: spritesheet.size.height * CGFloat(scalar))
-            spritesheet.anchorPoint = CGPoint(x: 0, y: 0)
             
-            displayTime.append(spritesheet)
+            let digitSprite = SKSpriteNode(texture: SKTexture(rect: CGRect(x: Double(digit)!/10, y: 0.0, width: 0.1, height: 1.0), inTexture: spritesheetfull.texture!))
+
+            digitSprite.position = CGPoint(x: Double(digitWidth) * Double(scalar) * Double(indexCount), y: 0)
+            digitSprite.size = CGSize(width: digitSprite.size.width * CGFloat(scalar), height: digitSprite.size.height * CGFloat(scalar))
+            digitSprite.anchorPoint = CGPoint(x: 0, y: 0)
+            
+            displayTime.append(digitSprite)
             scene.addChild(displayTime[indexCount])
             indexCount++
 
@@ -166,15 +156,17 @@ class DigitalTimeManager {
         var indexCount = 0
         let itertime = stringsToList(String(time.0/100), m: String(time.1/100))
         print(itertime)
+        
         for digit in itertime {
-            displayTime[indexCount].removeFromParent()
-            let n = Double(digit)!/10
-            let spritesheet = SKSpriteNode(texture: SKTexture(rect: CGRect(x: n, y: 0.0, width: 0.1, height: 1.0), inTexture: spritesheetfull.texture!))
-            spritesheet.position = CGPoint(x: 22.24 * Double(indexCount),y: 0)
-            spritesheet.size = CGSize(width: spritesheet.size.width * CGFloat(scalar), height: spritesheet.size.height * CGFloat(scalar))
-            spritesheet.anchorPoint = CGPoint(x: 0, y: 0)
             
-            displayTime[indexCount] = spritesheet
+            displayTime[indexCount].removeFromParent()
+            let digitSprite = SKSpriteNode(texture: SKTexture(rect: CGRect(x: Double(digit)!/10, y: 0.0, width: 0.1, height: 1.0), inTexture: spritesheetfull.texture!))
+            
+            digitSprite.position = CGPoint(x: 22.24 * Double(indexCount),y: 0)
+            digitSprite.size = CGSize(width: digitSprite.size.width * CGFloat(scalar), height: digitSprite.size.height * CGFloat(scalar))
+            digitSprite.anchorPoint = CGPoint(x: 0, y: 0)
+            
+            displayTime[indexCount] = digitSprite
             scene.addChild(displayTime[indexCount])
             indexCount++
             
@@ -193,7 +185,7 @@ class DigitalTimeManager {
         
         index = currentHour.startIndex.advancedBy(2)
         currentHour = currentHour.substringFromIndex(index)
-        if (currentHour.characters.count <= 1) {currentHour = "\(0)\(currentHour)"}
+        if (currentHour.characters.count <= 1) {currentHour = "\(currentHour)\(0)"}
         for char in currentHour.characters {
             
             itertime.append(String(char))
@@ -201,10 +193,21 @@ class DigitalTimeManager {
         
         index = currentMin.startIndex.advancedBy(2)
         currentMin = currentMin.substringFromIndex(index)
-        if (currentMin.characters.count <= 1) {currentMin = "\(0)\(currentMin)"}
+        if (currentMin.characters.count <= 1) {currentMin = "\(currentMin)\(0)"}
         for char in currentMin.characters {
             
             itertime.append(String(char))
+        }
+        
+        var count = 0
+        for char in itertime {
+        
+            if (itertime[count] == ".") {
+            
+                itertime[count] == "0"
+                
+            }
+            count++
         }
         
         return itertime

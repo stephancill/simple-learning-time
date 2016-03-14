@@ -17,8 +17,15 @@ class DigitalTimeManager {
     let digitWidth = 56.0
     
     var xpos = 0.0
+    var mid = CGPoint()
+    var scalar = Float()
+    var scene = SKScene()
     
     func initElements (time:(CGFloat, CGFloat), mid:CGPoint, scalar:Float, scene:SKScene) {
+        
+        self.mid = mid
+        self.scalar = scalar
+        self.scene = scene
         
         let itertime = stringsToList(String(time.0), m: String(time.1))
         print("Initialising dtm")
@@ -42,7 +49,7 @@ class DigitalTimeManager {
         }
     }
     
-    func set (time:(CGFloat, CGFloat), scene: SKScene, scalar: Double) {
+    func set (time:(CGFloat, CGFloat)) {
         
         var indexCount = 0
         let itertime = stringsToList(String(time.0/100), m: String(time.1/100))

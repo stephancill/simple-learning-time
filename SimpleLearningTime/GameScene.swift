@@ -41,7 +41,7 @@ class GameScene: SKScene {
         middle = CGPoint(x: size.width * 0.5, y: size.height * 0.5)
         cm.initElements(middle, scalar: 0.4, scene: self)
         print(middle)
-        dtm.initElements(cm.time, mid: middle, scalar: 0.4, scene: self)
+        dtm.initElements(cm.time, mid: middle, scalar: 0.5, scene: self)
         
         
     
@@ -60,7 +60,6 @@ class GameScene: SKScene {
                 if (abs(deltaTouchAngle-lastDeltaTouchAngle) > 0.9) {deltaTouchAngle = -0.0001 * (deltaTouchAngle/deltaTouchAngle)}     // Prevent jumping
                 lastDeltaTouchAngle = deltaTouchAngle
                 
-                print(deltaTouchAngle)
                 if (startMovement) {       // Don't act if 1st itearion (1st iteration values reset hand position)
                     
                     cm.rotate(deltaTouchAngle, nodeID: currentNodeID)
@@ -93,12 +92,12 @@ class GameScene: SKScene {
             
             for n in nodes {
                 print("\(n.name)")
-                
-                if (interactiveElements.contains(Int(n.name!)!)) {
-                    node = n
-                    break
+                if (n.name != nil) {
+                    if (interactiveElements.contains(Int(n.name!)!)) {
+                        node = n
+                        break
+                    }
                 }
-            
             }
             
             if (node.name != nil){
@@ -122,7 +121,7 @@ class GameScene: SKScene {
         if (interactivityEnabled) {
             
             cm.snap()
-            dtm.set(cm.time, scene: self, scalar: 0.4)
+            dtm.set(cm.time)
         
         }
         

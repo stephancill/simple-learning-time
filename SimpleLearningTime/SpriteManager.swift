@@ -127,20 +127,30 @@ class DigitalTimeManager {
     var spritesheetfull = SKSpriteNode(imageNamed: "imageDigitalDigits")
     var displayTime: [SKSpriteNode] = []
     
-    let digitHeight = 100
-    let digitWidth = 56
+    let digitHeight = 100.0
+    let digitWidth = 56.0
+    
+    var xpos = 0.0
+    init () {
+    
+        
+        
+    }
     
     func initElements (time:(CGFloat, CGFloat), mid:CGPoint, scalar:Float, scene:SKScene) {
-    
+        
         let itertime = stringsToList(String(time.0), m: String(time.1))
         print("Initialising dtm")
         
         var indexCount = 0
         for digit in itertime {
             
+            xpos = Double(mid.x) - (2 * digitWidth * Double(scalar))
+//            let xpos = 0
+            
             let digitSprite = SKSpriteNode(texture: SKTexture(rect: CGRect(x: Double(digit)!/10, y: 0.0, width: 0.1, height: 1.0), inTexture: spritesheetfull.texture!))
 
-            digitSprite.position = CGPoint(x: Double(digitWidth) * Double(scalar) * Double(indexCount), y: 0)
+            digitSprite.position = CGPoint(x: xpos + Double(digitWidth) * Double(scalar) * Double(indexCount) , y: 0)
             digitSprite.size = CGSize(width: digitSprite.size.width * CGFloat(scalar), height: digitSprite.size.height * CGFloat(scalar))
             digitSprite.anchorPoint = CGPoint(x: 0, y: 0)
             
@@ -162,7 +172,7 @@ class DigitalTimeManager {
             displayTime[indexCount].removeFromParent()
             let digitSprite = SKSpriteNode(texture: SKTexture(rect: CGRect(x: Double(digit)!/10, y: 0.0, width: 0.1, height: 1.0), inTexture: spritesheetfull.texture!))
             
-            digitSprite.position = CGPoint(x: 22.24 * Double(indexCount),y: 0)
+            digitSprite.position = CGPoint(x: xpos + Double(digitWidth) * Double(scalar) * Double(indexCount),y: 0)
             digitSprite.size = CGSize(width: digitSprite.size.width * CGFloat(scalar), height: digitSprite.size.height * CGFloat(scalar))
             digitSprite.anchorPoint = CGPoint(x: 0, y: 0)
             
@@ -176,6 +186,7 @@ class DigitalTimeManager {
     
     
     func stringsToList (h: String, m: String) -> [String] {
+        
         var itertime: [String] = []
         
         var currentHour = h
@@ -199,15 +210,15 @@ class DigitalTimeManager {
             itertime.append(String(char))
         }
         
-        var count = 0
-        for char in itertime {
+
+        for n in 0...itertime.count-1 {
         
-            if (itertime[count] == ".") {
+            if (itertime[n] == ".") {
             
-                itertime[count] == "0"
+                itertime[n] = "0"
                 
             }
-            count++
+
         }
         
         return itertime

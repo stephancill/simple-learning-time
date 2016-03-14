@@ -32,7 +32,6 @@ class GameScene: SKScene {
     var currentTimeHour: CGFloat = 0
     var currentTimeMin: CGFloat = 0
     
-    var tmpRotation: CGFloat = 0
     override func didMoveToView(view: SKView) {
         
         

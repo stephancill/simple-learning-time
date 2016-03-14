@@ -8,10 +8,10 @@
 import SpriteKit
 
 let cm: ClockManager = ClockManager()
+let dtm: DigitalTimeManager = DigitalTimeManager()
 let math: mf = mf()
 
 class GameScene: SKScene {
-
     
     var middle: CGPoint = CGPoint(x: 0, y: 0)
     var first: CGPoint = CGPoint(x: CGFloat(0.0), y: CGFloat(0.0))
@@ -58,14 +58,13 @@ class GameScene: SKScene {
                 if (abs(deltaTouchAngle-lastDeltaTouchAngle) > 0.9) {deltaTouchAngle = -0.0001 * (deltaTouchAngle/deltaTouchAngle)}     // Prevent jumping
                 lastDeltaTouchAngle = deltaTouchAngle
                 
-                print(deltaTouchAngle)
                 if (startMovement) {       // Don't act if 1st itearion (1st iteration values reset hand position)
                     
-                    cm.rotateElement(deltaTouchAngle, nodeID: currentNodeID)
+                    cm.rotate(deltaTouchAngle, nodeID: currentNodeID)
                     
                     if (currentNodeID == 2 ) {
                         
-                        cm.rotateElement(deltaTouchAngle/12, nodeID: 3)
+                        cm.rotate(deltaTouchAngle/12, nodeID: 3)
                     }
                     
                 }
@@ -80,23 +79,23 @@ class GameScene: SKScene {
     
     override func touchesBegan(touches: Set<UITouch>, withEvent event: UIEvent?) {
         
-        
         print("Touches began")
         
         for touch in touches {
             
             let touchLocation = touch.locationInView(touch.view)
+            print(touchLocation)
             var node: SKNode = SKNode()
             let nodes = self.nodesAtPoint(touchLocation)
             
             for n in nodes {
                 print("\(n.name)")
-                
-                if (interactiveElements.contains(Int(n.name!)!)) {
-                    node = n
-                    break
+                if (n.name != nil) {
+                    if (interactiveElements.contains(Int(n.name!)!)) {
+                        node = n
+                        break
+                    }
                 }
-            
             }
             
             if (node.name != nil){
@@ -120,7 +119,7 @@ class GameScene: SKScene {
         if (interactivityEnabled) {
             
             cm.snap()
-            print(cm.time)
+            dtm.set(cm.time)
         
         }
         

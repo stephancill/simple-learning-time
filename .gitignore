@@ -27,3 +27,6 @@ xcuserdata/*
 .DS_Store
 *.swp
 *~.nib
+*.xcbkptlist
+
+SimpleLearningTime.xcodeproj/xcuserdata/stephan.xcuserdatad/xcdebugger/Breakpoints_v2.xcbkptlist

@@ -7,7 +7,8 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		D48CEB5D1C85BA5B00047DD3 /* SpriteManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = D48CEB5C1C85BA5A00047DD3 /* SpriteManager.swift */; };
+		D40A262F1C96A2EC00BC97EF /* DigitalTimeManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = D40A262E1C96A2EC00BC97EF /* DigitalTimeManager.swift */; };
+		D48CEB5D1C85BA5B00047DD3 /* ClockManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = D48CEB5C1C85BA5A00047DD3 /* ClockManager.swift */; };
 		D4936E871C9165560096357A /* .gitignore in Resources */ = {isa = PBXBuildFile; fileRef = D4936E861C9165560096357A /* .gitignore */; };
 		D4D347A51C6C77D900518E76 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = D4D347A41C6C77D900518E76 /* AppDelegate.swift */; };
 		D4D347A71C6C77D900518E76 /* GameScene.sks in Resources */ = {isa = PBXBuildFile; fileRef = D4D347A61C6C77D900518E76 /* GameScene.sks */; };
@@ -39,10 +40,11 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		D40A262E1C96A2EC00BC97EF /* DigitalTimeManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DigitalTimeManager.swift; sourceTree = "<group>"; };
 		D464C2211C8C345500670BF9 /* SimpleLearningTime.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = SimpleLearningTime.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		D464C2221C8C345500670BF9 /* SimpleLearningTimeTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = SimpleLearningTimeTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		D464C2231C8C345500670BF9 /* SimpleLearningTimeUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = SimpleLearningTimeUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
-		D48CEB5C1C85BA5A00047DD3 /* SpriteManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SpriteManager.swift; sourceTree = "<group>"; };
+		D48CEB5C1C85BA5A00047DD3 /* ClockManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ClockManager.swift; sourceTree = "<group>"; };
 		D4936E861C9165560096357A /* .gitignore */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = .gitignore; sourceTree = "<group>"; };
 		D4D347A41C6C77D900518E76 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		D4D347A61C6C77D900518E76 /* GameScene.sks */ = {isa = PBXFileReference; lastKnownFileType = file.sks; path = GameScene.sks; sourceTree = "<group>"; };
@@ -103,8 +105,9 @@
 				D4D347A41C6C77D900518E76 /* AppDelegate.swift */,
 				D4D347A61C6C77D900518E76 /* GameScene.sks */,
 				D4D347A81C6C77D900518E76 /* GameScene.swift */,
-				D48CEB5C1C85BA5A00047DD3 /* SpriteManager.swift */,
+				D48CEB5C1C85BA5A00047DD3 /* ClockManager.swift */,
 				D4D347AA1C6C77D900518E76 /* GameViewController.swift */,
+				D40A262E1C96A2EC00BC97EF /* DigitalTimeManager.swift */,
 				D4D347AC1C6C77D900518E76 /* Main.storyboard */,
 				D4D347AF1C6C77D900518E76 /* Assets.xcassets */,
 				D4D347B11C6C77D900518E76 /* LaunchScreen.storyboard */,
@@ -319,7 +322,8 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				D48CEB5D1C85BA5B00047DD3 /* SpriteManager.swift in Sources */,
+				D48CEB5D1C85BA5B00047DD3 /* ClockManager.swift in Sources */,
+				D40A262F1C96A2EC00BC97EF /* DigitalTimeManager.swift in Sources */,
 				D4D347A91C6C77D900518E76 /* GameScene.swift in Sources */,
 				D4D347AB1C6C77D900518E76 /* GameViewController.swift in Sources */,
 				D4FD477D1C86CDB900C8FB87 /* Maths.swift in Sources */,

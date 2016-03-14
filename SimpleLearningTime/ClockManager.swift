@@ -99,7 +99,7 @@ class ClockManager {
     func snap () {
     
         var hours = clockElements[3].zRotation / CGFloat(math.clockHourIntervalConst) % 24
-        var mins = floor(clockElements[2].zRotation / CGFloat(math.clockMinuteIntervalConst)) % 60
+        var mins = round(clockElements[2].zRotation / CGFloat(math.clockMinuteIntervalConst)) % 60
         
         if (hours < 0){ hours = 24 + hours}     // If number of hours counter is negative, subtract it from 12.
         if (mins < 0){ mins = 60 + mins}        // If number of minutes counter is negative, subtract it from 12.

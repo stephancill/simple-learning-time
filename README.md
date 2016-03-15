@@ -15,7 +15,7 @@ An educational mobile application for reading of analogue time
 - [x] Rotate arms efficiently by touch
 - [x] Adjust hour arm after minutes have been adjusted
 - [x] Keep track of rotations and work out time
-- [ ] Implement digital time with spritesheet
+- [x] Implement digital time with spritesheet
 - [ ] Add moving background (according to time)
 
 

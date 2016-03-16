@@ -97,12 +97,15 @@ class ClockManager {
 
     
     func snap () {
-    
-        var hours = clockElements[3].zRotation / CGFloat(math.clockHourIntervalConst) % 24
-        var mins = round(clockElements[2].zRotation / CGFloat(math.clockMinuteIntervalConst)) % 60
+
+        var hours = (clockElements[3].zRotation / CGFloat(math.clockHourIntervalConst)) % 24
+        var mins = (clockElements[2].zRotation / CGFloat(math.clockMinuteIntervalConst)) % 60
         
         if (hours < 0){ hours = 24 + hours}     // If number of hours counter is negative, subtract it from 12.
         if (mins < 0){ mins = 60 + mins}        // If number of minutes counter is negative, subtract it from 12.
+        
+        mins = round(mins)
+        hours = floor(hours)
         
         // Hour position = (hour interval * current hour) + (hour interval/60 * minutes)
         clockElements[3].zRotation = CGFloat(math.clockHourIntervalConst) * floor(hours) + ((CGFloat(math.clockHourIntervalConst / 60) * mins))
@@ -110,10 +113,28 @@ class ClockManager {
         // Minute position = minute interval * minutes
         clockElements[2].zRotation = CGFloat(math.clockMinuteIntervalConst) * round(mins)
         
-        hours = floor(hours)
-        mins = round(mins)
+        time = timecalc()
+        print(time)
         
-        time = (hours, mins)
+    }
+    
+    func timecalc (raw: Bool=false) -> (CGFloat, CGFloat) {
+        
+        var hours = (clockElements[3].zRotation / CGFloat(math.clockHourIntervalConst)) % 24
+        var mins = (clockElements[2].zRotation / CGFloat(math.clockMinuteIntervalConst)) % 60
+        
+        if (hours - floor(hours) > 0.99999 && hours - floor(hours) < 1) {hours += 1}    // Sometimes division don't go very well
+        
+        if (hours < 0){ hours = 24 + hours}     // If number of hours counter is negative, subtract it from 12.
+        if (mins < 0){ mins = 60 + mins}        // If number of minutes counter is negative, subtract it from 12.
+
+        if (!raw) {
+            hours = floor(floor(hours) + (round(mins)/60)) % 24
+            mins = round(mins) % 60
+        }
+        
+        
+        return (hours, mins)
         
     }
 

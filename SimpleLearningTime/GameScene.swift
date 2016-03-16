@@ -13,8 +13,12 @@ let math: mf = mf()
 
 class GameScene: SKScene {
     
+    /*---*/
+    var tmpSpriteBackground = SKSpriteNode(color: UIColor.whiteColor(), size: UIScreen.mainScreen().bounds.size)
+    /*---*/
+    
     var middle: CGPoint = CGPoint(x: 0, y: 0)
-    var first: CGPoint = CGPoint(x: CGFloat(0.0), y: CGFloat(0.0))
+    var first: CGPoint = CGPoint(x: 0, y: 0)
 
     var startMovement: Bool = false
     
@@ -37,12 +41,17 @@ class GameScene: SKScene {
         
         /* Setup your scene here */
         self.name = "scene"
-
         middle = CGPoint(x: size.width * 0.5, y: size.height * 0.5)
+        
+        /*---*/
+        tmpSpriteBackground.position = middle
+        tmpSpriteBackground.zPosition = -1
+        self.addChild(tmpSpriteBackground)
+        /*---*/
+        
         cm.initElements(middle, scalar: 0.55, scene: self)
         print(middle)
         dtm.initElements(cm.time, mid: middle, scalar: 0.5, scene: self)
-        
         
     
     }
@@ -62,13 +71,9 @@ class GameScene: SKScene {
                 
                 if (startMovement) {       // Don't act if 1st itearion (1st iteration values reset hand position)
                     
+                    if (currentNodeID == 2 ) { cm.rotate(deltaTouchAngle/12, nodeID: 3) }
                     cm.rotate(deltaTouchAngle, nodeID: currentNodeID)
-                    
-                    if (currentNodeID == 2 ) {
-                        
-                        cm.rotate(deltaTouchAngle/12, nodeID: 3)
-                    }
-                    
+                    dtm.set(cm.timecalc())
                 }
                 
                 startMovement = true
@@ -101,11 +106,13 @@ class GameScene: SKScene {
             }
             
             if (node.name != nil){
-
-                    currentNode = node
-                    currentNodeID = Int(node.name!)!
-                    interactivityEnabled = true
-                    first = touchLocation
+                
+                cm.timecalc(true)
+    
+                currentNode = node
+                currentNodeID = Int(node.name!)!
+                interactivityEnabled = true
+                first = touchLocation
 
             }
             

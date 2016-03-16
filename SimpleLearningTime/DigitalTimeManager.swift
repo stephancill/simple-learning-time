@@ -15,6 +15,7 @@ class DigitalTimeManager {
     
     let digitHeight = 100.0
     let digitWidth = 56.0
+    let colconWidth = 12.0
     
     var xpos = 0.0
     var mid = CGPoint()
@@ -40,6 +41,7 @@ class DigitalTimeManager {
             digitSprite.position = CGPoint(x: xpos + Double(digitWidth) * Double(scalar) * Double(indexCount) , y: 0)
             digitSprite.size = CGSize(width: digitSprite.size.width * CGFloat(scalar), height: digitSprite.size.height * CGFloat(scalar))
             digitSprite.anchorPoint = CGPoint(x: 0, y: 0)
+            digitSprite.zPosition = 10
             
             displayTime.append(digitSprite)
             scene.addChild(displayTime[indexCount])
@@ -50,18 +52,20 @@ class DigitalTimeManager {
     
     func set (time:(CGFloat, CGFloat)) {
         
-        var indexCount = 0
+        
         let itertime = stringsToList(String(time.0/100), m: String(time.1/100))
-        print(itertime)
+        var indexCount = 0
         
         for digit in itertime {
             
-            displayTime[indexCount].removeFromParent()
-            let digitSprite = SKSpriteNode(texture: SKTexture(rect: CGRect(x: Double(digit)!/10, y: 0.0, width: 0.1, height: 1.0), inTexture: spritesheetfull.texture!))
             
-            digitSprite.position = CGPoint(x: xpos + Double(digitWidth) * Double(scalar) * Double(indexCount),y: 0)
+            displayTime[indexCount].removeFromParent()
+            
+            let digitSprite = SKSpriteNode(texture: SKTexture(rect: CGRect(x: Double(digit)!/10, y: 0.0, width: 0.1, height: 1.0), inTexture: spritesheetfull.texture!))
+            digitSprite.position = CGPoint(x: xpos + (Double(digitWidth) + 6) * Double(scalar) * Double(indexCount),y: 0)
             digitSprite.size = CGSize(width: digitSprite.size.width * CGFloat(scalar), height: digitSprite.size.height * CGFloat(scalar))
             digitSprite.anchorPoint = CGPoint(x: 0, y: 0)
+            digitSprite.zPosition = 10
             
             displayTime[indexCount] = digitSprite
             scene.addChild(displayTime[indexCount])
@@ -100,11 +104,7 @@ class DigitalTimeManager {
         
         for n in 0...itertime.count-1 {
             
-            if (itertime[n] == ".") {
-                
-                itertime[n] = "0"
-                
-            }
+            if (itertime[n] == ".") { itertime[n] = "0" }
             
         }
         

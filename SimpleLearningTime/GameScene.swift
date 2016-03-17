@@ -17,7 +17,7 @@ class GameScene: SKScene {
     var tmpSpriteBackground = SKSpriteNode(color: UIColor.whiteColor(), size: UIScreen.mainScreen().bounds.size)
     /*---*/
     
-    var middle: CGPoint = CGPoint(x: 0, y: 0)
+    var clockCenter: CGPoint = CGPoint(x: 0, y: 0)
     var first: CGPoint = CGPoint(x: 0, y: 0)
 
     var startMovement: Bool = false
@@ -38,22 +38,20 @@ class GameScene: SKScene {
     
     override func didMoveToView(view: SKView) {
         
-        
         /* Setup your scene here */
         self.name = "scene"
-        middle = CGPoint(x: size.width * 0.5, y: size.height * 0.5)
+        clockCenter = CGPoint(x: size.width * 0.5, y: size.height * 0.5)
         
         /*---*/
-        tmpSpriteBackground.position = middle
+        tmpSpriteBackground.position = clockCenter
         tmpSpriteBackground.zPosition = -1
         self.addChild(tmpSpriteBackground)
         /*---*/
         
-        cm.initElements(middle, scalar: 0.55, scene: self)
-        print(middle)
-        dtm.initElements(cm.time, mid: middle, scalar: 0.5, scene: self)
+        cm.initElements(clockCenter, scalar: 0.55, scene: self)
+        print(clockCenter)
+        dtm.initElements(cm.time, mid: clockCenter, scalar: 0.5, scene: self)
         
-    
     }
     
     override func touchesMoved(touches: Set<UITouch>, withEvent event: UIEvent?) {
@@ -62,7 +60,7 @@ class GameScene: SKScene {
             
             for touch in touches {
                 
-                math.updateAngles(touch, middle: middle, first: first)
+                math.updateAngles(touch, middle: clockCenter, first: first)
                 if (startMovement) {       // Don't act if 1st itearion (1st iteration values reset hand position)
                     
                     if (currentNodeID == 2 ) { cm.rotate(math.deltaTouchAngle/12, nodeID: 3) }       // 3 is nodeID of the hour pointer
@@ -75,7 +73,6 @@ class GameScene: SKScene {
             
         }
         
-    
     }
     
     override func touchesBegan(touches: Set<UITouch>, withEvent event: UIEvent?) {
@@ -108,16 +105,13 @@ class GameScene: SKScene {
                 currentNodeID = Int(node.name!)!
                 interactivityEnabled = true
                 first = touchLocation
-
             }
             
         }
         
-        
     }
     
     override func touchesEnded(touches: Set<UITouch>, withEvent event: UIEvent?) {
-        
         
         /* Snapping and time setting */
         if (interactivityEnabled) {
@@ -133,7 +127,6 @@ class GameScene: SKScene {
         interactivityEnabled = false
         startMovement = false
         
-    
     }
     
 

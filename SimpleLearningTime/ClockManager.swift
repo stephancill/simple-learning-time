@@ -50,7 +50,6 @@ class ClockManager {
     
     func initElements (mid:CGPoint, scalar:Float, scene:SKScene, hourRotDegrees:Double = 0, minRotDegrees:Double = 0) -> Void{
 
-        
         var layer = 0
         var interactiveLayer = 0
         for element in clockElements {
@@ -85,7 +84,6 @@ class ClockManager {
             
         }
         print("Setup: [2/2]Sprites initialised")
-        
         
     }
     
@@ -137,7 +135,6 @@ class ClockManager {
         return (hours, mins)
         
     }
-
     
 }
 

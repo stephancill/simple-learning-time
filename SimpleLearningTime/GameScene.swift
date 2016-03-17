@@ -95,6 +95,7 @@ class GameScene: SKScene {
             var node: SKNode = SKNode()
             let nodes = self.nodesAtPoint(touchLocation)
             
+            //  Set the node to the first interactive node
             for n in nodes {
                 print("\(n.name)")
                 if (n.name != nil) {

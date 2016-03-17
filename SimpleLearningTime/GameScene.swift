@@ -65,8 +65,8 @@ class GameScene: SKScene {
                 math.updateAngles(touch, middle: middle, first: first)
                 if (startMovement) {       // Don't act if 1st itearion (1st iteration values reset hand position)
                     
-                    if (currentNodeID == 2 ) { cm.rotate(3, delta: math.deltaTouchAngle/12) }       // 3 is nodeID of the hour pointer
-                    cm.rotate(currentNodeID, delta: math.deltaTouchAngle )
+                    if (currentNodeID == 2 ) { cm.rotate(math.deltaTouchAngle/12, nodeID: 3) }       // 3 is nodeID of the hour pointer
+                    cm.rotate(math.deltaTouchAngle, nodeID: currentNodeID  )
                     dtm.set(cm.timecalc())
                 }
                 

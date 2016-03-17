@@ -16,21 +16,12 @@ An educational mobile application for reading of analogue and digital time.
 
 
 ## To-do:
-- [x] Render clock elements consistently
-- [x] Find a way to rotate arms of clock
-- [x] Rotate arms efficiently by touch
-- [x] Adjust hour arm after minutes have been adjusted
-- [x] Keep track of rotations and work out time
-- [x] Implement digital time with spritesheet
 - [ ] Add moving background (according to time)
 - [ ] Set anologue time by digital time
 
 
 
 ## Known issues:
-- [x] Touch location becomes inaccurate after changing `zRotation` of SKSpriteNode in scene (hour, minute) due to layer 1 appearing on top of everything else. Bizarre.
-   - Solution: use nodesAtPoint(touchLocation) instead of nodeAtPoint and manipulate the preferred node.
- 
 - [ ] The app is limited to landscape mode only due to inconsistent pixel coordinates.
 
 

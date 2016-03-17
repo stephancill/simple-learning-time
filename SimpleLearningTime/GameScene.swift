@@ -62,17 +62,11 @@ class GameScene: SKScene {
             
             for touch in touches {
                 
-                currentTouchAngle = math.angleBetween(middle, P2: first , P3: touch.locationInView(self.view))
-                deltaTouchAngle = currentTouchAngle-lastTouchAngle
-                lastTouchAngle = currentTouchAngle
-                
-                if (abs(deltaTouchAngle-lastDeltaTouchAngle) > 0.9) {deltaTouchAngle = -0.0001 * (deltaTouchAngle/deltaTouchAngle)}     // Prevent jumping
-                lastDeltaTouchAngle = deltaTouchAngle
-                
+                math.updateAngles(touch, middle: middle, first: first)
                 if (startMovement) {       // Don't act if 1st itearion (1st iteration values reset hand position)
                     
-                    if (currentNodeID == 2 ) { cm.rotate(deltaTouchAngle/12, nodeID: 3) }
-                    cm.rotate(deltaTouchAngle, nodeID: currentNodeID)
+                    if (currentNodeID == 2 ) { cm.rotate(3, delta: math.deltaTouchAngle/12) }       // 3 is nodeID of the hour pointer
+                    cm.rotate(currentNodeID, delta: math.deltaTouchAngle )
                     dtm.set(cm.timecalc())
                 }
                 

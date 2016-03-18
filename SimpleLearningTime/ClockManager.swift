@@ -70,7 +70,7 @@ class ClockManager {
         spriteSceneBackground.zPosition = -1
         spriteSceneBackground.anchorPoint = CGPoint(x:0.5, y:0.5)
         spriteSceneBackground.position = CGPoint(x:center.x, y: center.y/2)
-        spriteSceneBackground.size = CGSize(width: spriteSceneBackground.size.width * CGFloat(0.2), height: spriteSceneBackground.size.height * CGFloat(0.2))
+        spriteSceneBackground.size = CGSize(width: spriteSceneBackground.size.width * CGFloat(1), height: spriteSceneBackground.size.height * CGFloat(1))
         scene.addChild(spriteSceneBackground)
         
         
@@ -125,6 +125,7 @@ class ClockManager {
         // Minute position = minute interval * minutes
         clockElements[minuteNodeID].zRotation = CGFloat(math.clockMinuteIntervalConst) * round(mins)
         
+        // Background's rotation is half of hour's rotation
         spriteSceneBackground.zRotation = clockElements[hourNodeID].zRotation/2
         
         time = calculateTime ()

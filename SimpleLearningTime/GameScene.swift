@@ -18,17 +18,13 @@ class GameScene: SKScene {
     /*---*/
     
     var middle: CGPoint = CGPoint(x: 0, y: 0)
-    var first: CGPoint = CGPoint(x: 0, y: 0)
-
-    var clockCenter: CGPoint = CGPoint(x: 0, y: 0)
-    var clockDistanceFromCenter: CGFloat = 0
-    
-    var digitalCenter: CGPoint = CGPoint(x: 0, y: 0)
+    var initialTouch: CGPoint = CGPoint(x: 0, y: 0)
     
     var startMovement: Bool = false
     
     var currentNodeID: Int = 0
     var currentNode: SKNode = SKNode()
+    
     var interactivityEnabled: Bool = false
     
     var rotate: SKAction = SKAction()
@@ -42,20 +38,14 @@ class GameScene: SKScene {
         self.name = "scene"
         middle = CGPoint(x: size.width * 0.5, y: size.height * 0.5)
         
-        
-        clockDistanceFromCenter = size.width / 9
-        clockCenter = CGPoint(x: middle.x+clockDistanceFromCenter, y: middle.y)
-        
-        digitalCenter = CGPoint(x: size.width / 14 * 2, y: size.height / 14 * 2)
-        
         /*---*/
         tmpSpriteBackground.position = middle
         tmpSpriteBackground.zPosition = -1
         self.addChild(tmpSpriteBackground)
         /*---*/
         
-        cm.initElements(clockCenter, scalar: 0.55, scene: self, time: math.currentDeviceTime())
-        dtm.initElements(cm.time, mid: digitalCenter, scalar: 0.5, scene: self)
+        cm.initElements(size, scalar: 0.55, scene: self, time: math.currentDeviceTime())
+        dtm.initElements(size, time: cm.time, scalar: 0.5, scene: self)
         
     }
     
@@ -65,7 +55,7 @@ class GameScene: SKScene {
             
             for touch in touches {
                 
-                math.updateAngles(touch, middle: middle, first: first)
+                math.updateAngles(touch, middle: cm.center, first: initialTouch)
                 if (startMovement) {       // Don't act if 1st itearion (1st iteration values reset hand position)
                     
                     if (currentNodeID == 2 ) { cm.rotate(math.deltaTouchAngle/12, nodeID: 3) }       // 3 is nodeID of the hour pointer
@@ -109,7 +99,7 @@ class GameScene: SKScene {
                 currentNode = node
                 currentNodeID = Int(node.name!)!
                 interactivityEnabled = true
-                first = touchLocation
+                initialTouch = touchLocation
             }
             
         }

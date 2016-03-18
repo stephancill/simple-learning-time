@@ -25,10 +25,13 @@ class ClockManager {
     var spriteDigitalDigits = SKSpriteNode()
     
     var clockElements: [SKSpriteNode]
+    
     var hourNodeID: Int = 0
     var minuteNodeID: Int = 0
+    
     var time = (CGFloat(0), CGFloat(0))
-
+    var center: CGPoint = CGPoint(x: 0, y: 0)
+    var distanceFromSceneCenter = CGPoint(x: 0,y: 0)
     
     init (){
         
@@ -47,7 +50,11 @@ class ClockManager {
     }
     
     
-    func initElements (mid:CGPoint, scalar:Float, scene:SKScene, time: (CGFloat, CGFloat)=(CGFloat(0), CGFloat(0)) ) -> Void{
+    func initElements (frameSize: CGSize, scalar:Float, scene:SKScene, time: (CGFloat, CGFloat)=(CGFloat(0), CGFloat(0)) ) -> Void{
+        
+        let mid = CGPoint(x: frameSize.width * 0.5, y: frameSize.height * 0.5)
+        distanceFromSceneCenter = CGPoint(x: frameSize.width / 9, y: 0)
+        center = CGPoint(x: mid.x + distanceFromSceneCenter.x, y: mid.y + distanceFromSceneCenter.y)
 
         var layer = 0
         for element in clockElements {
@@ -59,7 +66,7 @@ class ClockManager {
             }
             
             element.name = String(layer)
-            element.position = mid
+            element.position = center
             element.size = CGSize(width: element.size.width * CGFloat(scalar), height: element.size.height * CGFloat(scalar))
             element.zPosition = CGFloat(layer)
             

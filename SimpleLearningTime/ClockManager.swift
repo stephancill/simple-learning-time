@@ -25,7 +25,8 @@ class ClockManager {
     var spriteDigitalDigits = SKSpriteNode()
     
     var clockElements: [SKSpriteNode]
-    
+    var hourNodeID: Int = 0
+    var minuteNodeID: Int = 0
     var time = (CGFloat(0), CGFloat(0))
 
     
@@ -42,21 +43,18 @@ class ClockManager {
         
         spriteClockHour.name = "hour"
         spriteClockMinute.name = "minute"
- 
-        print("Setup: [1/2]Sprite manager initialised")
         
     }
     
     
-    func initElements (mid:CGPoint, scalar:Float, scene:SKScene, hourRotDegrees:Double = 0, minRotDegrees:Double = 0) -> Void{
+    func initElements (mid:CGPoint, scalar:Float, scene:SKScene, time: (CGFloat, CGFloat)=(CGFloat(0), CGFloat(0)) ) -> Void{
 
         var layer = 0
-        var interactiveLayer = 0
         for element in clockElements {
             
             switch (element.name){
-            case ("hour"?): interactiveElements.append(layer)
-            case ("minute"?): interactiveElements.append(layer)
+            case ("hour"?): interactiveElements.append(layer); hourNodeID = layer
+            case ("minute"?): interactiveElements.append(layer); minuteNodeID = layer
             default: break
             }
             
@@ -96,20 +94,20 @@ class ClockManager {
     
     func snap () {
 
-        var hours = (clockElements[3].zRotation / CGFloat(math.clockHourIntervalConst)) % 24
-        var mins = (clockElements[2].zRotation / CGFloat(math.clockMinuteIntervalConst)) % 60
+        var hours = (clockElements[hourNodeID].zRotation / CGFloat(math.clockHourIntervalConst)) % 24
+        var mins = (clockElements[minuteNodeID].zRotation / CGFloat(math.clockMinuteIntervalConst)) % 60
         
-        if (hours < 0){ hours = 24 + hours}     // If number of hours counter is negative, subtract it from 12.
-        if (mins < 0){ mins = 60 + mins}        // If number of minutes counter is negative, subtract it from 12.
+        if (hours < 0){ hours = 24 + hours}
+        if (mins < 0){ mins = 60 + mins}
         
         mins = round(mins)
         hours = floor(hours)
         
         // Hour position = (hour interval * current hour) + (hour interval/60 * minutes)
-        clockElements[3].zRotation = CGFloat(math.clockHourIntervalConst) * floor(hours) + ((CGFloat(math.clockHourIntervalConst / 60) * mins))
+        clockElements[hourNodeID].zRotation = CGFloat(math.clockHourIntervalConst) * floor(hours) + ((CGFloat(math.clockHourIntervalConst / 60) * mins))
         
         // Minute position = minute interval * minutes
-        clockElements[2].zRotation = CGFloat(math.clockMinuteIntervalConst) * round(mins)
+        clockElements[minuteNodeID].zRotation = CGFloat(math.clockMinuteIntervalConst) * round(mins)
         
         time = timecalc()
         print(time)
@@ -118,13 +116,13 @@ class ClockManager {
     
     func timecalc (raw: Bool=false) -> (CGFloat, CGFloat) {
         
-        var hours = (clockElements[3].zRotation / CGFloat(math.clockHourIntervalConst)) % 24
-        var mins = (clockElements[2].zRotation / CGFloat(math.clockMinuteIntervalConst)) % 60
+        var hours = (clockElements[hourNodeID].zRotation / CGFloat(math.clockHourIntervalConst)) % 24
+        var mins = (clockElements[minuteNodeID].zRotation / CGFloat(math.clockMinuteIntervalConst)) % 60
         
-        if (hours - floor(hours) > 0.99999 && hours - floor(hours) < 1) {hours += 1}    // Sometimes division don't go very well
+        if (hours - floor(hours) > 0.99999 && hours - floor(hours) < 1) {hours += 1}
         
-        if (hours < 0){ hours = 24 + hours}     // If number of hours counter is negative, subtract it from 12.
-        if (mins < 0){ mins = 60 + mins}        // If number of minutes counter is negative, subtract it from 12.
+        if (hours < 0){ hours = 24 + hours}
+        if (mins < 0){ mins = 60 + mins}
 
         if (!raw) {
             hours = floor(floor(hours) + (round(mins)/60)) % 24

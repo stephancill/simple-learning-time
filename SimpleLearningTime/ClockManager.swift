@@ -20,8 +20,7 @@ class ClockManager {
     var spriteClockHour = SKSpriteNode(imageNamed: "imageClockHour")
     var spriteClockCenter = SKSpriteNode(imageNamed: "imageClockCenter")
     
-    var spriteSceneBackground = SKSpriteNode()
-    var spriteDigitalDigits = SKSpriteNode()
+    var spriteSceneBackground = SKSpriteNode(imageNamed: "imageBackground")
     
     var clockElements: [SKSpriteNode]
     
@@ -67,11 +66,21 @@ class ClockManager {
         distanceFromSceneCenter = CGPoint(x: frameSize.width / 9, y: 0)
         center = CGPoint(x: mid.x + distanceFromSceneCenter.x, y: mid.y + distanceFromSceneCenter.y)
 
+        /*---*/
+        spriteSceneBackground.zPosition = -1
+        spriteSceneBackground.anchorPoint = CGPoint(x:0.5, y:0.5)
+        spriteSceneBackground.position = CGPoint(x:center.x, y: center.y/2)
+        spriteSceneBackground.size = CGSize(width: spriteSceneBackground.size.width * CGFloat(0.2), height: spriteSceneBackground.size.height * CGFloat(0.2))
+        scene.addChild(spriteSceneBackground)
+        
+        
+        /*---*/
+        
         var layer = 0
         for element in clockElements {
             
             switch (element.name){
-            case ("hour"?): interactiveElements.append(layer); hourNodeID = layer
+            case ("hour"?): interactiveElements.append(layer); hourNodeID = layer;
             case ("minute"?): interactiveElements.append(layer); minuteNodeID = layer
             default: break
             }
@@ -86,8 +95,10 @@ class ClockManager {
             layer++
             
         }
-        set(time)
+//        set(time)
         print("cm initialized")
+        
+        
     }
     
     func rotate (delta: Double, nodeID: Int) {
@@ -114,8 +125,9 @@ class ClockManager {
         // Minute position = minute interval * minutes
         clockElements[minuteNodeID].zRotation = CGFloat(math.clockMinuteIntervalConst) * round(mins)
         
+        spriteSceneBackground.zRotation = clockElements[hourNodeID].zRotation/2
+        
         time = calculateTime ()
-        print(time)
         
     }
     
@@ -151,19 +163,26 @@ class ClockManager {
         
     }
     
+    
     func touchesMoved (touches: Set<UITouch>){
         
         let touch = touches.first
       
         math.updateAngles(touch!, middle: center, first: initialTouch)
-        if (startMovement) {       // Don't act if 1st itearion (1st iteration values reset hand position)
+        if (startMovement && interactivityEnabled) {       // Don't act if 1st itearion (1st iteration values reset hand position)
             
-            if (currentNodeID == minuteNodeID ) { rotate(math.deltaTouchAngle/12, nodeID: hourNodeID) }       // 3 is nodeID of the hour pointer
+            if (currentNodeID == minuteNodeID ) { rotate(math.deltaTouchAngle/12, nodeID: hourNodeID); spriteSceneBackground.zRotation += CGFloat(math.deltaTouchAngle/24)}       // 3 is nodeID of the hour pointer
+            else {
+                spriteSceneBackground.zRotation += CGFloat(math.deltaTouchAngle/2)
+            }
             rotate(math.deltaTouchAngle, nodeID: currentNodeID  )
             dtm.set(cm.calculateTime())
+            
         }
         
         startMovement = true
+        
+        
     
     }
     
@@ -173,10 +192,10 @@ class ClockManager {
         let touchLocation = touch!.locationInView(scene.view)
         var node: SKNode = SKNode()
         let nodes = scene.nodesAtPoint(touchLocation)
-        
         //  Set the node to the first interactive node
         for n in nodes {
             if (n.name != nil) {
+                print(n.name)
                 if (interactiveElements.contains(Int(n.name!)!)) {
                     node = n
                     break
@@ -184,7 +203,7 @@ class ClockManager {
             }
         }
         
-        if (node.name != nil){
+        if (node.name != nil && interactiveElements.contains(Int(node.name!)!)){
             
             cm.calculateTime(true)
             
@@ -199,6 +218,7 @@ class ClockManager {
     func touchesEnded(touches: Set<UITouch>) {
 //        let touch = touches.first
         /* Snapping and time setting */
+        print("hour: \(clockElements[hourNodeID].zRotation * CGFloat(180 / math.pi)), background \(abs(spriteSceneBackground.zRotation * CGFloat(180 / math.pi) - 180))")
         if (interactivityEnabled) {
             
             cm.snap()

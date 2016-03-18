@@ -28,7 +28,7 @@ class GameScene: SKScene {
         
         /*---*/
         tmpSpriteBackground.position = middle
-        tmpSpriteBackground.zPosition = -1
+        tmpSpriteBackground.zPosition = -2
         self.addChild(tmpSpriteBackground)
         /*---*/
         

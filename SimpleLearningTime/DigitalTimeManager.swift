@@ -38,7 +38,7 @@ class DigitalTimeManager {
             
             let digitSprite = SKSpriteNode(texture: SKTexture(rect: CGRect(x: Double(digit)!/10, y: 0.0, width: 0.1, height: 1.0), inTexture: spritesheetfull.texture!))
             
-            digitSprite.position = CGPoint(x: xpos + CGFloat(digitWidth) * CGFloat(scalar) * CGFloat(indexCount) , y: mid.y)
+            digitSprite.position = CGPoint(x: xpos + CGFloat(digitWidth) * CGFloat(scalar) * CGFloat(indexCount), y: mid.y)
             digitSprite.size = CGSize(width: digitSprite.size.width * CGFloat(scalar), height: digitSprite.size.height * CGFloat(scalar))
             digitSprite.anchorPoint = CGPoint(x: 0, y: 0)
             digitSprite.zPosition = 10
@@ -61,7 +61,7 @@ class DigitalTimeManager {
             displayTime[indexCount].removeFromParent()
             
             let digitSprite = SKSpriteNode(texture: SKTexture(rect: CGRect(x: Double(digit)!/10, y: 0.0, width: 0.1, height: 1.0), inTexture: spritesheetfull.texture!))
-            digitSprite.position = CGPoint(x: xpos + (CGFloat(digitWidth) + 6) * CGFloat(scalar) * CGFloat(indexCount),y: mid.y)
+            digitSprite.position = CGPoint(x: xpos + CGFloat(digitWidth) * CGFloat(scalar) * CGFloat(indexCount), y: mid.y)
             digitSprite.size = CGSize(width: digitSprite.size.width * CGFloat(scalar), height: digitSprite.size.height * CGFloat(scalar))
             digitSprite.anchorPoint = CGPoint(x: 0, y: 0)
             digitSprite.zPosition = 10

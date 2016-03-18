@@ -42,5 +42,16 @@ class mf {
         lastDeltaTouchAngle = deltaTouchAngle
         
     }
+    
+    func currentDeviceTime () -> (CGFloat, CGFloat) {
+    
+        let date = NSDate()
+        let calendar = NSCalendar.currentCalendar()
+        let components = calendar.components([ .Hour, .Minute, .Second], fromDate: date)
+        let hour = components.hour
+        let minutes = components.minute
+        
+        return (CGFloat(hour), CGFloat(minutes))
+    }
 
 }

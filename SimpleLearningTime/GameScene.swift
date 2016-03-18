@@ -17,15 +17,15 @@ class GameScene: SKScene {
     var tmpSpriteBackground = SKSpriteNode(color: UIColor.whiteColor(), size: UIScreen.mainScreen().bounds.size)
     /*---*/
     
-    var clockCenter: CGPoint = CGPoint(x: 0, y: 0)
+    var middle: CGPoint = CGPoint(x: 0, y: 0)
     var first: CGPoint = CGPoint(x: 0, y: 0)
 
-    var startMovement: Bool = false
+    var clockCenter: CGPoint = CGPoint(x: 0, y: 0)
+    var clockDistanceFromCenter: CGFloat = 0
     
-    var currentTouchAngle: Double = 0
-    var lastTouchAngle: Double = 0
-    var deltaTouchAngle: Double = 0
-    var lastDeltaTouchAngle: Double = 0
+    var digitalCenter: CGPoint = CGPoint(x: 0, y: 0)
+    
+    var startMovement: Bool = false
     
     var currentNodeID: Int = 0
     var currentNode: SKNode = SKNode()
@@ -40,17 +40,22 @@ class GameScene: SKScene {
         
         /* Setup your scene here */
         self.name = "scene"
-        clockCenter = CGPoint(x: size.width * 0.5, y: size.height * 0.5)
+        middle = CGPoint(x: size.width * 0.5, y: size.height * 0.5)
+        
+        
+        clockDistanceFromCenter = size.width / 9
+        clockCenter = CGPoint(x: middle.x+clockDistanceFromCenter, y: middle.y)
+        
+        digitalCenter = CGPoint(x: size.width / 14 * 2, y: size.height / 14 * 2)
         
         /*---*/
-        tmpSpriteBackground.position = clockCenter
+        tmpSpriteBackground.position = middle
         tmpSpriteBackground.zPosition = -1
         self.addChild(tmpSpriteBackground)
         /*---*/
         
-        cm.initElements(clockCenter, scalar: 0.55, scene: self)
-        print(clockCenter)
-        dtm.initElements(cm.time, mid: clockCenter, scalar: 0.5, scene: self)
+        cm.initElements(clockCenter, scalar: 0.55, scene: self, time: math.currentDeviceTime())
+        dtm.initElements(cm.time, mid: digitalCenter, scalar: 0.5, scene: self)
         
     }
     
@@ -60,7 +65,7 @@ class GameScene: SKScene {
             
             for touch in touches {
                 
-                math.updateAngles(touch, middle: clockCenter, first: first)
+                math.updateAngles(touch, middle: middle, first: first)
                 if (startMovement) {       // Don't act if 1st itearion (1st iteration values reset hand position)
                     
                     if (currentNodeID == 2 ) { cm.rotate(math.deltaTouchAngle/12, nodeID: 3) }       // 3 is nodeID of the hour pointer
@@ -118,7 +123,6 @@ class GameScene: SKScene {
             
             cm.snap()
             dtm.set(cm.time)
-        
         }
         
         /* Reset */

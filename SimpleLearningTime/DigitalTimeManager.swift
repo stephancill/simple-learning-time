@@ -17,7 +17,7 @@ class DigitalTimeManager {
     let digitWidth = 56.0
     let colconWidth = 12.0
     
-    var xpos = 0.0
+    var xpos = CGFloat(0)
     var mid = CGPoint()
     var scalar = Float()
     var scene = SKScene()
@@ -28,17 +28,17 @@ class DigitalTimeManager {
         self.scalar = scalar
         self.scene = scene
         
-        let itertime = stringsToList(String(time.0), m: String(time.1))
+        let itertime = stringsToList(String(time.0/100), m: String(time.1/100))
         print("Initialising dtm")
         
         var indexCount = 0
         for digit in itertime {
             
-            xpos = Double(mid.x) - (2 * digitWidth * Double(scalar))
+            xpos = mid.x - CGFloat(2 * digitWidth * Double(scalar))
             
             let digitSprite = SKSpriteNode(texture: SKTexture(rect: CGRect(x: Double(digit)!/10, y: 0.0, width: 0.1, height: 1.0), inTexture: spritesheetfull.texture!))
             
-            digitSprite.position = CGPoint(x: xpos + Double(digitWidth) * Double(scalar) * Double(indexCount) , y: 0)
+            digitSprite.position = CGPoint(x: xpos + CGFloat(digitWidth) * CGFloat(scalar) * CGFloat(indexCount) , y: mid.y)
             digitSprite.size = CGSize(width: digitSprite.size.width * CGFloat(scalar), height: digitSprite.size.height * CGFloat(scalar))
             digitSprite.anchorPoint = CGPoint(x: 0, y: 0)
             digitSprite.zPosition = 10
@@ -52,7 +52,6 @@ class DigitalTimeManager {
     
     func set (time:(CGFloat, CGFloat)) {
         
-        
         let itertime = stringsToList(String(time.0/100), m: String(time.1/100))
         var indexCount = 0
         
@@ -62,7 +61,7 @@ class DigitalTimeManager {
             displayTime[indexCount].removeFromParent()
             
             let digitSprite = SKSpriteNode(texture: SKTexture(rect: CGRect(x: Double(digit)!/10, y: 0.0, width: 0.1, height: 1.0), inTexture: spritesheetfull.texture!))
-            digitSprite.position = CGPoint(x: xpos + (Double(digitWidth) + 6) * Double(scalar) * Double(indexCount),y: 0)
+            digitSprite.position = CGPoint(x: xpos + (CGFloat(digitWidth) + 6) * CGFloat(scalar) * CGFloat(indexCount),y: mid.y)
             digitSprite.size = CGSize(width: digitSprite.size.width * CGFloat(scalar), height: digitSprite.size.height * CGFloat(scalar))
             digitSprite.anchorPoint = CGPoint(x: 0, y: 0)
             digitSprite.zPosition = 10

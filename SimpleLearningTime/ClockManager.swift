@@ -63,26 +63,13 @@ class ClockManager {
             element.size = CGSize(width: element.size.width * CGFloat(scalar), height: element.size.height * CGFloat(scalar))
             element.zPosition = CGFloat(layer)
             
-            print(element.name)
-            
-            if (interactiveElements.contains(layer)){
-                // Interactive
-                switch (interactiveLayer){
-                case (0): element.zRotation = CGFloat(minRotDegrees * math.pi / 180)
-                case (1): element.zRotation = CGFloat(hourRotDegrees * math.pi / 180)
-                default: continue
-                }
-                interactiveLayer++
-            } else {
-                
-            }
             scene.addChild(element)
             
             layer++
             
         }
-        print("Setup: [2/2]Sprites initialised")
-        
+        set(time)
+        print("cm initialized")
     }
     
     func rotate (delta: Double, nodeID: Int) {
@@ -131,6 +118,18 @@ class ClockManager {
         
         
         return (hours, mins)
+        
+    }
+    
+    func set (time: (CGFloat, CGFloat)) {
+        
+        // Hour position = (hour interval * current hour) + (hour interval/60 * minutes)
+        clockElements[hourNodeID].zRotation = CGFloat(math.clockHourIntervalConst * Double(time.0) + ((math.clockHourIntervalConst / 60) * Double(time.1)))
+        
+        // Minute position = minute interval * minutes
+        clockElements[minuteNodeID].zRotation = CGFloat(math.clockMinuteIntervalConst * Double(time.1))
+        self.time = time
+        
         
     }
     

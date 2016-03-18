@@ -18,19 +18,7 @@ class GameScene: SKScene {
     /*---*/
     
     var middle: CGPoint = CGPoint(x: 0, y: 0)
-    var initialTouch: CGPoint = CGPoint(x: 0, y: 0)
     
-    var startMovement: Bool = false
-    
-    var currentNodeID: Int = 0
-    var currentNode: SKNode = SKNode()
-    
-    var interactivityEnabled: Bool = false
-    
-    var rotate: SKAction = SKAction()
-    
-    var currentTimeHour: CGFloat = 0
-    var currentTimeMin: CGFloat = 0
     
     override func didMoveToView(view: SKView) {
         
@@ -51,76 +39,20 @@ class GameScene: SKScene {
     
     override func touchesMoved(touches: Set<UITouch>, withEvent event: UIEvent?) {
         
-        if (interactivityEnabled) {
-            
-            for touch in touches {
-                
-                math.updateAngles(touch, middle: cm.center, first: initialTouch)
-                if (startMovement) {       // Don't act if 1st itearion (1st iteration values reset hand position)
-                    
-                    if (currentNodeID == 2 ) { cm.rotate(math.deltaTouchAngle/12, nodeID: 3) }       // 3 is nodeID of the hour pointer
-                    cm.rotate(math.deltaTouchAngle, nodeID: currentNodeID  )
-                    dtm.set(cm.timecalc())
-                }
-                
-                startMovement = true
-            }
-            
-        }
-        
+        cm.touchesMoved(touches)
+    
     }
     
     override func touchesBegan(touches: Set<UITouch>, withEvent event: UIEvent?) {
         
-        print("Touches began")
-        
-        for touch in touches {
-            
-            let touchLocation = touch.locationInView(touch.view)
-            print(touchLocation)
-            var node: SKNode = SKNode()
-            let nodes = self.nodesAtPoint(touchLocation)
-            
-            //  Set the node to the first interactive node
-            for n in nodes {
-                print("\(n.name)")
-                if (n.name != nil) {
-                    if (interactiveElements.contains(Int(n.name!)!)) {
-                        node = n
-                        break
-                    }
-                }
-            }
-            
-            if (node.name != nil){
-                
-                cm.timecalc(true)
-    
-                currentNode = node
-                currentNodeID = Int(node.name!)!
-                interactivityEnabled = true
-                initialTouch = touchLocation
-            }
-            
-        }
+        cm.touchesBegan(touches, scene: self)
         
     }
     
     override func touchesEnded(touches: Set<UITouch>, withEvent event: UIEvent?) {
         
-        /* Snapping and time setting */
-        if (interactivityEnabled) {
-            
-            cm.snap()
-            dtm.set(cm.time)
-        }
-        
-        /* Reset */
-        currentNode = SKNode()
-        currentNodeID = 0     // Turns out -1 is not a good placeholder
-        interactivityEnabled = false
-        startMovement = false
-        
+        cm.touchesEnded(touches)
+    
     }
     
 

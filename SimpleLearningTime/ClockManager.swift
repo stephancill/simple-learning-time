@@ -12,7 +12,6 @@ var interactiveElements: [Int] = []
 
 class ClockManager {
     
-    
     var spriteClockPlaceholder = SKSpriteNode()
     var spriteClockMinuteDirector = SKSpriteNode()
     var spriteClockHourDirector = SKSpriteNode()
@@ -32,6 +31,16 @@ class ClockManager {
     var time = (CGFloat(0), CGFloat(0))
     var center: CGPoint = CGPoint(x: 0, y: 0)
     var distanceFromSceneCenter = CGPoint(x: 0,y: 0)
+    
+    // User interaction
+    var initialTouch: CGPoint = CGPoint(x: 0, y: 0)
+    var startMovement: Bool = false
+    
+    var currentNodeID: Int = 0
+    var currentNode: SKNode = SKNode()
+    
+    var interactivityEnabled: Bool = false
+    
     
     init (){
         
@@ -139,6 +148,69 @@ class ClockManager {
         
         
     }
+    
+    func touchesMoved (touches: Set<UITouch>){
+        
+        let touch = touches.first
+      
+        math.updateAngles(touch!, middle: center, first: initialTouch)
+        if (startMovement) {       // Don't act if 1st itearion (1st iteration values reset hand position)
+            
+            if (currentNodeID == minuteNodeID ) { rotate(math.deltaTouchAngle/12, nodeID: hourNodeID) }       // 3 is nodeID of the hour pointer
+            rotate(math.deltaTouchAngle, nodeID: currentNodeID  )
+            dtm.set(cm.timecalc())
+        }
+        
+        startMovement = true
+    
+    }
+    
+    func touchesBegan (touches: Set<UITouch>, scene: SKScene) {
+        
+        let touch = touches.first
+        let touchLocation = touch!.locationInView(scene.view)
+        var node: SKNode = SKNode()
+        let nodes = scene.nodesAtPoint(touchLocation)
+        
+        //  Set the node to the first interactive node
+        for n in nodes {
+            if (n.name != nil) {
+                if (interactiveElements.contains(Int(n.name!)!)) {
+                    node = n
+                    break
+                }
+            }
+        }
+        
+        if (node.name != nil){
+            
+            cm.timecalc(true)
+            
+            currentNode = node
+            currentNodeID = Int(node.name!)!
+            interactivityEnabled = true
+            initialTouch = touchLocation
+        }
+        
+    }
+    
+    func touchesEnded(touches: Set<UITouch>) {
+//        let touch = touches.first
+        /* Snapping and time setting */
+        if (interactivityEnabled) {
+            
+            cm.snap()
+            dtm.set(cm.time)
+        }
+        
+        /* Reset */
+        currentNode = SKNode()
+        currentNodeID = 0     // Turns out -1 is not a good placeholder
+        interactivityEnabled = false
+        startMovement = false
+        
+    }
+    
     
 }
 

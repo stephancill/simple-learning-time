@@ -118,8 +118,12 @@ class DigitalTimeManager {
         return itertime
     }
     
+    func toggleVisibility() {
     
+        if (displayTimeContainer.parent != nil) { scene.addChild(displayTimeContainer) }
+        else { displayTimeContainer.removeFromParent() }
     
+    }
     
     
 }

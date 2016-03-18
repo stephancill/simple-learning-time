@@ -32,6 +32,8 @@ class ClockManager {
     var center: CGPoint = CGPoint(x: 0, y: 0)
     var distanceFromSceneCenter = CGPoint(x: 0,y: 0)
     
+    var hourMod: CGFloat = 24
+    
     // User interaction
     var initialTouch: CGPoint = CGPoint(x: 0, y: 0)
     var startMovement: Bool = false
@@ -97,10 +99,10 @@ class ClockManager {
     
     func snap () {
 
-        var hours = (clockElements[hourNodeID].zRotation / CGFloat(math.clockHourIntervalConst)) % 24
+        var hours = (clockElements[hourNodeID].zRotation / CGFloat(math.clockHourIntervalConst)) % hourMod
         var mins = (clockElements[minuteNodeID].zRotation / CGFloat(math.clockMinuteIntervalConst)) % 60
         
-        if (hours < 0){ hours = 24 + hours}
+        if (hours < 0){ hours = hourMod + hours}
         if (mins < 0){ mins = 60 + mins}
         
         mins = round(mins)
@@ -112,19 +114,19 @@ class ClockManager {
         // Minute position = minute interval * minutes
         clockElements[minuteNodeID].zRotation = CGFloat(math.clockMinuteIntervalConst) * round(mins)
         
-        time = timecalc()
+        time = calculateTime ()
         print(time)
         
     }
     
-    func timecalc (raw: Bool=false) -> (CGFloat, CGFloat) {
+    func calculateTime (raw: Bool=false) -> (CGFloat, CGFloat) {
         
-        var hours = (clockElements[hourNodeID].zRotation / CGFloat(math.clockHourIntervalConst)) % 24
+        var hours = (clockElements[hourNodeID].zRotation / CGFloat(math.clockHourIntervalConst)) % hourMod
         var mins = (clockElements[minuteNodeID].zRotation / CGFloat(math.clockMinuteIntervalConst)) % 60
         
         if (hours - floor(hours) > 0.99999 && hours - floor(hours) < 1) {hours += 1}
         
-        if (hours < 0){ hours = 24 + hours}
+        if (hours < 0){ hours = hourMod + hours}
         if (mins < 0){ mins = 60 + mins}
 
         if (!raw) {
@@ -158,7 +160,7 @@ class ClockManager {
             
             if (currentNodeID == minuteNodeID ) { rotate(math.deltaTouchAngle/12, nodeID: hourNodeID) }       // 3 is nodeID of the hour pointer
             rotate(math.deltaTouchAngle, nodeID: currentNodeID  )
-            dtm.set(cm.timecalc())
+            dtm.set(cm.calculateTime())
         }
         
         startMovement = true
@@ -184,7 +186,7 @@ class ClockManager {
         
         if (node.name != nil){
             
-            cm.timecalc(true)
+            cm.calculateTime(true)
             
             currentNode = node
             currentNodeID = Int(node.name!)!

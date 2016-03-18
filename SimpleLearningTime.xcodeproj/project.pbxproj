@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		D2AB93AC1C9C526A0018ABCA /* ButtonManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = D2AB93AB1C9C526A0018ABCA /* ButtonManager.swift */; };
 		D40A262F1C96A2EC00BC97EF /* DigitalTimeManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = D40A262E1C96A2EC00BC97EF /* DigitalTimeManager.swift */; };
 		D48CEB5D1C85BA5B00047DD3 /* ClockManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = D48CEB5C1C85BA5A00047DD3 /* ClockManager.swift */; };
 		D4936E871C9165560096357A /* .gitignore in Resources */ = {isa = PBXBuildFile; fileRef = D4936E861C9165560096357A /* .gitignore */; };
@@ -40,6 +41,7 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		D2AB93AB1C9C526A0018ABCA /* ButtonManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ButtonManager.swift; sourceTree = "<group>"; };
 		D40A262E1C96A2EC00BC97EF /* DigitalTimeManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DigitalTimeManager.swift; sourceTree = "<group>"; };
 		D464C2211C8C345500670BF9 /* SimpleLearningTime.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = SimpleLearningTime.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		D464C2221C8C345500670BF9 /* SimpleLearningTimeTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = SimpleLearningTimeTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -106,6 +108,7 @@
 				D4D347A61C6C77D900518E76 /* GameScene.sks */,
 				D4D347A81C6C77D900518E76 /* GameScene.swift */,
 				D48CEB5C1C85BA5A00047DD3 /* ClockManager.swift */,
+				D2AB93AB1C9C526A0018ABCA /* ButtonManager.swift */,
 				D4D347AA1C6C77D900518E76 /* GameViewController.swift */,
 				D40A262E1C96A2EC00BC97EF /* DigitalTimeManager.swift */,
 				D4D347AC1C6C77D900518E76 /* Main.storyboard */,
@@ -326,6 +329,7 @@
 				D40A262F1C96A2EC00BC97EF /* DigitalTimeManager.swift in Sources */,
 				D4D347A91C6C77D900518E76 /* GameScene.swift in Sources */,
 				D4D347AB1C6C77D900518E76 /* GameViewController.swift in Sources */,
+				D2AB93AC1C9C526A0018ABCA /* ButtonManager.swift in Sources */,
 				D4FD477D1C86CDB900C8FB87 /* Maths.swift in Sources */,
 				D4D347A51C6C77D900518E76 /* AppDelegate.swift in Sources */,
 			);

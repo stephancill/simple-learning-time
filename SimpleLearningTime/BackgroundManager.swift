@@ -13,7 +13,8 @@ class BackgroundManager {
 
     var spriteMovingBackground = SKSpriteNode(imageNamed: "imageBackground")
     var spriteBackgroundColour = SKSpriteNode(color: UIColor(), size: UIScreen.mainScreen().bounds.size)
-    
+    var spriteUtilitiesBackground = SKSpriteNode()
+
     func initElements (frameSize: CGSize, scalar:Float, scene:SKScene, center:CGPoint, time: (CGFloat, CGFloat)=(CGFloat(0), CGFloat(0))) {
         
         let mid = CGPoint(x: frameSize.width * 0.5, y: frameSize.height * 0.5)
@@ -24,10 +25,12 @@ class BackgroundManager {
         spriteMovingBackground.size = CGSize(width: spriteMovingBackground.size.width * CGFloat(scalar), height: spriteMovingBackground.size.height * CGFloat(scalar))
         scene.addChild(spriteMovingBackground)
         
-        
         spriteBackgroundColour.position = mid
         spriteBackgroundColour.zPosition = -2
         scene.addChild(spriteBackgroundColour)
+        
+        spriteUtilitiesBackground = SKSpriteNode(color: UIColor(white: 1, alpha: 0.2), size: CGSize(width: frameSize.width/32*4*4.5, height: frameSize.height*2))
+        scene.addChild(spriteUtilitiesBackground)
         
     }
     
@@ -38,7 +41,7 @@ class BackgroundManager {
         
         // Background colour
         adjustBackgroundColor()
-        
+
     }
     
     func rotate (delta: CGFloat) {
@@ -49,7 +52,8 @@ class BackgroundManager {
     
     func adjustBackgroundColor (hue: CGFloat=0.6, saturation: CGFloat=1, alpha: CGFloat=1){
         
-        let brightness = abs((sqrt(pow(((cm.clockElements[cm.hourNodeID].zRotation / CGFloat(math.clockHourIntervalConst)) % cm.hourMod)-12,2))/12)%1-1)
+        var brightness = abs((sqrt(pow(((cm.clockElements[cm.hourNodeID].zRotation / CGFloat(math.clockHourIntervalConst)) % cm.hourMod)-12,2))/12)%1-1)
+        if (cm.clockElements[cm.hourNodeID].zRotation / CGFloat(math.clockHourIntervalConst) % cm.hourMod == 0) {brightness = 0.00001}
         spriteBackgroundColour.color = UIColor(hue: hue-brightness/10, saturation: saturation, brightness: brightness, alpha: alpha)
         
     }

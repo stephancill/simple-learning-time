@@ -13,11 +13,8 @@ let dtm: DigitalTimeManager = DigitalTimeManager()
 let math: mf = mf()
 
 class GameScene: SKScene {
-    
-    
-    
+
     var middle: CGPoint = CGPoint(x: 0, y: 0)
-    
     
     override func didMoveToView(view: SKView) {
         

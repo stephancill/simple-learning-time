@@ -27,9 +27,10 @@ class GameScene: SKScene {
         middle = CGPoint(x: size.width * 0.5, y: size.height * 0.5)
         
         /*---*/
-//        tmpSpriteBackground.position = middle
-//        tmpSpriteBackground.zPosition = -2
-//        self.addChild(tmpSpriteBackground)
+        tmpSpriteBackground.position = middle
+        tmpSpriteBackground.zPosition = -2
+        self.addChild(tmpSpriteBackground)
+//        tmpSpriteBackground.color = UIColor.
         /*---*/
         
         cm.initElements(size, scalar: 0.55, scene: self, time: math.currentDeviceTime())

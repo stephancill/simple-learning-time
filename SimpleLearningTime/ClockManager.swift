@@ -21,6 +21,9 @@ class ClockManager {
     var spriteClockCenter = SKSpriteNode(imageNamed: "imageClockCenter")
     
     var spriteSceneBackground = SKSpriteNode(imageNamed: "imageBackground")
+    /*---*/
+    var tmpSpriteBackground = SKSpriteNode(color: UIColor(), size: UIScreen.mainScreen().bounds.size)
+    /*---*/
     
     var clockElements: [SKSpriteNode]
     
@@ -74,6 +77,9 @@ class ClockManager {
         scene.addChild(spriteSceneBackground)
         
         
+        tmpSpriteBackground.position = mid
+        tmpSpriteBackground.zPosition = -2
+        scene.addChild(tmpSpriteBackground)
         /*---*/
         
         var layer = 0
@@ -93,6 +99,8 @@ class ClockManager {
             scene.addChild(element)
             
             layer++
+            
+            
             
         }
         set(time)
@@ -128,6 +136,9 @@ class ClockManager {
         // Background's rotation is half of hour's rotation
         spriteSceneBackground.zRotation = clockElements[hourNodeID].zRotation/2
         
+        // Background colour
+        adjustBackgroundColor()
+        
         time = calculateTime ()
         
     }
@@ -147,7 +158,6 @@ class ClockManager {
             mins = round(mins) % 60
         }
         
-        
         return (hours, mins)
         
     }
@@ -163,6 +173,9 @@ class ClockManager {
         // Background's rotation is half of hour's rotation
         spriteSceneBackground.zRotation = clockElements[hourNodeID].zRotation/2
         
+        // Background colour
+        adjustBackgroundColor()
+        
         self.time = time
         
         
@@ -172,7 +185,7 @@ class ClockManager {
     func touchesMoved (touches: Set<UITouch>){
         
         let touch = touches.first
-      
+        
         math.updateAngles(touch!, middle: center, first: initialTouch)
         if (startMovement && interactivityEnabled) {       // Don't act if 1st itearion (1st iteration values reset hand position)
             
@@ -180,15 +193,25 @@ class ClockManager {
             else {
                 spriteSceneBackground.zRotation += CGFloat(math.deltaTouchAngle/2)
             }
-            rotate(math.deltaTouchAngle, nodeID: currentNodeID  )
-            dtm.set(cm.calculateTime())
             
+            // Background colour
+            adjustBackgroundColor()
+            
+            rotate(math.deltaTouchAngle, nodeID: currentNodeID )
+            dtm.set(cm.calculateTime())
         }
         
         startMovement = true
         
         
     
+    }
+    
+    func adjustBackgroundColor (hue: CGFloat=0.6, saturation: CGFloat=1, alpha: CGFloat=1){
+        
+        let brightness = abs((sqrt(pow(((clockElements[hourNodeID].zRotation / CGFloat(math.clockHourIntervalConst)) % hourMod)-12,2))/12)%1-1)
+        tmpSpriteBackground.color = UIColor(hue: hue-brightness/10, saturation: saturation, brightness: brightness, alpha: alpha)
+        
     }
     
     func touchesBegan (touches: Set<UITouch>, scene: SKScene) {

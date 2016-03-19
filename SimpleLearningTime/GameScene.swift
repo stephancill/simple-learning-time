@@ -13,9 +13,7 @@ let math: mf = mf()
 
 class GameScene: SKScene {
     
-    /*---*/
-    var tmpSpriteBackground = SKSpriteNode(color: UIColor.whiteColor(), size: UIScreen.mainScreen().bounds.size)
-    /*---*/
+    
     
     var middle: CGPoint = CGPoint(x: 0, y: 0)
     
@@ -27,10 +25,7 @@ class GameScene: SKScene {
         middle = CGPoint(x: size.width * 0.5, y: size.height * 0.5)
         
         /*---*/
-        tmpSpriteBackground.position = middle
-        tmpSpriteBackground.zPosition = -2
-        self.addChild(tmpSpriteBackground)
-//        tmpSpriteBackground.color = UIColor.
+        
         /*---*/
         
         cm.initElements(size, scalar: 0.55, scene: self, time: math.currentDeviceTime())

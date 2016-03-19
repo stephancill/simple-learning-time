@@ -88,6 +88,17 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		D2D0308E1C9DBB9600F6C83A /* Classes */ = {
+			isa = PBXGroup;
+			children = (
+				D48CEB5C1C85BA5A00047DD3 /* ClockManager.swift */,
+				D2AB93AB1C9C526A0018ABCA /* ButtonManager.swift */,
+				D40A262E1C96A2EC00BC97EF /* DigitalTimeManager.swift */,
+				D4FD477C1C86CDB900C8FB87 /* Maths.swift */,
+			);
+			name = Classes;
+			sourceTree = "<group>";
+		};
 		D4D347981C6C77D900518E76 = {
 			isa = PBXGroup;
 			children = (
@@ -108,10 +119,7 @@
 				D4D347A61C6C77D900518E76 /* GameScene.sks */,
 				D4D347AA1C6C77D900518E76 /* GameViewController.swift */,
 				D4D347A81C6C77D900518E76 /* GameScene.swift */,
-				D48CEB5C1C85BA5A00047DD3 /* ClockManager.swift */,
-				D2AB93AB1C9C526A0018ABCA /* ButtonManager.swift */,
-				D40A262E1C96A2EC00BC97EF /* DigitalTimeManager.swift */,
-				D4FD477C1C86CDB900C8FB87 /* Maths.swift */,
+				D2D0308E1C9DBB9600F6C83A /* Classes */,
 				D4D347AC1C6C77D900518E76 /* Main.storyboard */,
 				D4D347AF1C6C77D900518E76 /* Assets.xcassets */,
 				D4D347B11C6C77D900518E76 /* LaunchScreen.storyboard */,

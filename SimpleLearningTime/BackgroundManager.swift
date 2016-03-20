@@ -29,7 +29,7 @@ class BackgroundManager {
         spriteBackgroundColour.zPosition = -2
         scene.addChild(spriteBackgroundColour)
         
-        spriteUtilitiesBackground = SKSpriteNode(color: UIColor(white: 1, alpha: 0.2), size: CGSize(width: frameSize.width/32*4*4.5, height: frameSize.height*2))
+        spriteUtilitiesBackground = SKSpriteNode(color: UIColor(white: 1, alpha: 0.2), size: CGSize(width: frameSize.width/35*4*4.5, height: frameSize.height*2))
         scene.addChild(spriteUtilitiesBackground)
         
     }
@@ -50,9 +50,9 @@ class BackgroundManager {
         
     }
     
-    func adjustBackgroundColor (hue: CGFloat=0.6, saturation: CGFloat=1, alpha: CGFloat=1){
+    func adjustBackgroundColor (hue: CGFloat=0.62, saturation: CGFloat=1, alpha: CGFloat=1){
         
-        var brightness = abs((sqrt(pow(((cm.clockElements[cm.hourNodeID].zRotation / CGFloat(math.clockHourIntervalConst)) % cm.hourMod)-12,2))/12)%1-1)
+        var brightness = abs((sqrt(pow(abs((cm.clockElements[cm.hourNodeID].zRotation / CGFloat(math.clockHourIntervalConst)) % cm.hourMod)-12,2))/12)%1-1)
         if (cm.clockElements[cm.hourNodeID].zRotation / CGFloat(math.clockHourIntervalConst) % cm.hourMod == 0) {brightness = 0.00001}
         spriteBackgroundColour.color = UIColor(hue: hue-brightness/10, saturation: saturation, brightness: brightness, alpha: alpha)
         

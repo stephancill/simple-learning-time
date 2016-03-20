@@ -27,6 +27,7 @@ class BackgroundManager {
         spriteBackgroundHill.zPosition = -2
         spriteBackgroundHill.anchorPoint = CGPoint(x: 0.5, y: 0.0)
         spriteBackgroundHill.position = CGPoint(x:frameSize.width/2, y: 0)
+        spriteBackgroundHill.size = (CGSize(width: frameSize.width, height: frameSize.height))
         scene.addChild(spriteBackgroundHill)
         
         spriteMovingBackground.zPosition = -3

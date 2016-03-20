@@ -25,7 +25,7 @@ class DigitalTimeManager {
     
     func initElements (frameSize: CGSize, time:(CGFloat, CGFloat), scalar:Float, scene:SKScene) {
         
-        center = CGPoint(x: frameSize.width / 32 * 2, y: frameSize.height / 32 * 2)
+        center = CGPoint(x: frameSize.width / 34 * 2, y: frameSize.height / 34 * 2)
         
         self.scalar = scalar
         self.scene = scene

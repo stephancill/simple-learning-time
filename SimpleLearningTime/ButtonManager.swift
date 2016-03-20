@@ -10,6 +10,12 @@ import SpriteKit
 
 class ButtonFunctions {
 
+    func initElements () {
+    
+        
+        
+    }
+    
     func randomTime() {
     
         let hours = CGFloat(arc4random_uniform(24))

@@ -8,8 +8,7 @@
 
 import SpriteKit
 
-var interactiveElements: [Int] = []
-
+var interactiveClockElements: [String] = ["hour", "minute"]
 class ClockManager {
     
     var spriteClockPlaceholder = SKSpriteNode()
@@ -20,8 +19,9 @@ class ClockManager {
     
     var clockElements: [SKSpriteNode]
     
-    var hourNodeID: Int = 0
-    var minuteNodeID: Int = 0
+    
+    var hourNodeID: String = "hour"
+    var minuteNodeID: String = "minute"
     
     var time = (CGFloat(0), CGFloat(0))
     var center: CGPoint = CGPoint(x: 0, y: 0)
@@ -33,7 +33,7 @@ class ClockManager {
     var initialTouch: CGPoint = CGPoint(x: 0, y: 0)
     var startMovement: Bool = false
     
-    var currentNodeID: Int = 0
+    var currentNodeID: String = ""
     var currentNode: SKNode = SKNode()
     
     var interactivityEnabled: Bool = false
@@ -56,7 +56,7 @@ class ClockManager {
     }
     
     
-    func initElements (frameSize: CGSize, scalar:Float, scene:SKScene, time: (CGFloat, CGFloat)=(CGFloat(0), CGFloat(0)) ) {
+    func initElements (frameSize: CGSize, scalar:Float, scene:SKScene, time: (CGFloat,CGFloat)=(CGFloat(0),CGFloat(0))) {
         
         let mid = CGPoint(x: frameSize.width * 0.5, y: frameSize.height * 0.5)
         distanceFromSceneCenter = CGPoint(x: frameSize.width / 8, y: 0)
@@ -65,13 +65,7 @@ class ClockManager {
         var layer = 0
         for element in clockElements {
             
-            switch (element.name){
-            case ("hour"?): interactiveElements.append(layer); hourNodeID = layer;
-            case ("minute"?): interactiveElements.append(layer); minuteNodeID = layer
-            default: break
-            }
-            
-            element.name = String(layer)
+//            element.name = String(layer)
             element.position = center
             element.size = CGSize(width: element.size.width * CGFloat(scalar), height: element.size.height * CGFloat(scalar))
             element.zPosition = CGFloat(layer)
@@ -98,7 +92,7 @@ class ClockManager {
         math.updateAngles(touch!, middle: center, first: initialTouch)
         if (startMovement && interactivityEnabled) {       // Don't act if 1st itearion (1st iteration values reset hand position)
             
-            if (currentNodeID == minuteNodeID ) {
+            if (currentNodeID == "minute" ) {
                 rotate(math.deltaTouchAngle/12, nodeID: hourNodeID)
                 bgm.rotate(CGFloat(math.deltaTouchAngle/24))
             }
@@ -124,20 +118,18 @@ class ClockManager {
         let nodes = scene.nodesAtPoint(touchLocation)
         //  Set the node to the first interactive node
         for n in nodes {
-            if (n.name != nil) {
-                if (interactiveElements.contains(Int(n.name!)!)) {
-                    node = n
-                    break
-                }
+            if (interactiveClockElements.contains(n.name!)) {
+                node = n
+                break
             }
         }
-        
-        if (node.name != nil && interactiveElements.contains(Int(node.name!)!)){
+        print(node.name)
+        if (node.name != nil && interactiveClockElements.contains(node.name!)){
             
             cm.calculateTime(true)
             
             currentNode = node
-            currentNodeID = Int(node.name!)!
+            currentNodeID = node.name!
             interactivityEnabled = true
             initialTouch = touchLocation
         }
@@ -155,7 +147,7 @@ class ClockManager {
         
         /* Reset */
         currentNode = SKNode()
-        currentNodeID = 0     // Turns out -1 is not a good placeholder
+        currentNodeID = ""     // Turns out -1 is not a good placeholder
         interactivityEnabled = false
         startMovement = false
         
@@ -167,8 +159,8 @@ class ClockManager {
     
     func snap () {
 
-        var hours = (clockElements[hourNodeID].zRotation / CGFloat(math.clockHourIntervalConst)) % hourMod
-        var mins = (clockElements[minuteNodeID].zRotation / CGFloat(math.clockMinuteIntervalConst)) % 60
+        var hours = (spriteClockHour.zRotation / CGFloat(math.clockHourIntervalConst)) % hourMod
+        var mins = (spriteClockMinute.zRotation / CGFloat(math.clockMinuteIntervalConst)) % 60
         
         if (hours < 0){ hours = hourMod + hours}
         if (mins < 0){ mins = 60 + mins}
@@ -177,10 +169,10 @@ class ClockManager {
         hours = floor(hours)
         
         // Hour position = (hour interval * current hour) + (hour interval/60 * minutes)
-        clockElements[hourNodeID].zRotation = CGFloat(math.clockHourIntervalConst) * floor(hours) + ((CGFloat(math.clockHourIntervalConst / 60) * mins))
+        spriteClockHour.zRotation = CGFloat(math.clockHourIntervalConst) * floor(hours) + ((CGFloat(math.clockHourIntervalConst / 60) * mins))
         
         // Minute position = minute interval * minutes
-        clockElements[minuteNodeID].zRotation = CGFloat(math.clockMinuteIntervalConst) * round(mins)
+        spriteClockMinute.zRotation = CGFloat(math.clockMinuteIntervalConst) * round(mins)
         
         // Background's rotation is half of hour's rotation
         bgm.set((hours, mins))
@@ -191,8 +183,8 @@ class ClockManager {
     
     func calculateTime (raw: Bool=false) -> (CGFloat, CGFloat) {
         
-        var hours = (clockElements[hourNodeID].zRotation / CGFloat(math.clockHourIntervalConst)) % hourMod
-        var mins = (clockElements[minuteNodeID].zRotation / CGFloat(math.clockMinuteIntervalConst)) % 60
+        var hours = (spriteClockHour.zRotation / CGFloat(math.clockHourIntervalConst)) % hourMod
+        var mins = (spriteClockMinute.zRotation / CGFloat(math.clockMinuteIntervalConst)) % 60
         
         if (hours - floor(hours) > 0.99999 && hours - floor(hours) < 1) {hours += 1}
         
@@ -213,19 +205,25 @@ class ClockManager {
         self.time = time
         
         // Hour position = (hour interval * current hour) + (hour interval/60 * minutes)
-        clockElements[hourNodeID].zRotation = CGFloat(math.clockHourIntervalConst * Double(time.0) + ((math.clockHourIntervalConst / 60) * Double(time.1)))
+        spriteClockHour.zRotation = CGFloat(math.clockHourIntervalConst * Double(time.0) + ((math.clockHourIntervalConst / 60) * Double(time.1)))
         
         // Minute position = minute interval * minutes
-        clockElements[minuteNodeID].zRotation = CGFloat(math.clockMinuteIntervalConst * Double(time.1))
+        spriteClockMinute.zRotation = CGFloat(math.clockMinuteIntervalConst * Double(time.1))
         
         // Background rotation and color
         bgm.set(time)
  
     }
     
-    func rotate (delta: Double, nodeID: Int) {
+    func rotate (delta: Double, nodeID: String) {
         
-        clockElements[nodeID].zRotation += CGFloat(delta)
+        if (nodeID == "minute") {
+            spriteClockMinute.zRotation += CGFloat(delta)
+        }
+        
+        if (nodeID == "hour") {
+            spriteClockHour.zRotation += CGFloat(delta)
+        }
         
     }
     

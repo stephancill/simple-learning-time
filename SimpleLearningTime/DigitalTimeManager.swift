@@ -158,7 +158,7 @@ class DigitalTimeManager {
         
         if (displayTimeContainer.parent == nil) {
             scene.addChild(displayTimeContainer)
-            scene.addChild(spriteAMPM)
+            if (cm.twelveHour) {scene.addChild(spriteAMPM)}
             enabled = true
         } else {
             displayTimeContainer.removeFromParent()

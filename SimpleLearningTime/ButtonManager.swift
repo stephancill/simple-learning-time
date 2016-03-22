@@ -16,7 +16,12 @@ class ButtonManager {
     var buttonCurrentDeviceTime: SKSpriteNode = SKSpriteNode(imageNamed: "imageButtonCurrentTime")
     var buttonRandomTime: SKSpriteNode = SKSpriteNode(imageNamed: "imageButtonRandomAnalogue")
     
-    var interactiveElements: [String] = ["buttonHour12", "buttonHour24", "buttonToggleDigital", "buttonCurrentDeviceTime", "buttonRandomTime"]
+    var interactiveElements: [String] = [
+        "buttonHour12",
+        "buttonHour24",
+        "buttonToggleDigital",
+        "buttonCurrentDeviceTime",
+        "buttonRandomTime"]
     var buttonContainer: SKNode = SKNode()
     var scene: SKScene = SKScene()
     
@@ -85,10 +90,10 @@ class ButtonManager {
             "buttonToggleDigital",
             node: buttonToggleDigital,
             position: CGPoint(
-                x: dtm.center.x,
-                y: frameSize.height/2),
+                x: frameSize.width/frameDivider*7.5,
+                y: frameSize.height/frameDivider*5.05) ,
             frameSize: frameSize,
-            scalar: scalar,
+            scalar: scalar*0.4,
             frameDivider: frameDivider)
         /*---*/
         
@@ -126,9 +131,7 @@ class ButtonManager {
         if (name == "buttonRandomTime") {
             randomTime()
         }
-        
-        
-    
+
     }
     
     func currentTime() {

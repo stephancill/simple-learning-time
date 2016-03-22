@@ -13,6 +13,7 @@ class DigitalTimeManager {
     var spritesheetfull = SKSpriteNode(imageNamed: "imageDigitalDigits")
     var displayTime: [SKSpriteNode] = []
     var displayTimeContainer: SKNode = SKNode()
+    var spriteAMPM = SKSpriteNode(imageNamed: "imageDigitalSuffixAM")
 
     let colconWidth = 12.0
     
@@ -24,10 +25,10 @@ class DigitalTimeManager {
     var digitWidth = 0.0
     var digitSpacing: CGFloat = 10
     
-    func initElements (frameSize: CGSize, time:(CGFloat, CGFloat), scalar:Float, scene:SKScene) {
+    func initElements (frameSize: CGSize, scalar:Float, scene:SKScene, time:(CGFloat, CGFloat), frameDivider: CGFloat=35) {
         
         digitSpacing += ((spritesheetfull.texture?.size().width)!/CGFloat(10))
-        center = CGPoint(x: frameSize.width / 35 * 4, y: frameSize.height / 34 * 2)
+        center = CGPoint(x: frameSize.width / frameDivider * 4, y: frameSize.height / frameDivider * 2)
         xpos = center.x - CGFloat(4 * Double(digitSpacing) * Double(scalar))
         
         self.scalar = scalar
@@ -60,13 +61,28 @@ class DigitalTimeManager {
             displayTimeContainer.addChild(displayTime[indexCount])
             indexCount++
         }
-        
+        spriteAMPM.size = CGSize(width: spriteAMPM.size.width * CGFloat(scalar) * 0.5, height: spriteAMPM.size.height * CGFloat(scalar) * 0.5)
+        spriteAMPM.position = CGPoint(x: center.x, y: center.y)
         scene.addChild(displayTimeContainer)
     }
     
     func set (time:(CGFloat, CGFloat)) {
+        var itertime = ["0", "0", ":", "0", "0"]
         
-        let itertime = stringsToList(String(time.0/100), m: String(time.1/100))
+        spriteAMPM.removeFromParent()
+        
+        if (cm.twelveHour) {
+            itertime = stringsToList(String((time.0%12)/100), m: String(time.1/100))
+            if (time.0 > 12) {
+                spriteAMPM.texture = SKTexture(imageNamed: "imageDigitalSuffixPM")
+            } else {
+                spriteAMPM.texture = SKTexture(imageNamed: "imageDigitalSuffixAM")
+            }
+            scene.addChild(spriteAMPM)
+        } else {
+            itertime = stringsToList(String(time.0/100), m: String(time.1/100))
+        }
+        
         var indexCount = 0
         
         displayTimeContainer.removeFromParent()
@@ -88,6 +104,8 @@ class DigitalTimeManager {
                 
             }
             indexCount++
+            
+            
         }
         
         scene.addChild(displayTimeContainer)

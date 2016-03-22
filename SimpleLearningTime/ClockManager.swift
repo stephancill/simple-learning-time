@@ -27,6 +27,7 @@ class ClockManager {
     var distanceFromSceneCenter = CGPoint(x: 0,y: 0)
     
     var hourMod: CGFloat = 24
+    var twelveHour: Bool = false
     
     // User interaction
     var initialTouch: CGPoint = CGPoint(x: 0, y: 0)

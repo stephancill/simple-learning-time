@@ -10,6 +10,7 @@ import SpriteKit
 let cm: ClockManager = ClockManager()
 let bgm: BackgroundManager = BackgroundManager()
 let dtm: DigitalTimeManager = DigitalTimeManager()
+let btnm: ButtonManager = ButtonManager()
 let math: mf = mf()
 
 var allInteractiveElements: [String] = []
@@ -35,21 +36,23 @@ class GameScene: SKScene {
         
         cm.touchesMoved(touches)
         
-    
     }
     
     override func touchesBegan(touches: Set<UITouch>, withEvent event: UIEvent?) {
         
         let node = getTopNode(touches)
+        let nodeName = node.name!
         
+        print(btnm.buttonHour12.position)
+        print(node.position)
         print(node.name)
         
-        if (cm.interactiveElements.contains(node.name!)) {
+        if (cm.interactiveElements.contains(nodeName)) {
             cm.touchesStarted(node, touchLocation: (touches.first?.locationInView(self.view))!)
         }
         
-        if (node.name == "buttonHour24" ) {
-            btnm.toggleTwentyFourHour()
+        if (btnm.interactiveElements.contains(nodeName)) {
+            btnm.buttonPressed(nodeName)
         }
         
     }
@@ -66,8 +69,7 @@ class GameScene: SKScene {
         if (btnm.interactiveElements.contains(node.name!)) {
             
         }
-        
-    
+
     }
     
     func getTopNode (touches: Set<UITouch>) -> SKNode {
@@ -75,7 +77,7 @@ class GameScene: SKScene {
         let touch = touches.first
         let touchLocation = touch!.locationInView(self.view)
         var node: SKNode = SKNode()
-        let nodes = self.nodesAtPoint(touchLocation)
+        let nodes = self.nodesAtPoint(convertPointToView(touchLocation))
         //  Set the node to the first interactive node
         for n in nodes {
             if (n.name != nil) {
@@ -85,6 +87,7 @@ class GameScene: SKScene {
                 }
             }
         }
+        
         if (node.name == nil) {node.name = "nil"}
         return node
         

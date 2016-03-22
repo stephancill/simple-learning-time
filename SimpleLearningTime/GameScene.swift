@@ -43,10 +43,6 @@ class GameScene: SKScene {
         let node = getTopNode(touches)
         let nodeName = node.name!
         
-        print(btnm.buttonHour12.position)
-        print(node.position)
-        print(node.name)
-        
         if (cm.interactiveElements.contains(nodeName)) {
             cm.touchesStarted(node, touchLocation: (touches.first?.locationInView(self.view))!)
         }
@@ -60,15 +56,10 @@ class GameScene: SKScene {
     override func touchesEnded(touches: Set<UITouch>, withEvent event: UIEvent?) {
         
         let node = getTopNode(touches)
-        
+        let nodeName = node.name!
         // Element belongs to clock
-        if (cm.interactiveElements.contains(node.name!)) {
-            cm.touchesEnded()
-        }
-        
-        if (btnm.interactiveElements.contains(node.name!)) {
-            
-        }
+        cm.touchesEnded()
+        btnm.buttonReleased(nodeName)
 
     }
     

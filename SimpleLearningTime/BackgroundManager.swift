@@ -64,7 +64,7 @@ class BackgroundManager {
     
     func adjustBackgroundColor (hue: CGFloat=0.62, saturation: CGFloat=1, alpha: CGFloat=1){
         
-        var brightness = abs((sqrt(pow(abs((cm.spriteClockHour.zRotation / CGFloat(math.clockHourIntervalConst)) % cm.hourMod)-12,2))/12)%1-1)
+        var brightness = abs((sqrt(pow(abs((cm.spriteClockHour.zRotation / CGFloat(math.clockHourIntervalConst)) % 24)-12,2))/12)%1-1)
         
         if (cm.spriteClockHour.zRotation / CGFloat(math.clockHourIntervalConst) % 24 == 0) {brightness = 0.00001}
         

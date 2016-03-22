@@ -14,7 +14,7 @@ class DigitalTimeManager {
     var displayTime: [SKSpriteNode] = []
     var displayTimeContainer: SKNode = SKNode()
     var spriteAMPM = SKSpriteNode(imageNamed: "imageDigitalSuffixAM")
-
+    
     let colconWidth = 12.0
     
     var xpos = CGFloat(0)
@@ -24,6 +24,8 @@ class DigitalTimeManager {
     
     var digitWidth = 0.0
     var digitSpacing: CGFloat = 10
+    
+    var enabled = true
     
     func initElements (frameSize: CGSize, scalar:Float, scene:SKScene, time:(CGFloat, CGFloat), frameDivider: CGFloat=35) {
         
@@ -78,7 +80,7 @@ class DigitalTimeManager {
             } else {
                 spriteAMPM.texture = SKTexture(imageNamed: "imageDigitalSuffixAM")
             }
-            scene.addChild(spriteAMPM)
+            if (enabled) { scene.addChild(spriteAMPM) }
         } else {
             itertime = stringsToList(String(time.0/100), m: String(time.1/100))
         }
@@ -107,8 +109,10 @@ class DigitalTimeManager {
             
             
         }
-        
-        scene.addChild(displayTimeContainer)
+        if (enabled) {
+            
+            scene.addChild(displayTimeContainer)
+        }
         
     }
     
@@ -151,9 +155,16 @@ class DigitalTimeManager {
     }
     
     func toggleVisibility() {
-    
-        if (displayTimeContainer.parent != nil) { scene.addChild(displayTimeContainer) }
-        else { displayTimeContainer.removeFromParent() }
+        
+        if (displayTimeContainer.parent == nil) {
+            scene.addChild(displayTimeContainer)
+            scene.addChild(spriteAMPM)
+            enabled = true
+        } else {
+            displayTimeContainer.removeFromParent()
+            spriteAMPM.removeFromParent()
+            enabled = false
+        }
     
     }
     

@@ -11,11 +11,14 @@ import SpriteKit
 class ButtonManager {
     
     var buttonHour12: SKSpriteNode = SKSpriteNode(imageNamed: "imageButton12hDisabled")
-    var buttonHour24: SKSpriteNode = SKSpriteNode(imageNamed: "imageButton24hDisabled")
+    var buttonHour24: SKSpriteNode = SKSpriteNode(imageNamed: "imageButton24hEnabled")
+    var buttonToggleDigital: SKSpriteNode = SKSpriteNode(imageNamed: "imageButtonNoDigitalDisabled")
     
-    var interactiveElements: [String] = ["buttonHour12", "buttonHour24"]
+    var interactiveElements: [String] = ["buttonHour12", "buttonHour24", "buttonToggleDigital"]
     var buttonContainer: SKNode = SKNode()
     var scene: SKScene = SKScene()
+    
+    var touchedButtonName = ""
     
     init () {
         for name in interactiveElements {
@@ -27,6 +30,7 @@ class ButtonManager {
         
         self.scene = scene
         
+        /*Toggle 12/24 hour*/
         buttonHour12.name = "buttonHour12"
         buttonHour12.zPosition = 10
         buttonHour12.size = CGSize(
@@ -37,9 +41,7 @@ class ButtonManager {
             x: frameSize.width/frameDivider+(buttonHour12.size.width/2),
             y: frameSize.height/frameDivider * (frameDivider-3)
         )
-        buttonHour12.color = UIColor.redColor()
-        buttonHour12.colorBlendFactor = 1
-        buttonContainer.addChild(buttonHour12)
+        
         
         buttonHour24.name = "buttonHour24"
         buttonHour24.zPosition = 10
@@ -51,9 +53,22 @@ class ButtonManager {
             x: frameSize.width/frameDivider*4.7+(buttonHour12.size.width/2),
             y: frameSize.height/frameDivider * (frameDivider-3)
         )
-        buttonHour24.color = UIColor.redColor()
-        buttonHour24.colorBlendFactor = 1
+
+        buttonContainer.addChild(buttonHour12)
         buttonContainer.addChild(buttonHour24)
+        /*---*/
+        
+        /*Toggle digital time*/
+        buttonToggleDigital.name = "buttonToggleDigital"
+        buttonToggleDigital.zPosition = 10
+        buttonToggleDigital.size = CGSize(
+            width: buttonToggleDigital.size.width * CGFloat(scalar) ,
+            height: buttonToggleDigital.size.height * CGFloat(scalar)
+        )
+        buttonToggleDigital.position = CGPoint(x: dtm.center.x, y: frameSize.height/frameDivider * (frameDivider-7))
+        
+        buttonContainer.addChild(buttonToggleDigital)
+        /*---*/
         
         scene.addChild(buttonContainer)
         
@@ -61,11 +76,26 @@ class ButtonManager {
     
     func buttonPressed (name: String) {
         
+        touchedButtonName = name
+        
+    }
+    
+    func buttonReleased (name: String) {
+
+        switch (name != touchedButtonName) {
+        case(true): break
+        case(false): print("")
+        }
+        
         if (name == "buttonHour12" || name == "buttonHour24") {
             toggleTwentyFourHour()
             print("toggleTwentyFourHour")
         }
         
+        if (name == "buttonToggleDigital") {
+            toggleDigitalTime()
+        }
+    
     }
     
     func randomTime() {
@@ -97,6 +127,11 @@ class ButtonManager {
     
     func toggleDigitalTime() {
     
+        if (dtm.enabled) {
+            buttonToggleDigital.texture = SKTexture(imageNamed: "imageButtonNoDigitalDisabled")
+        } else {
+            buttonToggleDigital.texture = SKTexture(imageNamed: "imageButtonNoDigitalEnabled")
+        }
         dtm.toggleVisibility()
     }
     

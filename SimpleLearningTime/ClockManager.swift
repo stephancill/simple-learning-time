@@ -26,7 +26,6 @@ class ClockManager {
     var center: CGPoint = CGPoint(x: 0, y: 0)
     var distanceFromSceneCenter = CGPoint(x: 0,y: 0)
     
-    var hourMod: CGFloat = 24
     var twelveHour: Bool = false
     
     // User interaction
@@ -128,11 +127,9 @@ class ClockManager {
     func touchesEnded() {
         
         /* Snapping and time setting */
-        if (interactivityEnabled) {
             
-            cm.snap()
-            dtm.set(cm.time)
-        }
+        cm.snap()
+        dtm.set(cm.time)
         
         /* Reset */
         currentNode = SKNode()
@@ -147,11 +144,11 @@ class ClockManager {
     /*Utility functions*/
     
     func snap () {
-
-        var hours = (spriteClockHour.zRotation / CGFloat(math.clockHourIntervalConst)) % hourMod
+        print("snap")
+        var hours = (spriteClockHour.zRotation / CGFloat(math.clockHourIntervalConst)) % 24
         var mins = (spriteClockMinute.zRotation / CGFloat(math.clockMinuteIntervalConst)) % 60
         
-        if (hours < 0){ hours = hourMod + hours}
+        if (hours < 0){ hours = 24 + hours}
         if (mins < 0){ mins = 60 + mins}
         
         mins = round(mins)
@@ -159,7 +156,7 @@ class ClockManager {
         
         // Hour position = (hour interval * current hour) + (hour interval/60 * minutes)
         spriteClockHour.zRotation = CGFloat(math.clockHourIntervalConst) * floor(hours) + ((CGFloat(math.clockHourIntervalConst / 60) * mins))
-        
+
         // Minute position = minute interval * minutes
         spriteClockMinute.zRotation = CGFloat(math.clockMinuteIntervalConst) * round(mins)
         
@@ -172,12 +169,12 @@ class ClockManager {
     
     func calculateTime (raw: Bool=false) -> (CGFloat, CGFloat) {
         
-        var hours = (spriteClockHour.zRotation / CGFloat(math.clockHourIntervalConst)) % hourMod
+        var hours = (spriteClockHour.zRotation / CGFloat(math.clockHourIntervalConst)) % 24
         var mins = (spriteClockMinute.zRotation / CGFloat(math.clockMinuteIntervalConst)) % 60
         
         if (hours - floor(hours) > 0.99999 && hours - floor(hours) < 1) {hours += 1}
         
-        if (hours < 0){ hours = hourMod + hours}
+        if (hours < 0){ hours = 24 + hours}
         if (mins < 0){ mins = 60 + mins}
 
         if (!raw) {

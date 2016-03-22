@@ -58,7 +58,11 @@ class GameScene: SKScene {
         let node = getTopNode(touches)
         let nodeName = node.name!
         // Element belongs to clock
-        cm.touchesEnded()
+        
+        if (cm.interactivityEnabled) {
+            cm.touchesEnded()
+        }
+        
         btnm.buttonReleased(nodeName)
 
     }

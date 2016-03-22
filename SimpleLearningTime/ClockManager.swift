@@ -8,7 +8,6 @@
 
 import SpriteKit
 
-var interactiveClockElements: [String] = ["hour", "minute"]
 class ClockManager {
     
     var spriteClockPlaceholder = SKSpriteNode()
@@ -18,7 +17,7 @@ class ClockManager {
     var spriteClockCenter = SKSpriteNode(imageNamed: "imageClockCenter")
     
     var clockElements: [SKSpriteNode]
-    
+    var interactiveElements: [String] = ["hour", "minute"]
     
     var hourNodeID: String = "hour"
     var minuteNodeID: String = "minute"
@@ -40,6 +39,10 @@ class ClockManager {
     
     
     init (){
+        
+        for name in interactiveElements {
+            allInteractiveElements.append(name)
+        }
         
         //Render order
         clockElements = [
@@ -65,7 +68,6 @@ class ClockManager {
         var layer = 0
         for element in clockElements {
             
-//            element.name = String(layer)
             element.position = center
             element.size = CGSize(width: element.size.width * CGFloat(scalar), height: element.size.height * CGFloat(scalar))
             element.zPosition = CGFloat(layer)
@@ -110,33 +112,19 @@ class ClockManager {
         startMovement = true
     }
     
-    func touchesBegan (touches: Set<UITouch>, scene: SKScene) {
-        
-        let touch = touches.first
-        let touchLocation = touch!.locationInView(scene.view)
-        var node: SKNode = SKNode()
-        let nodes = scene.nodesAtPoint(touchLocation)
-        //  Set the node to the first interactive node
-        for n in nodes {
-            if (interactiveClockElements.contains(n.name!)) {
-                node = n
-                break
-            }
-        }
-        print(node.name)
-        if (node.name != nil && interactiveClockElements.contains(node.name!)){
-            
+    func touchesStarted (node: SKNode, touchLocation: CGPoint) {
+ 
             cm.calculateTime(true)
             
             currentNode = node
             currentNodeID = node.name!
             interactivityEnabled = true
             initialTouch = touchLocation
-        }
+
         
     }
     
-    func touchesEnded(touches: Set<UITouch>) {
+    func touchesEnded() {
         
         /* Snapping and time setting */
         if (interactivityEnabled) {

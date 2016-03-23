@@ -220,7 +220,7 @@
 				TargetAttributes = {
 					D4D347A01C6C77D900518E76 = {
 						CreatedOnToolsVersion = 7.2.1;
-						DevelopmentTeam = 6JKMV57Y77;
+						DevelopmentTeam = RX8VB86N8V;
 					};
 					D4D347B81C6C77DA00518E76 = {
 						CreatedOnToolsVersion = 7.2.1;
@@ -490,6 +490,7 @@
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				INFOPLIST_FILE = SimpleLearningTime/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 8.3;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = org.scilliers.SimpleLearningTime;
 				PRODUCT_NAME = "$(TARGET_NAME)";
@@ -505,6 +506,7 @@
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				INFOPLIST_FILE = SimpleLearningTime/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 8.3;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = org.scilliers.SimpleLearningTime;
 				PRODUCT_NAME = "$(TARGET_NAME)";

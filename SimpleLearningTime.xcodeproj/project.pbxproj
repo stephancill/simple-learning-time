@@ -492,7 +492,7 @@
 				INFOPLIST_FILE = SimpleLearningTime/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 8.3;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
-				PRODUCT_BUNDLE_IDENTIFIER = org.scilliers.SimpleLearningTime;
+				PRODUCT_BUNDLE_IDENTIFIER = SimpleLearningTime;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE = "";
 				TARGETED_DEVICE_FAMILY = 2;
@@ -508,7 +508,7 @@
 				INFOPLIST_FILE = SimpleLearningTime/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 8.3;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
-				PRODUCT_BUNDLE_IDENTIFIER = org.scilliers.SimpleLearningTime;
+				PRODUCT_BUNDLE_IDENTIFIER = SimpleLearningTime;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE = "";
 				TARGETED_DEVICE_FAMILY = 2;

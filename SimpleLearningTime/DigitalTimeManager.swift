@@ -30,7 +30,7 @@ class DigitalTimeManager {
     func initElements (frameSize: CGSize, scalar:Float, scene:SKScene, time:(CGFloat, CGFloat), frameDivider: CGFloat=35) {
         
         digitSpacing += ((spritesheetfull.texture?.size().width)!/CGFloat(10))
-        center = CGPoint(x: frameSize.width / frameDivider * 4, y: frameSize.height / frameDivider * 2)
+        center = CGPoint(x: frameSize.width / frameDivider * 4, y: frameSize.height / frameDivider * 3.5)
         xpos = center.x - CGFloat(4 * Double(digitSpacing) * Double(scalar))
         
         self.scalar = scalar
@@ -64,7 +64,7 @@ class DigitalTimeManager {
             indexCount++
         }
         spriteAMPM.size = CGSize(width: spriteAMPM.size.width * CGFloat(scalar) * 0.5, height: spriteAMPM.size.height * CGFloat(scalar) * 0.5)
-        spriteAMPM.position = CGPoint(x: center.x, y: center.y)
+        spriteAMPM.position = CGPoint(x: center.x, y: center.y * 1.5)
         scene.addChild(displayTimeContainer)
     }
     

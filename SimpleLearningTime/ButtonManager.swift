@@ -90,8 +90,8 @@ class ButtonManager {
             "buttonToggleDigital",
             node: buttonToggleDigital,
             position: CGPoint(
-                x: frameSize.width/frameDivider*7.5,
-                y: frameSize.height/frameDivider*5.05) ,
+                x: frameSize.width/frameDivider*0.7,
+                y: dtm.center.y*2.35),
             frameSize: frameSize,
             scalar: scalar*0.4,
             frameDivider: frameDivider)

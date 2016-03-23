@@ -21,7 +21,7 @@ class BackgroundManager {
         let mid = CGPoint(x: frameSize.width * 0.5, y: frameSize.height * 0.5)
         
         spriteUtilitiesBackground.name = "spriteUtilitiesBackground"
-        spriteUtilitiesBackground = SKSpriteNode(color: UIColor(white: 1, alpha: 0.2), size: CGSize(width: frameSize.width/frameDivider*4*4, height: frameSize.height*2))
+        spriteUtilitiesBackground = SKSpriteNode(color: UIColor(white: 1, alpha: 0.3), size: CGSize(width: frameSize.width/frameDivider*4*4, height: frameSize.height*2))
         spriteUtilitiesBackground.zPosition = -1
         scene.addChild(spriteUtilitiesBackground)
         

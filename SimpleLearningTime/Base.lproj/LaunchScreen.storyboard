@@ -14,7 +14,7 @@
                         <viewControllerLayoutGuide type="bottom" id="xb3-aO-Qok"/>
                     </layoutGuides>
                     <view key="view" userInteractionEnabled="NO" contentMode="scaleToFill" id="Ze5-6b-2t3">
-                        <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
+                        <rect key="frame" x="0.0" y="0.0" width="768" height="1024"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <imageView userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="imageLaunchScreenCredits" translatesAutoresizingMaskIntoConstraints="NO" id="ZQV-ps-hmL">
@@ -45,9 +45,9 @@
                                 <exclude reference="ZQV-ps-hmL"/>
                             </mask>
                             <mask key="constraints">
+                                <exclude reference="sLH-tK-EC7"/>
                                 <exclude reference="kv3-0G-IEO"/>
                                 <exclude reference="lWj-0f-4st"/>
-                                <exclude reference="sLH-tK-EC7"/>
                             </mask>
                         </variation>
                         <variation key="widthClass=regular">
@@ -55,9 +55,9 @@
                                 <include reference="ZQV-ps-hmL"/>
                             </mask>
                             <mask key="constraints">
+                                <include reference="sLH-tK-EC7"/>
                                 <include reference="kv3-0G-IEO"/>
                                 <include reference="lWj-0f-4st"/>
-                                <include reference="sLH-tK-EC7"/>
                             </mask>
                         </variation>
                     </view>

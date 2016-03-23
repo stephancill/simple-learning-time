@@ -16,11 +16,59 @@
                     <view key="view" userInteractionEnabled="NO" contentMode="scaleToFill" id="Ze5-6b-2t3">
                         <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <imageView userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="imageLaunchScreenCredits" translatesAutoresizingMaskIntoConstraints="NO" id="ZQV-ps-hmL">
+                                <rect key="frame" x="0.0" y="0.0" width="240" height="128"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" constant="702" id="Qty-lD-aif"/>
+                                </constraints>
+                                <variation key="default">
+                                    <mask key="constraints">
+                                        <exclude reference="Qty-lD-aif"/>
+                                    </mask>
+                                </variation>
+                                <variation key="widthClass=regular">
+                                    <mask key="constraints">
+                                        <include reference="Qty-lD-aif"/>
+                                    </mask>
+                                </variation>
+                            </imageView>
+                        </subviews>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                        <constraints>
+                            <constraint firstItem="ZQV-ps-hmL" firstAttribute="top" secondItem="Llm-lL-Icb" secondAttribute="bottom" constant="95" id="kv3-0G-IEO"/>
+                            <constraint firstItem="ZQV-ps-hmL" firstAttribute="centerX" secondItem="Ze5-6b-2t3" secondAttribute="centerX" id="lWj-0f-4st"/>
+                            <constraint firstItem="xb3-aO-Qok" firstAttribute="top" secondItem="ZQV-ps-hmL" secondAttribute="bottom" constant="167" id="sLH-tK-EC7"/>
+                        </constraints>
+                        <variation key="default">
+                            <mask key="subviews">
+                                <exclude reference="ZQV-ps-hmL"/>
+                            </mask>
+                            <mask key="constraints">
+                                <exclude reference="kv3-0G-IEO"/>
+                                <exclude reference="lWj-0f-4st"/>
+                                <exclude reference="sLH-tK-EC7"/>
+                            </mask>
+                        </variation>
+                        <variation key="widthClass=regular">
+                            <mask key="subviews">
+                                <include reference="ZQV-ps-hmL"/>
+                            </mask>
+                            <mask key="constraints">
+                                <include reference="kv3-0G-IEO"/>
+                                <include reference="lWj-0f-4st"/>
+                                <include reference="sLH-tK-EC7"/>
+                            </mask>
+                        </variation>
                     </view>
+                    <simulatedScreenMetrics key="simulatedDestinationMetrics" type="iPad"/>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="iYj-Kq-Ea1" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="61.5" y="415.5"/>
+            <point key="canvasLocation" x="95.25" y="421"/>
         </scene>
     </scenes>
+    <resources>
+        <image name="imageLaunchScreenCredits" width="1024" height="1024"/>
+    </resources>
 </document>

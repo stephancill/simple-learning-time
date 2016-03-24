@@ -10,7 +10,7 @@ import SpriteKit
 
 class ButtonManager {
     
-    var button1224HourToggle: SKSpriteNode = SKSpriteNode(texture: SKTexture(rect: CGRect(x: 0.0, y: 0.8571428571, width: 0.166, height: 0.1428571429), inTexture: SKTexture(imageNamed: "buttonAnimation1224HourToggle")))
+    var button1224HourToggle: SKSpriteNode = SKSpriteNode(texture: SKTexture(rect: CGRect(x: 0.0, y: 0.833, width: 0.166, height: 0.166), inTexture: SKTexture(imageNamed: "buttonAnimation1224HourToggle")))
     var buttonToggleDigital: SKSpriteNode = SKSpriteNode(imageNamed: "imageButtonNoDigitalEnabled")
     var buttonCurrentDeviceTime: SKSpriteNode = SKSpriteNode(imageNamed: "imageButtonCurrentTime")
     var buttonRandomTime: SKSpriteNode = SKSpriteNode(imageNamed: "imageButtonRandomAnalogue")
@@ -93,11 +93,12 @@ class ButtonManager {
 
         switch (name != touchedButtonName) {
         case(true): break
-        case(false): print("")
+        case(false): ()
         }
         
-        if (name == "buttonAnimation1224HourToggle") {
+        if (name == "button1224HourToggle") {
             toggleTwentyFourHour()
+            print("button1224HourToggle")
         }
         
         if (name == "buttonToggleDigital") {
@@ -132,7 +133,12 @@ class ButtonManager {
     func toggleTwentyFourHour() {
         
         cm.twelveHour = !cm.twelveHour
-        //animate opposite(-/+)
+        animate(
+            button1224HourToggle,
+            spritesheet: SKTexture(imageNamed: "buttonAnimation1224HourToggle"),
+            frames: 36, fps: 16,
+            size: CGSize(width: 0.166, height: 0.166),
+            divisions: 6, framesPR: 6)
         
         cm.set(cm.calculateTime())
         dtm.set(cm.time)
@@ -148,14 +154,20 @@ class ButtonManager {
         dtm.toggleVisibility()
     }
     
-    func animate (sprite: SKSpriteNode, spritesheet: SKTexture, frames: Int, fps: Int, size: CGSize, divisions: Int=0, framesPR: Int=0) {
+    func animate (sprite: SKSpriteNode, spritesheet: SKTexture, frames: Int, fps: Int, size: CGSize, divisions: Double=0, framesPR: Int=0) {
     
         for frameN in 0..<frames {
-            var texture: SKTexture = SKTexture(
+            print(frameN)
+            var x = CGFloat((frameN%framesPR)/framesPR)
+            var y = CGFloat(floor(Double(frameN)/Double(framesPR))/divisions)
+            let texture: SKTexture = SKTexture(
                 rect: CGRect(
-                    x: CGFloat(frameN * 1 / frames), y: CGFloat(frameN % divisions),
+                    x: x,
+                    y: y,
                     width: 1/size.width, height: 1/size.height),
                 inTexture: spritesheet)
+            print("x:\(x), y: \(y)")
+            sprite.texture = texture
             
         }
         

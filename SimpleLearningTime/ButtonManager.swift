@@ -138,7 +138,9 @@ class ButtonManager {
             spritesheet: SKTexture(imageNamed: "buttonAnimation1224HourToggle"),
             frames: 36, fps: 16,
             size: CGSize(width: 0.166, height: 0.166),
-            divisions: 6, framesPR: 6)
+            divisions: 6, framesPR: 6,
+            reverse: !cm.twelveHour)
+
         
         cm.set(cm.calculateTime())
         dtm.set(cm.time)
@@ -154,22 +156,27 @@ class ButtonManager {
         dtm.toggleVisibility()
     }
     
-    func animate (sprite: SKSpriteNode, spritesheet: SKTexture, frames: Int, fps: Int, size: CGSize, divisions: Double=0, framesPR: Int=0) {
-    
+    func animate (sprite: SKSpriteNode, spritesheet: SKTexture, frames: Int, fps: Int, size: CGSize, divisions: Double=0, framesPR: Int=0, reverse: Bool=false) {
+        var textures: [SKTexture] = []
         for frameN in 0..<frames {
+            
             print(frameN)
-            var x = CGFloat((frameN%framesPR)/framesPR)
-            var y = CGFloat(floor(Double(frameN)/Double(framesPR))/divisions)
+            let x = CGFloat(Double(frameN%framesPR)/Double(framesPR))
+            let y = CGFloat(0.833333-floor(Double(frameN)/Double(framesPR))/divisions)
             let texture: SKTexture = SKTexture(
                 rect: CGRect(
                     x: x,
                     y: y,
-                    width: 1/size.width, height: 1/size.height),
+                    width: size.width, height: size.height),
                 inTexture: spritesheet)
             print("x:\(x), y: \(y)")
-            sprite.texture = texture
+            textures.append(texture)
             
         }
+        
+        if (reverse) { textures = textures.reverse() }
+        
+        sprite.runAction(SKAction.animateWithTextures(textures, timePerFrame: 0.01))
         
     }
     

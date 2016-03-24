@@ -10,15 +10,13 @@ import SpriteKit
 
 class ButtonManager {
     
-    var buttonHour12: SKSpriteNode = SKSpriteNode(imageNamed: "imageButton12hDisabled")
-    var buttonHour24: SKSpriteNode = SKSpriteNode(imageNamed: "imageButton24hEnabled")
+    var button1224HourToggle: SKSpriteNode = SKSpriteNode(texture: SKTexture(rect: CGRect(x: 0.0, y: 0.833, width: 0.166, height: 0.166), inTexture: SKTexture(imageNamed: "buttonAnimation1224HourToggle")))
     var buttonToggleDigital: SKSpriteNode = SKSpriteNode(imageNamed: "imageButtonNoDigitalEnabled")
     var buttonCurrentDeviceTime: SKSpriteNode = SKSpriteNode(imageNamed: "imageButtonCurrentTime")
     var buttonRandomTime: SKSpriteNode = SKSpriteNode(imageNamed: "imageButtonRandomAnalogue")
     
     var interactiveElements: [String] = [
-        "buttonHour12",
-        "buttonHour24",
+        "button1224HourToggle",
         "buttonToggleDigital",
         "buttonCurrentDeviceTime",
         "buttonRandomTime"]
@@ -37,31 +35,18 @@ class ButtonManager {
         
         self.scene = scene
         
-        /*Toggle 12/24 hour*/
+        //Toggle 12/24 hour
         defaultButtonSetup(
-            "buttonHour12",
-            node: buttonHour12,
+            "button1224HourToggle",
+            node: button1224HourToggle,
             position: CGPoint(
-                x: frameSize.width/frameDivider + (buttonHour12.size.width*CGFloat(scalar)/2),
+                x: frameSize.width/frameDivider*4,
                 y: frameSize.height/frameDivider * (frameDivider-3)),
             frameSize: frameSize,
-            scalar: scalar,
+            scalar: scalar*2,
             frameDivider: frameDivider)
         
-        defaultButtonSetup(
-            "buttonHour24",
-            node: buttonHour24,
-            position: CGPoint(
-                x: frameSize.width/frameDivider*5+(buttonHour24.size.width*CGFloat(scalar)/2),
-                y: frameSize.height/frameDivider * (frameDivider-3)),
-            frameSize: frameSize,
-            scalar: scalar,
-            frameDivider: frameDivider)
-        
-        /*---*/
-        
-        
-        /*Random time*/
+        //Random time
         defaultButtonSetup(
             "buttonRandomTime",
             node: buttonRandomTime,
@@ -71,9 +56,8 @@ class ButtonManager {
             frameSize: frameSize,
             scalar: scalar,
             frameDivider: frameDivider)
-        /*---*/
        
-        /*Current device time*/
+        //Current device time
         defaultButtonSetup(
             "buttonCurrentDeviceTime",
             node: buttonCurrentDeviceTime,
@@ -83,9 +67,8 @@ class ButtonManager {
             frameSize: frameSize,
             scalar: scalar,
             frameDivider: frameDivider)
-        /*---*/
         
-        /*Toggle digital time*/
+        //Toggle digital time
         defaultButtonSetup(
             "buttonToggleDigital",
             node: buttonToggleDigital,
@@ -95,7 +78,6 @@ class ButtonManager {
             frameSize: frameSize,
             scalar: scalar*0.4,
             frameDivider: frameDivider)
-        /*---*/
         
         scene.addChild(buttonContainer)
         
@@ -104,7 +86,6 @@ class ButtonManager {
     func buttonPressed (name: String) {
         
         touchedButtonName = name
-        print(touchedButtonName)
         
     }
     
@@ -112,12 +93,12 @@ class ButtonManager {
 
         switch (name != touchedButtonName) {
         case(true): break
-        case(false): print("")
+        case(false): ()
         }
         
-        if (name == "buttonHour12" || name == "buttonHour24") {
+        if (name == "button1224HourToggle") {
             toggleTwentyFourHour()
-            print("toggleTwentyFourHour")
+            print("button1224HourToggle")
         }
         
         if (name == "buttonToggleDigital") {
@@ -151,17 +132,15 @@ class ButtonManager {
     
     func toggleTwentyFourHour() {
         
-        if (!cm.twelveHour) {
-            print("hi2")
-            cm.twelveHour = true
-            
-            buttonHour12.texture = SKTexture(imageNamed: "imageButton12hEnabled")
-            buttonHour24.texture = SKTexture(imageNamed: "imageButton24hDisabled")
-        } else if (cm.twelveHour) {
-            cm.twelveHour = false
-            buttonHour12.texture = SKTexture(imageNamed: "imageButton12hDisabled")
-            buttonHour24.texture = SKTexture(imageNamed: "imageButton24hEnabled")
-        }
+        cm.twelveHour = !cm.twelveHour
+        animate(
+            button1224HourToggle,
+            spritesheet: SKTexture(imageNamed: "buttonAnimation1224HourToggle"),
+            frames: 36, fps: 16,
+            size: CGSize(width: 0.166, height: 0.166),
+            divisions: 6, framesPR: 6,
+            reverse: !cm.twelveHour)
+
         
         cm.set(cm.calculateTime())
         dtm.set(cm.time)
@@ -175,6 +154,30 @@ class ButtonManager {
             buttonToggleDigital.texture = SKTexture(imageNamed: "imageButtonNoDigitalEnabled")
         }
         dtm.toggleVisibility()
+    }
+    
+    func animate (sprite: SKSpriteNode, spritesheet: SKTexture, frames: Int, fps: Int, size: CGSize, divisions: Double=0, framesPR: Int=0, reverse: Bool=false) {
+        var textures: [SKTexture] = []
+        for frameN in 0..<frames {
+            
+            let ydiv = 1-(1/divisions)
+            let x = CGFloat(Double(frameN%framesPR)/Double(framesPR))
+            let y = CGFloat(ydiv-floor(Double(frameN)/Double(framesPR))/divisions)
+            let texture: SKTexture = SKTexture(
+                rect: CGRect(
+                    x: x,
+                    y: y,
+                    width: size.width, height: size.height),
+                inTexture: spritesheet)
+            print("x:\(x), y: \(y)")
+            textures.append(texture)
+            
+        }
+        
+        if (reverse) { textures = textures.reverse() }
+        
+        sprite.runAction(SKAction.animateWithTextures(textures, timePerFrame: 0.01))
+        
     }
     
     func defaultButtonSetup(name: String, node: SKSpriteNode, position: CGPoint, frameSize: CGSize, scalar: Double=1,

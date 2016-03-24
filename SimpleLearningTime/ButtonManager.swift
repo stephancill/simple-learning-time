@@ -160,9 +160,9 @@ class ButtonManager {
         var textures: [SKTexture] = []
         for frameN in 0..<frames {
             
-            print(frameN)
+            let ydiv = 1-(1/divisions)
             let x = CGFloat(Double(frameN%framesPR)/Double(framesPR))
-            let y = CGFloat(0.833333-floor(Double(frameN)/Double(framesPR))/divisions)
+            let y = CGFloat(ydiv-floor(Double(frameN)/Double(framesPR))/divisions)
             let texture: SKTexture = SKTexture(
                 rect: CGRect(
                     x: x,

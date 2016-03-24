@@ -35,25 +35,7 @@ class ButtonManager {
         
         self.scene = scene
         
-        /*Toggle 12/24 hour*/
-//        defaultButtonSetup(
-//            "button1224HourToggle",
-//            node: button1224HourToggle,
-//            position: CGPoint(
-//                x: frameSize.width/frameDivider + (button1224HourToggle.size.width*CGFloat(scalar)/2),
-//                y: frameSize.height/frameDivider * (frameDivider-3)),
-//            frameSize: frameSize,
-//            scalar: scalar,
-//            frameDivider: frameDivider)
-        
-//        button1224HourToggle.name = "button1224HourToggle"
-//        button1224HourToggle.zPosition = 10
-//        button1224HourToggle.size = CGSize(
-//            width: 450,
-//            height: 150
-//        )
-//        button1224HourToggle.position = CGPoint(x: 100, y: 100)
-//        buttonContainer.addChild(button1224HourToggle)
+        //Toggle 12/24 hour
         defaultButtonSetup(
             "button1224HourToggle",
             node: button1224HourToggle,
@@ -64,20 +46,7 @@ class ButtonManager {
             scalar: scalar*2,
             frameDivider: frameDivider)
         
-//        defaultButtonSetup(
-//            "buttonHour24",
-//            node: button1224HourToggle,
-//            position: CGPoint(
-//                x: frameSize.width/frameDivider*5+(button1224HourToggle.size.width*CGFloat(scalar)/2),
-//                y: frameSize.height/frameDivider * (frameDivider-3)),
-//            frameSize: frameSize,
-//            scalar: scalar,
-//            frameDivider: frameDivider)
-        
-        /*---*/
-        
-        
-        /*Random time*/
+        //Random time
         defaultButtonSetup(
             "buttonRandomTime",
             node: buttonRandomTime,
@@ -87,9 +56,8 @@ class ButtonManager {
             frameSize: frameSize,
             scalar: scalar,
             frameDivider: frameDivider)
-        /*---*/
        
-        /*Current device time*/
+        //Current device time
         defaultButtonSetup(
             "buttonCurrentDeviceTime",
             node: buttonCurrentDeviceTime,
@@ -99,9 +67,8 @@ class ButtonManager {
             frameSize: frameSize,
             scalar: scalar,
             frameDivider: frameDivider)
-        /*---*/
         
-        /*Toggle digital time*/
+        //Toggle digital time
         defaultButtonSetup(
             "buttonToggleDigital",
             node: buttonToggleDigital,
@@ -111,7 +78,6 @@ class ButtonManager {
             frameSize: frameSize,
             scalar: scalar*0.4,
             frameDivider: frameDivider)
-        /*---*/
         
         scene.addChild(buttonContainer)
         
@@ -165,16 +131,8 @@ class ButtonManager {
     
     func toggleTwentyFourHour() {
         
-        if (!cm.twelveHour) {
-            cm.twelveHour = true
-            
-            button1224HourToggle.texture = SKTexture(imageNamed: "imageButton12hEnabled")
-            button1224HourToggle.texture = SKTexture(imageNamed: "imageButton24hDisabled")
-        } else if (cm.twelveHour) {
-            cm.twelveHour = false
-            button1224HourToggle.texture = SKTexture(imageNamed: "imageButton12hDisabled")
-            button1224HourToggle.texture = SKTexture(imageNamed: "imageButton24hEnabled")
-        }
+        cm.twelveHour = !cm.twelveHour
+        //animate opposite(-/+)
         
         cm.set(cm.calculateTime())
         dtm.set(cm.time)
@@ -192,17 +150,14 @@ class ButtonManager {
     
     func animate (sprite: SKSpriteNode, spritesheet: SKTexture, frames: Int, fps: Int, size: CGSize, divisions: Int=0, framesPR: Int=0) {
     
-//        var index = 0
-//        for frameN in 0..<frames {
-//        
-//            var texture: SKTexture = SKTexture(
-//                rect: CGRect(
-//                    x: 0, y: 0,
-//                    width: size.width, height: size.height),
-//                inTexture: <#T##SKTexture#>)
-//            
-//            
-//        }
+        for frameN in 0..<frames {
+            var texture: SKTexture = SKTexture(
+                rect: CGRect(
+                    x: CGFloat(frameN * 1 / frames), y: CGFloat(frameN % divisions),
+                    width: 1/size.width, height: 1/size.height),
+                inTexture: spritesheet)
+            
+        }
         
     }
     

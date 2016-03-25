@@ -75,7 +75,7 @@ class DigitalTimeManager {
         
         if (cm.twelveHour) {
             itertime = stringsToList(String((time.0%12)/100), m: String(time.1/100))
-            if (time.0 > 12) {
+            if (time.0 >= 12) {
                 spriteAMPM.texture = SKTexture(imageNamed: "imageDigitalSuffixPM")
             } else {
                 spriteAMPM.texture = SKTexture(imageNamed: "imageDigitalSuffixAM")

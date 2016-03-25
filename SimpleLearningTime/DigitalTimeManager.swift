@@ -37,7 +37,7 @@ class DigitalTimeManager {
         self.scene = scene
         
         let itertime = stringsToList(String(time.0/100), m: String(time.1/100))
-        print("Initialising dtm")
+        print("dtm initialized ")
         
         displayTimeContainer.position = CGPoint(x: xpos + digitSpacing * 2 * CGFloat(scalar), y: center.y)
         

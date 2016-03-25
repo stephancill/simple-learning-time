@@ -144,7 +144,7 @@ class ClockManager {
     /*Utility functions*/
     
     func snap () {
-        print("snap")
+        
         var hours = (spriteClockHour.zRotation / CGFloat(math.clockHourIntervalConst)) % 24
         var mins = (spriteClockMinute.zRotation / CGFloat(math.clockMinuteIntervalConst)) % 60
         

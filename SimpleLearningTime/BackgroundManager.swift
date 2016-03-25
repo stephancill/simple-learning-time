@@ -44,6 +44,8 @@ class BackgroundManager {
         spriteBackgroundColor.position = mid
         scene.addChild(spriteBackgroundColor)
         
+        print("bgm initialized")
+        
     }
     
     func set (time: (CGFloat, CGFloat)) {

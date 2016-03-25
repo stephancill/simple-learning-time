@@ -10,10 +10,10 @@ import SpriteKit
 
 class ButtonManager {
     
-    var button1224HourToggle: SKSpriteNode = SKSpriteNode(texture: SKTexture(rect: CGRect(x: 0.0, y: 0.833, width: 0.166, height: 0.166), inTexture: SKTexture(imageNamed: "buttonAnimation1224HourToggle")))
+    var button1224HourToggle: SKSpriteNode = SKSpriteNode(texture: SKTexture(rect: CGRect(x: 0.0, y: 0.833, width: 0.166, height: 0.166), inTexture: SKTexture(imageNamed: "animation1224HourToggle")))
     var buttonToggleDigital: SKSpriteNode = SKSpriteNode(imageNamed: "imageButtonNoDigitalEnabled")
     var buttonCurrentDeviceTime: SKSpriteNode = SKSpriteNode(imageNamed: "imageButtonCurrentTime")
-    var buttonRandomTime: SKSpriteNode = SKSpriteNode(imageNamed: "imageButtonRandomAnalogue")
+    var buttonRandomTime: SKSpriteNode = SKSpriteNode(texture: SKTexture(rect: CGRect(x: 0.0, y: 0.0, width: 0.1, height: 1), inTexture: SKTexture(imageNamed: "animationRandomAnalogue")))
     
     var interactiveElements: [String] = [
         "button1224HourToggle",
@@ -54,7 +54,7 @@ class ButtonManager {
                 x: frameSize.width/frameDivider + (buttonRandomTime.size.width*CGFloat(scalar)/2),
                 y: frameSize.height/frameDivider * (frameDivider-8)),
             frameSize: frameSize,
-            scalar: scalar,
+            scalar: scalar*2,
             frameDivider: frameDivider)
        
         //Current device time
@@ -76,11 +76,12 @@ class ButtonManager {
                 x: frameSize.width/frameDivider*0.7,
                 y: dtm.center.y*2.35),
             frameSize: frameSize,
-            scalar: scalar*0.4,
+            scalar: scalar*0.9,
             frameDivider: frameDivider)
         
         scene.addChild(buttonContainer)
         
+        print("btnm initialized")
     }
     
     func buttonPressed (name: String) {
@@ -98,7 +99,6 @@ class ButtonManager {
         
         if (name == "button1224HourToggle") {
             toggleTwentyFourHour()
-            print("button1224HourToggle")
         }
         
         if (name == "buttonToggleDigital") {
@@ -116,7 +116,6 @@ class ButtonManager {
     }
     
     func currentTime() {
-        print("currenttime")
         cm.set(math.currentDeviceTime())
         dtm.set(cm.time)
     }
@@ -125,6 +124,9 @@ class ButtonManager {
     
         let hours = CGFloat(arc4random_uniform(24))
         let minutes = CGFloat(arc4random_uniform(13))
+        
+        animate(buttonRandomTime, spritesheet: SKTexture(imageNamed: "animationRandomAnalogue"), frames: 10, fps: 30, size: CGSize(width: 0.1, height: 1),
+            divisions: 1, framesPR: 10, reverse: false)
         
         cm.set(hours, minutes)
         dtm.set(cm.time)
@@ -135,8 +137,8 @@ class ButtonManager {
         cm.twelveHour = !cm.twelveHour
         animate(
             button1224HourToggle,
-            spritesheet: SKTexture(imageNamed: "buttonAnimation1224HourToggle"),
-            frames: 36, fps: 16,
+            spritesheet: SKTexture(imageNamed: "animation1224HourToggle"),
+            frames: 36, fps: 100,
             size: CGSize(width: 0.166, height: 0.166),
             divisions: 6, framesPR: 6,
             reverse: !cm.twelveHour)
@@ -156,7 +158,8 @@ class ButtonManager {
         dtm.toggleVisibility()
     }
     
-    func animate (sprite: SKSpriteNode, spritesheet: SKTexture, frames: Int, fps: Int, size: CGSize, divisions: Double=0, framesPR: Int=0, reverse: Bool=false) {
+    func animate (sprite: SKSpriteNode, spritesheet: SKTexture, frames: Int, fps: Int, size: CGSize, divisions: Double=1, framesPR: Int=1, reverse: Bool=false) {
+        
         var textures: [SKTexture] = []
         for frameN in 0..<frames {
             
@@ -169,14 +172,14 @@ class ButtonManager {
                     y: y,
                     width: size.width, height: size.height),
                 inTexture: spritesheet)
-            print("x:\(x), y: \(y)")
+//            print("x:\(x), y: \(y)")
             textures.append(texture)
             
         }
         
         if (reverse) { textures = textures.reverse() }
-        
-        sprite.runAction(SKAction.animateWithTextures(textures, timePerFrame: 0.01))
+
+        sprite.runAction(SKAction.animateWithTextures(textures, timePerFrame: Double(1)/Double(fps)))
         
     }
     

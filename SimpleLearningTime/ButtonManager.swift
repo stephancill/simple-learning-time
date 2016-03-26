@@ -120,7 +120,7 @@ class ButtonManager {
         animate(
             buttonCurrentDeviceTime,
             spritesheet: SKTexture(imageNamed: "animationCurrentTime"),
-            frames: 10, fps: 30,
+            frames: 10, fps: 60,
             size: CGSize(width: 0.1, height: 1),
             divisions: 1, framesPR: 10,
             reverse: false)
@@ -132,11 +132,12 @@ class ButtonManager {
     
         let hours = CGFloat(arc4random_uniform(24))
         let minutes = CGFloat(arc4random_uniform(13))
-        
+//        buttonRandomTime.runAction(SKAction.scaleBy(CGFloat(1.1), duration: 0.1))
+//        buttonRandomTime.runAction(SKAction.scaleBy(CGFloat(deltaSize), duration: 0.1))
         animate(
             buttonRandomTime,
             spritesheet: SKTexture(imageNamed: "animationRandomAnalogue"),
-            frames: 10, fps: 30,
+            frames: 10, fps: 60,
             size: CGSize(width: 0.1, height: 1),
             divisions: 1, framesPR: 10,
             reverse: false)

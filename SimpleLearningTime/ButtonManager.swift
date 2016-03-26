@@ -12,7 +12,7 @@ class ButtonManager {
     
     var button1224HourToggle: SKSpriteNode = SKSpriteNode(texture: SKTexture(rect: CGRect(x: 0.0, y: 0.833, width: 0.166, height: 0.166), inTexture: SKTexture(imageNamed: "animation1224HourToggle")))
     var buttonToggleDigital: SKSpriteNode = SKSpriteNode(imageNamed: "imageButtonNoDigitalEnabled")
-    var buttonCurrentDeviceTime: SKSpriteNode = SKSpriteNode(imageNamed: "imageButtonCurrentTime")
+    var buttonCurrentDeviceTime: SKSpriteNode = SKSpriteNode(texture: SKTexture(rect: CGRect(x: 0.0, y: 0.0, width: 0.1, height: 1), inTexture: SKTexture(imageNamed: "animationCurrentTime")))
     var buttonRandomTime: SKSpriteNode = SKSpriteNode(texture: SKTexture(rect: CGRect(x: 0.0, y: 0.0, width: 0.1, height: 1), inTexture: SKTexture(imageNamed: "animationRandomAnalogue")))
     
     var interactiveElements: [String] = [
@@ -62,10 +62,10 @@ class ButtonManager {
             "buttonCurrentDeviceTime",
             node: buttonCurrentDeviceTime,
             position: CGPoint(
-                x: frameSize.width/frameDivider*5+(buttonCurrentDeviceTime.size.width*CGFloat(scalar)/2),
+                x: frameSize.width/frameDivider*6 + (buttonCurrentDeviceTime.size.width*CGFloat(scalar)/2),
                 y: frameSize.height/frameDivider * (frameDivider-8)),
             frameSize: frameSize,
-            scalar: scalar,
+            scalar: scalar*2,
             frameDivider: frameDivider)
         
         //Toggle digital time
@@ -116,6 +116,14 @@ class ButtonManager {
     }
     
     func currentTime() {
+        
+        animate(
+            buttonCurrentDeviceTime,
+            spritesheet: SKTexture(imageNamed: "animationCurrentTime"),
+            frames: 10, fps: 30,
+            size: CGSize(width: 0.1, height: 1),
+            divisions: 1, framesPR: 10,
+            reverse: false)
         cm.set(math.currentDeviceTime())
         dtm.set(cm.time)
     }
@@ -125,8 +133,13 @@ class ButtonManager {
         let hours = CGFloat(arc4random_uniform(24))
         let minutes = CGFloat(arc4random_uniform(13))
         
-        animate(buttonRandomTime, spritesheet: SKTexture(imageNamed: "animationRandomAnalogue"), frames: 10, fps: 30, size: CGSize(width: 0.1, height: 1),
-            divisions: 1, framesPR: 10, reverse: false)
+        animate(
+            buttonRandomTime,
+            spritesheet: SKTexture(imageNamed: "animationRandomAnalogue"),
+            frames: 10, fps: 30,
+            size: CGSize(width: 0.1, height: 1),
+            divisions: 1, framesPR: 10,
+            reverse: false)
         
         cm.set(hours, minutes)
         dtm.set(cm.time)

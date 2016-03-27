@@ -74,8 +74,15 @@ class DigitalTimeManager {
         spriteAMPM.removeFromParent()
         
         if (cm.twelveHour) {
-            itertime = stringsToList(String((time.0%12)/100), m: String(time.1/100))
+//            itertime = stringsToList(String((time.0%12)/100), m: String(time.1/100))
+            
+            if (time.0 == 12) {
+                itertime = stringsToList(String((time.0)/100), m: String(time.1/100))
+            } else {
+                itertime = stringsToList(String((time.0%12)/100), m: String(time.1/100))}
+            
             if (time.0 >= 12) {
+                
                 spriteAMPM.texture = SKTexture(imageNamed: "imageDigitalSuffixPM")
             } else {
                 spriteAMPM.texture = SKTexture(imageNamed: "imageDigitalSuffixAM")

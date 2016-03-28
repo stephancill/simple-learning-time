@@ -69,11 +69,12 @@ class ButtonManager {
             frameDivider: frameDivider)
         
         //Toggle digital time
+        buttonToggleDigital.anchorPoint = CGPoint(x: 0, y: 0.5)
         defaultButtonSetup(
             "buttonToggleDigital",
             node: buttonToggleDigital,
             position: CGPoint(
-                x: frameSize.width/frameDivider*0.7,
+                x: 0,
                 y: dtm.center.y*2.35),
             frameSize: frameSize,
             scalar: scalar*0.9,
@@ -132,8 +133,7 @@ class ButtonManager {
     
         let hours = CGFloat(arc4random_uniform(24))
         let minutes = CGFloat(arc4random_uniform(13))
-//        buttonRandomTime.runAction(SKAction.scaleBy(CGFloat(1.1), duration: 0.1))
-//        buttonRandomTime.runAction(SKAction.scaleBy(CGFloat(deltaSize), duration: 0.1))
+
         animate(
             buttonRandomTime,
             spritesheet: SKTexture(imageNamed: "animationRandomAnalogue"),

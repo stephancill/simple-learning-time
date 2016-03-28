@@ -27,7 +27,7 @@ class GameScene: SKScene {
         
         cm.initElements(size, scalar: 0.55, scene: self, time: math.currentDeviceTime())
         bgm.initElements(size, scalar: 0.8, scene: self, center: cm.center)
-        dtm.initElements(size, scalar: 0.5, scene: self, time: cm.time)
+        dtm.initElements(size, scalar: 0.6, scene: self, time: cm.time)
         btnm.initElements(size, scalar: 0.25, scene: self)
         
     }

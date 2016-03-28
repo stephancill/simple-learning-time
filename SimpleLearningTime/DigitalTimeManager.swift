@@ -31,7 +31,7 @@ class DigitalTimeManager {
         
         digitSpacing += ((spritesheetfull.texture?.size().width)!/CGFloat(10))
         center = CGPoint(x: frameSize.width / frameDivider * 4, y: frameSize.height / frameDivider * 3.5)
-        xpos = center.x - CGFloat(4 * Double(digitSpacing) * Double(scalar))
+        xpos = center.x - CGFloat(3.7 * (Double(digitSpacing)) * Double(scalar))
         
         self.scalar = scalar
         self.scene = scene
@@ -74,19 +74,20 @@ class DigitalTimeManager {
         spriteAMPM.removeFromParent()
         
         if (cm.twelveHour) {
-//            itertime = stringsToList(String((time.0%12)/100), m: String(time.1/100))
             
-            if (time.0 == 12) {
-                itertime = stringsToList(String((time.0)/100), m: String(time.1/100))
+            // 24 and 00 become 12
+            if (time.0 % 12 == 0) {
+                itertime = stringsToList(String(12.00/100), m: String(time.1/100))
             } else {
                 itertime = stringsToList(String((time.0%12)/100), m: String(time.1/100))}
             
+            // am/pm
             if (time.0 >= 12) {
-                
                 spriteAMPM.texture = SKTexture(imageNamed: "imageDigitalSuffixPM")
             } else {
                 spriteAMPM.texture = SKTexture(imageNamed: "imageDigitalSuffixAM")
             }
+            
             if (enabled) { scene.addChild(spriteAMPM) }
         } else {
             itertime = stringsToList(String(time.0/100), m: String(time.1/100))

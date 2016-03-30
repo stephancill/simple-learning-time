@@ -61,7 +61,7 @@ class DigitalTimeManager {
             
             displayTime.append(digitSprite)
             displayTimeContainer.addChild(displayTime[indexCount])
-            indexCount++
+            indexCount += 1
         }
         spriteAMPM.size = CGSize(width: spriteAMPM.size.width * CGFloat(scalar) * 0.5, height: spriteAMPM.size.height * CGFloat(scalar) * 0.5)
         spriteAMPM.position = CGPoint(x: center.x, y: center.y * 1.5)
@@ -113,7 +113,7 @@ class DigitalTimeManager {
                 displayTimeContainer.addChild(displayTime[indexCount])
                 
             }
-            indexCount++
+            indexCount += 1
             
             
         }

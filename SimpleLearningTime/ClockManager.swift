@@ -74,7 +74,7 @@ class ClockManager {
             
             scene.addChild(element)
             
-            layer++
+            layer += 1
             
             
             

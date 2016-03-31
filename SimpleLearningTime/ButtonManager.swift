@@ -12,7 +12,7 @@ class ButtonManager {
     
     var button1224HourToggle: SKSpriteNode = SKSpriteNode(texture: SKTexture(rect: CGRect(x: 0.0, y: 0.833, width: 0.166, height: 0.166), inTexture: SKTexture(imageNamed: "animation1224HourToggle")))
     var buttonToggleDigital: SKSpriteNode = SKSpriteNode(imageNamed: "imageButtonNoDigitalEnabled")
-    var buttonCurrentDeviceTime: SKSpriteNode = SKSpriteNode(texture: SKTexture(rect: CGRect(x: 0.0, y: 0.0, width: 0.1, height: 1), inTexture: SKTexture(imageNamed: "animationCurrentTime")))
+    var buttonCurrentDeviceTime: SKSpriteNode = SKSpriteNode(texture: SKTexture(rect: CGRect(x: 0.0, y: 0.75, width: 0.1428571429, height: 0.25), inTexture: SKTexture(imageNamed: "animationCurrentTimeNew")))
 //    var buttonRandomTime: SKSpriteNode = SKSpriteNode(texture: SKTexture(rect: CGRect(x: 0.0, y: 0.0, width: 0.1, height: 1), inTexture: SKTexture(imageNamed: "animationRandomAnalogue")))
     var buttonRandomTime: SKSpriteNode = SKSpriteNode(texture: SKTexture(rect: CGRect(x: 0.0, y: 0.75, width: 0.1428571429, height: 0.25), inTexture: SKTexture(imageNamed: "animationRandomAnalogueNew")))
     
@@ -63,10 +63,10 @@ class ButtonManager {
             "buttonCurrentDeviceTime",
             node: buttonCurrentDeviceTime,
             position: CGPoint(
-                x: frameSize.width/frameDivider*6 + (buttonCurrentDeviceTime.size.width*CGFloat(scalar)/2),
+                x: frameSize.width/frameDivider*6.5,
                 y: frameSize.height/frameDivider * (frameDivider-8)),
             frameSize: frameSize,
-            scalar: scalar*2,
+            scalar: scalar,
             frameDivider: frameDivider)
         
         //Toggle digital time
@@ -121,11 +121,12 @@ class ButtonManager {
         
         animate(
             buttonCurrentDeviceTime,
-            spritesheet: SKTexture(imageNamed: "animationCurrentTime"),
-            frames: 10, fps: 60,
-            size: CGSize(width: 0.1, height: 1),
-            divisions: 1, framesPR: 10,
+            spritesheet: SKTexture(imageNamed: "animationCurrentTimeNew"),
+            frames: 27, fps: 35,
+            size: CGSize(width: 0.1428571429, height: 0.25),
+            divisions: 4, framesPR: 7,
             reverse: false)
+        
         cm.set(math.currentDeviceTime())
         dtm.set(cm.time)
     }

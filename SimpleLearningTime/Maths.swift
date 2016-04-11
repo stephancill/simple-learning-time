@@ -17,6 +17,7 @@ class mf {
     var clockHourIntervalConst = -0.523595          //-360/(180/math.pi)/12
     var pi = 3.1415926535
     
+    /*Clock-related angles*/
     var currentTouchAngle: Double = 0
     var lastTouchAngle: Double = 0
     var deltaTouchAngle: Double = 0
@@ -24,17 +25,16 @@ class mf {
     
     /*Functions*/
     func angleBetween(P1: CGPoint,  P2: CGPoint, P3: CGPoint) -> Double {
-        // P1 = pivot point (center of screen)
-        // P2 = left corner
-        // P3 = right corner
-        
+        /* 
+            P1 = pivot point (center of screen)
+            P2 = left corner
+            P3 = right corner
+        */
         return Double(atan2(P2.y - P1.y, P2.x - P1.x) - atan2(P3.y - P1.y, P3.x - P1.x))
 
     }
     
     func updateAngles (touchLocation: CGPoint, middle: CGPoint, first: CGPoint, positionModifier: CGFloat=0) {
-        
-//        var adjMiddle = CGPoint(middle.x-positionModifier, middle.y = )
         
         currentTouchAngle = angleBetween(middle, P2: touchLocation , P3: first)
         deltaTouchAngle = currentTouchAngle-lastTouchAngle

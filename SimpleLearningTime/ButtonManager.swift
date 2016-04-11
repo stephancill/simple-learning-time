@@ -32,30 +32,31 @@ class ButtonManager {
         }
     }
     
-    func initElements (frameSize: CGSize, scalar: Double, scene: SKScene, frameDivider: CGFloat=35) {
-        
+    func initElements (frameSize: CGSize, scalar: Double, scene: SKScene, frameDivider: CGFloat=100) {
+        print(frameSize)
         self.scene = scene
-        
+
         //Toggle 12/24 hour
         defaultButtonSetup(
             "button1224HourToggle",
             node: button1224HourToggle,
             position: CGPoint(
-                x: frameSize.width/frameDivider*4,
-                y: frameSize.height/frameDivider * (frameDivider-3)),
+                x: frameSize.width/frameDivider*11,
+                y: frameSize.height/frameDivider * 80),
             frameSize: frameSize,
             scalar: scalar*2,
             frameDivider: frameDivider)
+        print(button1224HourToggle.position)
         
         //Random time
         defaultButtonSetup(
             "buttonRandomTime",
             node: buttonRandomTime,
             position: CGPoint(
-                x: frameSize.width/frameDivider * 1.5, // + (buttonRandomTime.size.width*CGFloat(scalar)/2)
-                y: frameSize.height/frameDivider * (frameDivider-8)),
+                x: frameSize.width/frameDivider * 6, // + (buttonRandomTime.size.width*CGFloat(scalar)/2)
+                y: frameSize.height/frameDivider * 70),
             frameSize: frameSize,
-            scalar: scalar,
+            scalar: scalar*0.93,
             frameDivider: frameDivider)
        
         //Current device time
@@ -63,10 +64,10 @@ class ButtonManager {
             "buttonCurrentDeviceTime",
             node: buttonCurrentDeviceTime,
             position: CGPoint(
-                x: frameSize.width/frameDivider*6.5,
-                y: frameSize.height/frameDivider * (frameDivider-8)),
+                x: frameSize.width/frameDivider * 16,
+                y: frameSize.height/frameDivider * 70),
             frameSize: frameSize,
-            scalar: scalar,
+            scalar: scalar*0.93,
             frameDivider: frameDivider)
         
         //Toggle digital time

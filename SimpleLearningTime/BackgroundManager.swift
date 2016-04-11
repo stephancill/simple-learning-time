@@ -14,7 +14,7 @@ class BackgroundManager {
     var spriteMovingBackground = SKSpriteNode(imageNamed: "imageBackground")
     var spriteBackgroundHill = SKSpriteNode(imageNamed: "imageBackgroundHill")
     var spriteUtilitiesBackground = SKSpriteNode()
-    var spriteBackgroundColor = SKSpriteNode(color: UIColor(), size: UIScreen.mainScreen().bounds.size)
+    var spriteBackgroundColor = SKSpriteNode(color: UIColor(), size: CGSize())
     
     func initElements (frameSize: CGSize, scalar:Float, scene:SKScene, center:CGPoint, time: (CGFloat, CGFloat)=(CGFloat(0), CGFloat(0)), frameDivider:CGFloat=35) {
         
@@ -27,9 +27,9 @@ class BackgroundManager {
         
         spriteBackgroundHill.name = "spriteBackgroundHill"
         spriteBackgroundHill.zPosition = -2
-        spriteBackgroundHill.anchorPoint = CGPoint(x: 0.5, y: 0.0)
-        spriteBackgroundHill.position = CGPoint(x:frameSize.width/2, y: 0)
-        spriteBackgroundHill.size = (CGSize(width: frameSize.width, height: frameSize.height))
+//        spriteBackgroundHill.anchorPoint = CGPoint(x: 0.5, y: 0.0)
+        spriteBackgroundHill.position = CGPoint(x:frameSize.width/2, y: frameSize.height/2)
+        spriteBackgroundHill.size = frameSize
         scene.addChild(spriteBackgroundHill)
         
         spriteMovingBackground.name = "spriteMovingBackground"
@@ -42,6 +42,7 @@ class BackgroundManager {
         spriteBackgroundColor.name = "spriteBackgroundColor"
         spriteBackgroundColor.zPosition = -4
         spriteBackgroundColor.position = mid
+        spriteBackgroundColor.size = frameSize
         scene.addChild(spriteBackgroundColor)
         
         print("bgm initialized")

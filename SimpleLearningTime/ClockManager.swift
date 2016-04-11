@@ -87,11 +87,11 @@ class ClockManager {
     
     /* Main functions */
     
-    func touchesMoved (touches: Set<UITouch>){
+    func touchesMoved (touchLocation: CGPoint) {
         
-        let touch = touches.first
+//        let touch = touches.first
         
-        math.updateAngles(touch!, middle: center, first: initialTouch)
+        math.updateAngles(touchLocation, middle: center, first: initialTouch)
         if (startMovement && interactivityEnabled) {       // Don't act if 1st itearion (1st iteration values reset hand position)
             
             if (currentNodeID == "minute" ) {
@@ -110,17 +110,17 @@ class ClockManager {
         }
         
         startMovement = true
+        print("\(initialTouch), \(touchLocation)")
     }
     
     func touchesStarted (node: SKNode, touchLocation: CGPoint) {
  
-            cm.calculateTime(true)
-            
-            currentNode = node
-            currentNodeID = node.name!
-            interactivityEnabled = true
-            initialTouch = touchLocation
-
+        cm.calculateTime(true)
+        
+        currentNode = node
+        currentNodeID = node.name!
+        interactivityEnabled = true
+        initialTouch = touchLocation
         
     }
     

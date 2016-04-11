@@ -32,11 +32,11 @@ class mf {
 
     }
     
-    func updateAngles (touch: UITouch, middle: CGPoint, first: CGPoint, positionModifier: CGFloat=0) {
+    func updateAngles (touchLocation: CGPoint, middle: CGPoint, first: CGPoint, positionModifier: CGFloat=0) {
         
 //        var adjMiddle = CGPoint(middle.x-positionModifier, middle.y = )
         
-        currentTouchAngle = angleBetween(middle, P2: first , P3: touch.locationInView(touch.view))
+        currentTouchAngle = angleBetween(middle, P2: touchLocation , P3: first)
         deltaTouchAngle = currentTouchAngle-lastTouchAngle
         lastTouchAngle = currentTouchAngle
         

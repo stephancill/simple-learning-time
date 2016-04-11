@@ -33,8 +33,8 @@ class GameScene: SKScene {
     }
     
     override func touchesMoved(touches: Set<UITouch>, withEvent event: UIEvent?) {
-        
-        cm.touchesMoved(touches)
+        let touchLocation = convertPointFromView((touches.first?.locationInView(self.view))!)
+        cm.touchesMoved(touchLocation)
         
     }
     
@@ -44,7 +44,7 @@ class GameScene: SKScene {
         let nodeName = node.name!
         
         if (cm.interactiveElements.contains(nodeName)) {
-            cm.touchesStarted(node, touchLocation: (touches.first?.locationInView(self.view))!)
+            cm.touchesStarted(node, touchLocation: convertPointFromView((touches.first?.locationInView(self.view))!))
         }
         
         if (btnm.interactiveElements.contains(nodeName)) {
@@ -72,7 +72,7 @@ class GameScene: SKScene {
         let touch = touches.first
         let touchLocation = touch!.locationInView(self.view)
         var node: SKNode = SKNode()
-        let nodes = self.nodesAtPoint(convertPointToView(touchLocation))
+        let nodes = self.nodesAtPoint(convertPointFromView(touchLocation))
         //  Set the node to the first interactive node
         for n in nodes {
             if (n.name != nil) {

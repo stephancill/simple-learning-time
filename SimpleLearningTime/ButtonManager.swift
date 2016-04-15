@@ -161,7 +161,6 @@ class ButtonManager {
         
         if (name == "button1224HourToggle") {
             toggleTwentyFourHour()
-            resetSTMResult ()
         }
         
         if (name == "buttonToggleDigital") {

@@ -21,22 +21,35 @@ class BackgroundManager {
         let mid = CGPoint(x: frameSize.width * 0.5, y: frameSize.height * 0.5)
         
         spriteUtilitiesBackground.name = "spriteUtilitiesBackground"
-        spriteUtilitiesBackground = SKSpriteNode(color: UIColor(white: 1, alpha: 0.3), size: CGSize(width: frameSize.width/frameDivider*4*4, height: frameSize.height*2))
+        spriteUtilitiesBackground = SKSpriteNode(
+            color: UIColor(white: 1, alpha: 0.3),
+            size: CGSize(
+                width: frameSize.width / frameDivider * 4 * 4,
+                height: frameSize.height * 2)
+        )
         spriteUtilitiesBackground.zPosition = -1
         scene.addChild(spriteUtilitiesBackground)
         
         spriteBackgroundHill.name = "spriteBackgroundHill"
         spriteBackgroundHill.zPosition = -2
-//        spriteBackgroundHill.anchorPoint = CGPoint(x: 0.5, y: 0.0)
-        spriteBackgroundHill.position = CGPoint(x:frameSize.width/2, y: frameSize.height/2)
+        spriteBackgroundHill.position = CGPoint(
+            x:frameSize.width/2,
+            y: frameSize.height/2
+        )
         spriteBackgroundHill.size = frameSize
         scene.addChild(spriteBackgroundHill)
         
         spriteMovingBackground.name = "spriteMovingBackground"
         spriteMovingBackground.zPosition = -3
         spriteMovingBackground.anchorPoint = CGPoint(x:0.5, y:0.5)
-        spriteMovingBackground.position = CGPoint(x:center.x, y: center.y/2)
-        spriteMovingBackground.size = CGSize(width: spriteMovingBackground.size.width * CGFloat(scalar), height: spriteMovingBackground.size.height * CGFloat(scalar))
+        spriteMovingBackground.position = CGPoint(
+            x:center.x, y:
+            center.y/2
+        )
+        spriteMovingBackground.size = CGSize(
+            width: spriteMovingBackground.size.width * CGFloat(scalar),
+            height: spriteMovingBackground.size.height * CGFloat(scalar)
+        )
         scene.addChild(spriteMovingBackground)
         
         spriteBackgroundColor.name = "spriteBackgroundColor"
@@ -71,7 +84,12 @@ class BackgroundManager {
         
         if (cm.spriteClockHour.zRotation / CGFloat(math.clockHourIntervalConst) % 24 == 0) {brightness = 0.00001}
         
-        spriteBackgroundColor.color = UIColor(hue: hue-brightness/10, saturation: saturation, brightness: brightness, alpha: alpha)
+        spriteBackgroundColor.color = UIColor(
+            hue: hue-brightness/10,
+            saturation: saturation,
+            brightness: brightness,
+            alpha: alpha
+        )
         
         spriteBackgroundHill.color = spriteBackgroundColor.color
         spriteBackgroundHill.colorBlendFactor = 0.9

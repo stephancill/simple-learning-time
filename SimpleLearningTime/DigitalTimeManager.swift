@@ -29,8 +29,12 @@ class DigitalTimeManager {
     
     func initElements (frameSize: CGSize, scalar:Float, scene:SKScene, time:(CGFloat, CGFloat), frameDivider: CGFloat=35) {
         
-        digitSpacing += ((spritesheetfull.texture?.size().width)!/CGFloat(10))
-        center = CGPoint(x: frameSize.width / frameDivider * 4, y: frameSize.height / frameDivider * 3.5)
+        digitSpacing += (spritesheetfull.texture?.size().width)!/CGFloat(10)
+        center = CGPoint(
+            x: frameSize.width / frameDivider * 4,
+            y: frameSize.height / frameDivider * 3.5
+        )
+        
         xpos = center.x - CGFloat(3.7 * (Double(digitSpacing)) * Double(scalar))
         
         self.scalar = scalar
@@ -39,7 +43,10 @@ class DigitalTimeManager {
         let itertime = stringsToList(String(time.0/100), m: String(time.1/100))
         print("dtm initialized ")
         
-        displayTimeContainer.position = CGPoint(x: xpos + digitSpacing * 2 * CGFloat(scalar), y: center.y)
+        displayTimeContainer.position = CGPoint(
+            x: xpos + digitSpacing * 2 * CGFloat(scalar),
+            y: center.y
+        )
         
         var indexCount = 0
         for digit in itertime {
@@ -48,14 +55,24 @@ class DigitalTimeManager {
             
             if (digit != ":"){
                 digitWidth = Double(digit)! / 10.0
-                digitSprite = SKSpriteNode(texture: SKTexture(rect: CGRect(x: digitWidth, y: 0.0, width: 0.1, height: 1.0), inTexture: spritesheetfull.texture!))
+                digitSprite = SKSpriteNode(
+                    texture: SKTexture(
+                        rect: CGRect(x: digitWidth, y: 0.0, width: 0.1, height: 1.0),
+                        inTexture: spritesheetfull.texture!)
+                )
    
             } else {
                 digitSprite = SKSpriteNode(imageNamed: "imageDigitalDigitsColon")
             }
             
-            digitSprite.position = CGPoint(x: xpos + digitSpacing * CGFloat(scalar) * CGFloat(indexCount), y: center.y)
-            digitSprite.size = CGSize(width: digitSprite.size.width * CGFloat(scalar), height: digitSprite.size.height * CGFloat(scalar))
+            digitSprite.position = CGPoint(
+                x: xpos + digitSpacing * CGFloat(scalar) * CGFloat(indexCount),
+                y: center.y
+            )
+            digitSprite.size = CGSize(
+                width: digitSprite.size.width * CGFloat(scalar),
+                height: digitSprite.size.height * CGFloat(scalar)
+            )
             digitSprite.anchorPoint = CGPoint(x: 0, y: 0)
             digitSprite.zPosition = 10
             
@@ -63,12 +80,19 @@ class DigitalTimeManager {
             displayTimeContainer.addChild(displayTime[indexCount])
             indexCount += 1
         }
-        spriteAMPM.size = CGSize(width: spriteAMPM.size.width * CGFloat(scalar) * 0.5, height: spriteAMPM.size.height * CGFloat(scalar) * 0.5)
-        spriteAMPM.position = CGPoint(x: center.x, y: center.y * 1.5)
+        spriteAMPM.size = CGSize(
+            width: spriteAMPM.size.width * CGFloat(scalar) * 0.5,
+            height: spriteAMPM.size.height * CGFloat(scalar) * 0.5
+        )
+        spriteAMPM.position = CGPoint(
+            x: center.x,
+            y: center.y * 1.4
+        )
         scene.addChild(displayTimeContainer)
     }
     
     func set (time:(CGFloat, CGFloat)) {
+        
         var itertime = ["0", "0", ":", "0", "0"]
         
         spriteAMPM.removeFromParent()
@@ -102,10 +126,23 @@ class DigitalTimeManager {
                 digitWidth = Double(digit)! / 10.0
                 displayTime[indexCount].removeFromParent()
                 
-                let digitSprite = SKSpriteNode(texture: SKTexture(rect: CGRect(x: Double(digit)!/10, y: 0.0, width: 0.1, height: 1.0), inTexture: spritesheetfull.texture!))
+                let digitSprite = SKSpriteNode(
+                    texture: SKTexture(
+                        rect: CGRect(
+                            x: Double(digit)!/10,
+                            y: 0.0,
+                            width: 0.1, height: 1.0),
+                        inTexture: spritesheetfull.texture!)
+                )
                 
-                digitSprite.position = CGPoint(x: xpos + digitSpacing * CGFloat(scalar) * CGFloat(indexCount), y: center.y)
-                digitSprite.size = CGSize(width: digitSprite.size.width * CGFloat(scalar), height: digitSprite.size.height * CGFloat(scalar))
+                digitSprite.position = CGPoint(
+                    x: xpos + digitSpacing * CGFloat(scalar) * CGFloat(indexCount),
+                    y: center.y
+                )
+                digitSprite.size = CGSize(
+                    width: digitSprite.size.width * CGFloat(scalar),
+                    height: digitSprite.size.height * CGFloat(scalar)
+                )
                 digitSprite.anchorPoint = CGPoint(x: 0, y: 0)
                 digitSprite.zPosition = 10
                 
@@ -166,7 +203,7 @@ class DigitalTimeManager {
         
         if (displayTimeContainer.parent == nil) {
             scene.addChild(displayTimeContainer)
-            if (cm.twelveHour) {scene.addChild(spriteAMPM)}
+            if (cm.twelveHour) { scene.addChild(spriteAMPM) }
             enabled = true
         } else {
             displayTimeContainer.removeFromParent()

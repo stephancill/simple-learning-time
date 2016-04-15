@@ -40,7 +40,11 @@ class mf {
         deltaTouchAngle = currentTouchAngle-lastTouchAngle
         lastTouchAngle = currentTouchAngle
         
-        if (abs(deltaTouchAngle-lastDeltaTouchAngle) > 0.9) {deltaTouchAngle = -0.0001 * (deltaTouchAngle/deltaTouchAngle)}     // Prevent jumping
+        // Prevent jumping
+        if (abs(deltaTouchAngle-lastDeltaTouchAngle) > 0.9) {
+            deltaTouchAngle = -0.0001 * (deltaTouchAngle/deltaTouchAngle)
+        }
+        
         lastDeltaTouchAngle = deltaTouchAngle
         
     }

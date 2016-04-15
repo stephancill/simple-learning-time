@@ -61,15 +61,29 @@ class ClockManager {
     
     func initElements (frameSize: CGSize, scalar:Float, scene:SKScene, time: (CGFloat,CGFloat)=(CGFloat(0),CGFloat(0))) {
         
-        let mid = CGPoint(x: frameSize.width * 0.5, y: frameSize.height * 0.5)
-        distanceFromSceneCenter = CGPoint(x: frameSize.width / 8, y: 0)
-        center = CGPoint(x: mid.x + distanceFromSceneCenter.x, y: mid.y + distanceFromSceneCenter.y)
+        let mid = CGPoint(
+            x: frameSize.width * 0.5,
+            y: frameSize.height * 0.5
+        )
+        
+        distanceFromSceneCenter = CGPoint(
+            x: frameSize.width / 8,
+            y: 0
+        )
+        
+        center = CGPoint(
+            x: mid.x + distanceFromSceneCenter.x,
+            y: mid.y + distanceFromSceneCenter.y
+        )
         
         var layer = 0
         for element in clockElements {
             
             element.position = center
-            element.size = CGSize(width: element.size.width * CGFloat(scalar), height: element.size.height * CGFloat(scalar))
+            element.size = CGSize(
+                width: element.size.width * CGFloat(scalar),
+                height: element.size.height * CGFloat(scalar)
+            )
             element.zPosition = CGFloat(layer)
             
             scene.addChild(element)
@@ -85,11 +99,9 @@ class ClockManager {
         
     }
     
-    /* Main functions */
+    /* User Interaction handling */
     
     func touchesMoved (touchLocation: CGPoint) {
-        
-//        let touch = touches.first
         
         math.updateAngles(touchLocation, middle: center, first: initialTouch)
         if (startMovement && interactivityEnabled) {       // Don't act if 1st itearion (1st iteration values reset hand position)
@@ -110,7 +122,7 @@ class ClockManager {
         }
         
         startMovement = true
-        print("\(initialTouch), \(touchLocation)")
+        
     }
     
     func touchesStarted (node: SKNode, touchLocation: CGPoint) {
@@ -127,13 +139,12 @@ class ClockManager {
     func touchesEnded() {
         
         /* Snapping and time setting */
-            
         cm.snap()
         dtm.set(cm.time)
         
         /* Reset */
         currentNode = SKNode()
-        currentNodeID = ""     // Turns out -1 is not a good placeholder
+        currentNodeID = ""
         interactivityEnabled = false
         startMovement = false
         
@@ -141,7 +152,7 @@ class ClockManager {
     
 
     
-    /*Utility functions*/
+    /* Utility functions */
     
     func snap () {
         

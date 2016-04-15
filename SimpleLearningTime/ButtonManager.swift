@@ -55,7 +55,6 @@ class ButtonManager {
     }
     
     func initElements (frameSize: CGSize, scalar: Double, scene: SKScene, frameDivider: CGFloat=100) {
-//        print(frameSize)
         self.scene = scene
 
         //Toggle 12/24 hour
@@ -68,7 +67,6 @@ class ButtonManager {
             frameSize: frameSize,
             scalar: scalar*2,
             frameDivider: frameDivider)
-//        print(button1224HourToggle.position)
         
         //Random time
         defaultButtonSetup(
@@ -203,8 +201,8 @@ class ButtonManager {
         for frameN in 0..<frames {
             
             let ydiv = 1-(1/divisions)
-            let x = CGFloat(Double(frameN%framesPR)/Double(framesPR))
-            let y = CGFloat(ydiv-floor(Double(frameN)/Double(framesPR))/divisions)
+            let x = CGFloat(Double(frameN % framesPR) / Double(framesPR))
+            let y = CGFloat(ydiv - floor(Double(frameN) / Double(framesPR)) / divisions)
             let texture: SKTexture = SKTexture(
                 rect: CGRect(
                     x: x,

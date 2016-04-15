@@ -10,11 +10,33 @@ import SpriteKit
 
 class ButtonManager {
     
-    var button1224HourToggle: SKSpriteNode = SKSpriteNode(texture: SKTexture(rect: CGRect(x: 0.0, y: 0.833, width: 0.166, height: 0.166), inTexture: SKTexture(imageNamed: "animation1224HourToggle")))
-    var buttonToggleDigital: SKSpriteNode = SKSpriteNode(imageNamed: "imageButtonNoDigitalEnabled")
-    var buttonCurrentDeviceTime: SKSpriteNode = SKSpriteNode(texture: SKTexture(rect: CGRect(x: 0.0, y: 0.75, width: 0.1428571429, height: 0.25), inTexture: SKTexture(imageNamed: "animationCurrentTimeNew")))
-//    var buttonRandomTime: SKSpriteNode = SKSpriteNode(texture: SKTexture(rect: CGRect(x: 0.0, y: 0.0, width: 0.1, height: 1), inTexture: SKTexture(imageNamed: "animationRandomAnalogue")))
-    var buttonRandomTime: SKSpriteNode = SKSpriteNode(texture: SKTexture(rect: CGRect(x: 0.0, y: 0.75, width: 0.1428571429, height: 0.25), inTexture: SKTexture(imageNamed: "animationRandomAnalogueNew")))
+    var button1224HourToggle: SKSpriteNode =
+        SKSpriteNode(
+            texture: SKTexture(
+                rect: CGRect(x: 0.0, y: 0.833, width: 0.166, height: 0.166),
+                inTexture: SKTexture(imageNamed: "animation1224HourToggle")
+            )
+    )
+    
+    var buttonToggleDigital: SKSpriteNode =
+        SKSpriteNode(
+            imageNamed: "imageButtonNoDigitalEnabled"
+    )
+    
+    var buttonCurrentDeviceTime: SKSpriteNode =
+        SKSpriteNode(
+            texture: SKTexture(
+                rect: CGRect(x: 0.0, y: 0.75, width: 0.1428571429, height: 0.25),
+                inTexture: SKTexture(imageNamed: "animationCurrentTimeNew")
+            )
+    )
+
+    var buttonRandomTime: SKSpriteNode =
+        SKSpriteNode(
+            texture: SKTexture(rect: CGRect(x: 0.0, y: 0.75, width: 0.1428571429, height: 0.25),
+                inTexture: SKTexture(imageNamed: "animationRandomAnalogueNew")
+            )
+    )
     
     var interactiveElements: [String] = [
         "button1224HourToggle",
@@ -33,7 +55,7 @@ class ButtonManager {
     }
     
     func initElements (frameSize: CGSize, scalar: Double, scene: SKScene, frameDivider: CGFloat=100) {
-        print(frameSize)
+//        print(frameSize)
         self.scene = scene
 
         //Toggle 12/24 hour
@@ -46,14 +68,14 @@ class ButtonManager {
             frameSize: frameSize,
             scalar: scalar*2,
             frameDivider: frameDivider)
-        print(button1224HourToggle.position)
+//        print(button1224HourToggle.position)
         
         //Random time
         defaultButtonSetup(
             "buttonRandomTime",
             node: buttonRandomTime,
             position: CGPoint(
-                x: frameSize.width/frameDivider * 6, // + (buttonRandomTime.size.width*CGFloat(scalar)/2)
+                x: frameSize.width/frameDivider * 4,
                 y: frameSize.height/frameDivider * 70),
             frameSize: frameSize,
             scalar: scalar*0.93,
@@ -64,7 +86,7 @@ class ButtonManager {
             "buttonCurrentDeviceTime",
             node: buttonCurrentDeviceTime,
             position: CGPoint(
-                x: frameSize.width/frameDivider * 16,
+                x: frameSize.width/frameDivider * 18,
                 y: frameSize.height/frameDivider * 70),
             frameSize: frameSize,
             scalar: scalar*0.93,
@@ -189,7 +211,6 @@ class ButtonManager {
                     y: y,
                     width: size.width, height: size.height),
                 inTexture: spritesheet)
-//            print("x:\(x), y: \(y)")
             textures.append(texture)
             
         }

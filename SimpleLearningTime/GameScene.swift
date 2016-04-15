@@ -11,6 +11,7 @@ let cm: ClockManager = ClockManager()
 let bgm: BackgroundManager = BackgroundManager()
 let dtm: DigitalTimeManager = DigitalTimeManager()
 let btnm: ButtonManager = ButtonManager()
+let stm: SelfTestManager = SelfTestManager()
 let math: mf = mf()
 
 var allInteractiveElements: [String] = []

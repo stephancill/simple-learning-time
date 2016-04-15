@@ -11,10 +11,28 @@ import SpriteKit
 
 class SelfTestManager {
 
-    init() {
+    var correct: Bool = false
+    var testActive: Bool = true
     
+    init() {
+        
     }
     
+    func startTest () {
+        // Start the self-test
+        testActive = true
+        
+    }
     
+    func endTest () {
+        // End the self-test
+        correct = false
+        testActive = false
+        
+    }
+    
+    func check() {
+        correct = !correct
+    }
     
 }

@@ -10,6 +10,9 @@ import SpriteKit
 
 class ButtonManager {
     
+    var operationQueue = NSOperationQueue()
+    
+    
     var button1224HourToggle: SKSpriteNode =
         SKSpriteNode(
             texture: SKTexture(
@@ -38,26 +41,27 @@ class ButtonManager {
             )
     )
     
-    var buttonSelfTestStart: SKSpriteNode =
+    var buttonSelfTest: SKSpriteNode =
         SKSpriteNode(
             texture: SKTexture(rect: CGRect(x: 0.0, y: 0.75, width: 0.1428571429, height: 0.25),
                 inTexture: SKTexture(imageNamed: "animationSelfTestStart")
             )
     )
     
-    var buttonSelfTestEnd: SKSpriteNode =
-        SKSpriteNode(
-            texture: SKTexture(rect: CGRect(x: 0.0, y: 0.5, width: 0.07142857143, height: 0.5),
-                inTexture: SKTexture(imageNamed: "animationSelfTestEndCorrect")
-            )
-    )
+    var buttonSelfTestDefaultSize = true
+//    var buttonSelfTest: SKSpriteNode =
+//        SKSpriteNode(
+//            texture: SKTexture(rect: CGRect(x: 0.0, y: 0.5, width: 0.07142857143, height: 0.5),
+//                inTexture: SKTexture(imageNamed: "animationSelfTestEndCorrect")
+//            )
+//    )
     
     var interactiveElements: [String] = [
         "button1224HourToggle",
         "buttonToggleDigital",
         "buttonCurrentDeviceTime",
         "buttonRandomTime",
-        "buttonSelfTestStart",
+        "buttonSelfTest",
         "buttonSelfTestEnd"
     ]
     var buttonContainer: SKNode = SKNode()
@@ -69,6 +73,7 @@ class ButtonManager {
         for name in interactiveElements {
             allInteractiveElements.append(name)
         }
+        operationQueue.maxConcurrentOperationCount = 1; // disallow follow actions from overlapping one another
     }
     
     func initElements (frameSize: CGSize, scalar: Double, scene: SKScene, frameDivider: CGFloat=100) {
@@ -121,25 +126,25 @@ class ButtonManager {
         
         //Enter self-test mode
         defaultButtonSetup(
-            "buttonSelfTestStart",
-            node: buttonSelfTestStart,
+            "buttonSelfTest",
+            node: buttonSelfTest,
             position: CGPoint(
-                x: frameSize.width/frameDivider * 4,
+                x: frameSize.width/frameDivider * 11,
                 y: frameSize.height/frameDivider * 60),
             frameSize: frameSize,
             scalar: scalar*0.9,
             frameDivider: frameDivider)
         
         //Exit self-test mode
-        defaultButtonSetup(
-            "buttonSelfTestEnd",
-            node: buttonSelfTestEnd,
-            position: CGPoint(
-                x: frameSize.width/frameDivider * 18,
-                y: frameSize.height/frameDivider * 60),
-            frameSize: frameSize,
-            scalar: scalar*0.9,
-            frameDivider: frameDivider)
+//        defaultButtonSetup(
+//            "buttonSelfTestEnd",
+//            node: buttonSelfTestEnd,
+//            position: CGPoint(
+//                x: frameSize.width/frameDivider * 18,
+//                y: frameSize.height/frameDivider * 60),
+//            frameSize: frameSize,
+//            scalar: scalar*0.9,
+//            frameDivider: frameDivider)
         
         scene.addChild(buttonContainer)
         
@@ -178,7 +183,7 @@ class ButtonManager {
             resetSTMResult()
         }
         
-        if (name == "buttonSelfTestStart" || name == "buttonSelfTestEnd") {
+        if (name == "buttonSelfTest" || name == "buttonSelfTestEnd") {
             selfTest(name)
         }
 
@@ -204,10 +209,9 @@ class ButtonManager {
     func toggleTwentyFourHour() {
         
         cm.twelveHour = !cm.twelveHour
-        animate1224HourToggle()
+        animate1224HourToggle(!cm.twelveHour)
 
-        cm.set(cm.calculateTime())
-        dtm.set(cm.time)
+        dtm.set(dtm.time)
     }
     
     func toggleDigitalTime() {
@@ -217,32 +221,23 @@ class ButtonManager {
     
     func selfTest (buttonName: String) {
         if (stm.testActive) {
-            if (buttonName == "buttonSelfTestEnd") {
-                // Check solutions
-                print(stm.correct)
-                stm.check()
-                if (stm.correct) {
-                    // Correct answer
-                    animateSelfTestEnd(stm.correct)
-                    stm.endTest()
-            
-                } else {
-                    // Incorrect answer
-                    animateSelfTestEnd(stm.correct)
-
-                }
+            // Check solutions
+            stm.check()
+            if (stm.correct) {
+                // Correct answer
+                animateSelfTestEnd(stm.correct, queue: true)
+                stm.endTest()
+                animateSelfTestEnd(stm.correct, reverse: true, queue: true)
+        
             } else {
-                animateSelfTestStart()
-                resetSTMResult()
-                stm.startTest()
+                // Incorrect answer
+                animateSelfTestEnd(stm.correct, queue: true)
+                animateSelfTestEnd(stm.correct, reverse: true, queue: true)
+
             }
         } else {
-            if (buttonName == "buttonSelfTestStart") {
-                animateSelfTestStart()
-                resetSTMResult()
-                stm.startTest()
-                
-            }
+            animateSelfTest()
+            stm.startTest()
         }
     }
     
@@ -250,13 +245,111 @@ class ButtonManager {
         if (stm.testActive) {
             stm.endTest()
         }
-        buttonSelfTestEnd.texture = SKTexture(
-            rect: CGRect(x: 0.0, y: 0.5, width: 0.07142857143, height: 0.5),
-            inTexture: SKTexture(imageNamed: "animationSelfTestEndCorrect")
+        buttonSelfTest.texture = SKTexture(
+            rect: CGRect(x: 0.0, y: 0.75, width: 0.1428571429, height: 0.25),
+            inTexture: SKTexture(imageNamed: "animationSelfTestStart")
         )
     }
     
-    func animate (sprite: SKSpriteNode, spritesheet: SKTexture, frames: Int, fps: Int, size: CGSize, divisions: Double=1, framesPR: Int=1, reverse: Bool=false) {
+    
+    /* 
+     Button animation configurations
+    */
+    
+    func animate1224HourToggle (reverse: Bool=false) {
+        animate(
+            button1224HourToggle,
+            spritesheet: SKTexture(imageNamed: "animation1224HourToggle"),
+            frames: 36, fps: 100,
+            size: CGSize(width: 0.166, height: 0.166),
+            divisions: 6, framesPR: 6,
+            reverse: reverse)
+    }
+    
+    func animateToggleDigital (reverse: Bool=false) {
+        if (dtm.enabled) {
+            buttonToggleDigital.texture = SKTexture(imageNamed: "imageButtonNoDigitalDisabled")
+        } else {
+            buttonToggleDigital.texture = SKTexture(imageNamed: "imageButtonNoDigitalEnabled")
+        }
+    }
+    
+    func animateCurrentDeviceTime (reverse: Bool=false) {
+        animate(
+            buttonCurrentDeviceTime,
+            spritesheet: SKTexture(imageNamed: "animationCurrentTimeNew"),
+            frames: 27, fps: 35,
+            size: CGSize(width: 0.1428571429, height: 0.25),
+            divisions: 4, framesPR: 7,
+            reverse: reverse)
+    }
+    
+    func animateRandomTime (reverse: Bool=false) {
+        animate(
+            buttonRandomTime,
+            spritesheet: SKTexture(imageNamed: "animationRandomAnalogueNew"),
+            frames: 27, fps: 35,
+            size: CGSize(width: 0.1428571429, height: 0.25),
+            divisions: 4, framesPR: 7,
+            reverse: reverse)
+    }
+    
+    func animateSelfTest (reverse: Bool=false, queue: Bool=false) {
+        if(!stm.testActive) {
+            if (buttonSelfTestDefaultSize) {
+                buttonSelfTest.size = CGSize(width: buttonSelfTest.size.width*0.6, height: buttonSelfTest.size.height*0.6)
+            }
+            buttonSelfTestDefaultSize = false
+            // Replace with new animation from "checklist" to "–"
+            buttonSelfTest.texture = SKTexture(
+                rect: CGRect(x: 0.0, y: 0.5, width: 0.07142857143, height: 0.5),
+                inTexture: SKTexture(imageNamed: "animationSelfTestEndCorrect")
+            )
+            
+        } else {
+            if (!buttonSelfTestDefaultSize) {
+                buttonSelfTest.size = CGSize(width: buttonSelfTest.size.width*(1/0.6), height: buttonSelfTest.size.height*(1/0.6))
+            }
+            buttonSelfTestDefaultSize = true
+            animate(
+                buttonSelfTest,
+                spritesheet: SKTexture(imageNamed: "animationSelfTestStart"),
+                frames: 28, fps: 35,
+                size: CGSize(width: 0.1428571429, height: 0.25),
+                divisions: 4, framesPR: 7,
+                reverse: reverse,
+                queue: queue
+            )
+        }
+        
+    }
+    
+    func animateSelfTestEnd (correct: Bool, reverse: Bool=false, queue: Bool=false) {
+        
+        if (correct) {
+            animate(
+                buttonSelfTest,
+                spritesheet: SKTexture(imageNamed: "animationSelfTestEndCorrect"),
+                frames: 28, fps: 35,
+                size: CGSize(width: 0.07142857143, height: 0.5),
+                divisions: 2, framesPR: 14,
+                reverse: reverse,
+                queue: queue
+            )
+        } else {
+            animate(
+                buttonSelfTest,
+                spritesheet: SKTexture(imageNamed: "animationSelfTestEndIncorrect"),
+                frames: 28, fps: 35,
+                size: CGSize(width: 0.07142857143, height: 0.5),
+                divisions: 2, framesPR: 14,
+                reverse: reverse,
+                queue: queue
+            )
+        }
+    }
+    
+    func animate (sprite: SKSpriteNode, spritesheet: SKTexture, frames: Int, fps: Int, size: CGSize, divisions: Double=1, framesPR: Int=1, reverse: Bool=false, queue: Bool=false) {
         
         var textures: [SKTexture] = []
         for frameN in 0..<frames {
@@ -275,87 +368,15 @@ class ButtonManager {
         }
         
         if (reverse) { textures = textures.reverse() }
-
-        sprite.runAction(SKAction.animateWithTextures(textures, timePerFrame: Double(1)/Double(fps)))
         
-    }
-    
-    /* 
-     Button animation configurations
-    */
-    
-    func animate1224HourToggle (reverse: Bool=false) {
-        animate(
-            button1224HourToggle,
-            spritesheet: SKTexture(imageNamed: "animation1224HourToggle"),
-            frames: 36, fps: 100,
-            size: CGSize(width: 0.166, height: 0.166),
-            divisions: 6, framesPR: 6,
-            reverse: !cm.twelveHour)
-    }
-    
-    func animateToggleDigital (reverse: Bool=false) {
-        if (dtm.enabled) {
-            buttonToggleDigital.texture = SKTexture(imageNamed: "imageButtonNoDigitalDisabled")
+        let action = SKAction.animateWithTextures(textures, timePerFrame: Double(1)/Double(fps))
+        
+        if (queue) {
+            operationQueue.addOperation(ActionOperation(node: sprite, action: action))
         } else {
-            buttonToggleDigital.texture = SKTexture(imageNamed: "imageButtonNoDigitalEnabled")
+            sprite.runAction(action)
         }
     }
-    
-    func animateCurrentDeviceTime (reverse: Bool=false) {
-        animate(
-            buttonCurrentDeviceTime,
-            spritesheet: SKTexture(imageNamed: "animationCurrentTimeNew"),
-            frames: 27, fps: 35,
-            size: CGSize(width: 0.1428571429, height: 0.25),
-            divisions: 4, framesPR: 7,
-            reverse: false)
-    }
-    
-    func animateRandomTime (reverse: Bool=false) {
-        animate(
-            buttonRandomTime,
-            spritesheet: SKTexture(imageNamed: "animationRandomAnalogueNew"),
-            frames: 27, fps: 35,
-            size: CGSize(width: 0.1428571429, height: 0.25),
-            divisions: 4, framesPR: 7,
-            reverse: false)
-    }
-    
-    func animateSelfTestStart (reverse: Bool=false) {
-        animate(
-            buttonSelfTestStart,
-            spritesheet: SKTexture(imageNamed: "animationSelfTestStart"),
-            frames: 28, fps: 35,
-            size: CGSize(width: 0.1428571429, height: 0.25),
-            divisions: 4, framesPR: 7,
-            reverse: false
-        )
-    }
-    
-    func animateSelfTestEnd (correct: Bool, reverse: Bool=false) {
-        
-        if (correct) {
-            animate(
-                buttonSelfTestEnd,
-                spritesheet: SKTexture(imageNamed: "animationSelfTestEndCorrect"),
-                frames: 28, fps: 35,
-                size: CGSize(width: 0.07142857143, height: 0.5),
-                divisions: 2, framesPR: 14,
-                reverse: false
-            )
-        } else {
-            animate(
-                buttonSelfTestEnd,
-                spritesheet: SKTexture(imageNamed: "animationSelfTestEndIncorrect"),
-                frames: 28, fps: 35,
-                size: CGSize(width: 0.07142857143, height: 0.5),
-                divisions: 2, framesPR: 14,
-                reverse: false
-            )
-        }
-    }
-
     
     func defaultButtonSetup(name: String, node: SKSpriteNode, position: CGPoint, frameSize: CGSize, scalar: Double=1,
         

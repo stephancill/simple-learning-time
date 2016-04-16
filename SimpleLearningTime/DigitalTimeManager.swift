@@ -25,6 +25,8 @@ class DigitalTimeManager {
     var digitWidth = 0.0
     var digitSpacing: CGFloat = 10
     
+    var time: (CGFloat, CGFloat) = (0,0)
+    
     var enabled = true
     
     func initElements (frameSize: CGSize, scalar:Float, scene:SKScene, time:(CGFloat, CGFloat), frameDivider: CGFloat=35) {
@@ -93,6 +95,7 @@ class DigitalTimeManager {
     
     func set (time:(CGFloat, CGFloat)) {
         
+        self.time = time
         var itertime = ["0", "0", ":", "0", "0"]
         
         spriteAMPM.removeFromParent()

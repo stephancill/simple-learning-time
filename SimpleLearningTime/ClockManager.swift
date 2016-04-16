@@ -118,7 +118,10 @@ class ClockManager {
             bgm.adjustBackgroundColor()
             
             rotate(math.deltaTouchAngle, nodeID: currentNodeID )
-            dtm.set(cm.calculateTime())
+            
+            if (!stm.testActive) {
+                dtm.set(cm.time)
+            }
         }
         
         startMovement = true
@@ -140,7 +143,9 @@ class ClockManager {
         
         /* Snapping and time setting */
         cm.snap()
-        dtm.set(cm.time)
+        if (!stm.testActive) {
+            dtm.set(cm.time)
+        }
         
         /* Reset */
         currentNode = SKNode()

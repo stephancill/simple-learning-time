@@ -224,11 +224,25 @@ class ButtonManager {
             // Check solutions
             stm.check()
             if (stm.correct) {
+                
                 // Correct answer
                 animateSelfTestEnd(stm.correct, queue: true)
+                animateSelfTestEnd(true, reverse: true, queue: true)
                 stm.endTest()
-                animateSelfTestEnd(stm.correct, reverse: true, queue: true)
-        
+                
+                print(buttonSelfTestDefaultSize)
+                
+                if (!buttonSelfTestDefaultSize) {
+                    operationQueue.addOperation(ActionOperation(node: buttonSelfTest, action: SKAction.scaleBy((1/0.6), duration: 0.1)))
+                }
+                buttonSelfTestDefaultSize = true
+                
+                operationQueue.addOperation(ActionOperation(node: buttonSelfTest, action: SKAction.animateWithTextures([SKTexture(rect: CGRect(x: 0.0, y: 0.75, width: 0.1428571429, height: 0.25),
+                    inTexture: SKTexture(imageNamed: "animationSelfTestStart")
+                    )], timePerFrame: Double(1)/Double(35))))
+                
+
+                
             } else {
                 // Incorrect answer
                 animateSelfTestEnd(stm.correct, queue: true)
@@ -245,6 +259,10 @@ class ButtonManager {
         if (stm.testActive) {
             stm.endTest()
         }
+        if (!buttonSelfTestDefaultSize) {
+            operationQueue.addOperation(ActionOperation(node: buttonSelfTest, action: SKAction.scaleBy((1/0.6), duration: 0.1)))
+        }
+        buttonSelfTestDefaultSize = true
         buttonSelfTest.texture = SKTexture(
             rect: CGRect(x: 0.0, y: 0.75, width: 0.1428571429, height: 0.25),
             inTexture: SKTexture(imageNamed: "animationSelfTestStart")
@@ -297,7 +315,7 @@ class ButtonManager {
     func animateSelfTest (reverse: Bool=false, queue: Bool=false) {
         if(!stm.testActive) {
             if (buttonSelfTestDefaultSize) {
-                buttonSelfTest.size = CGSize(width: buttonSelfTest.size.width*0.6, height: buttonSelfTest.size.height*0.6)
+                operationQueue.addOperation(ActionOperation(node: buttonSelfTest, action: SKAction.scaleBy(0.6, duration: 0.1)))
             }
             buttonSelfTestDefaultSize = false
             // Replace with new animation from "checklist" to "–"
@@ -308,7 +326,7 @@ class ButtonManager {
             
         } else {
             if (!buttonSelfTestDefaultSize) {
-                buttonSelfTest.size = CGSize(width: buttonSelfTest.size.width*(1/0.6), height: buttonSelfTest.size.height*(1/0.6))
+                operationQueue.addOperation(ActionOperation(node: buttonSelfTest, action: SKAction.scaleBy((1/0.6), duration: 0.1)))
             }
             buttonSelfTestDefaultSize = true
             animate(
@@ -325,7 +343,7 @@ class ButtonManager {
     }
     
     func animateSelfTestEnd (correct: Bool, reverse: Bool=false, queue: Bool=false) {
-        
+
         if (correct) {
             animate(
                 buttonSelfTest,

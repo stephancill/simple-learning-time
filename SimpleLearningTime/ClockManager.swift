@@ -11,7 +11,7 @@ import SpriteKit
 class ClockManager {
     
     var spriteClockPlaceholder = SKSpriteNode()
-    var spriteClockBG = SKSpriteNode(imageNamed: "imageClockBackground")
+    var spriteClockFace = SKSpriteNode(imageNamed: "imageClockBackground")
     var spriteClockMinute = SKSpriteNode(imageNamed: "imageClockMinute")
     var spriteClockHour = SKSpriteNode(imageNamed: "imageClockHour")
     var spriteClockCenter = SKSpriteNode(imageNamed: "imageClockCenter")
@@ -47,7 +47,7 @@ class ClockManager {
         //Render order
         clockElements = [
             spriteClockPlaceholder,
-            spriteClockBG,
+            spriteClockFace,
             spriteClockMinute,
             spriteClockHour,
             spriteClockCenter

@@ -13,7 +13,7 @@ class SelfTestManager {
 
     var correct: Bool = false
     var testActive: Bool = false
-    var lastTime: (CGFloat, CGFloat) = (0, 0)
+
     init() {
         
     }
@@ -21,9 +21,6 @@ class SelfTestManager {
     func startTest () {
         // Start the self-test
         testActive = true
-        
-        // Store current time
-        lastTime = cm.time
         
         // Set clock time to 0:00
         cm.set((CGFloat(12), CGFloat(0)))
@@ -37,6 +34,7 @@ class SelfTestManager {
     func endTest () {
         // End the self-test
         testActive = false
+        correct = false
 //        cm.set(lastTime)
 //        dtm.set(lastTime)
     }

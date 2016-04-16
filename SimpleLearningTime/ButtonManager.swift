@@ -135,17 +135,6 @@ class ButtonManager {
             scalar: scalar*0.9,
             frameDivider: frameDivider)
         
-        //Exit self-test mode
-//        defaultButtonSetup(
-//            "buttonSelfTestEnd",
-//            node: buttonSelfTestEnd,
-//            position: CGPoint(
-//                x: frameSize.width/frameDivider * 18,
-//                y: frameSize.height/frameDivider * 60),
-//            frameSize: frameSize,
-//            scalar: scalar*0.9,
-//            frameDivider: frameDivider)
-        
         scene.addChild(buttonContainer)
         
         print("btnm initialized")
@@ -199,7 +188,7 @@ class ButtonManager {
     func randomTime() {
 
         let hours = CGFloat(arc4random_uniform(24))
-        let minutes = CGFloat(arc4random_uniform(13))
+        let minutes = CGFloat(arc4random_uniform(59))
         animateRandomTime()
         
         cm.set(hours, minutes)
@@ -229,8 +218,6 @@ class ButtonManager {
                 animateSelfTestEnd(stm.correct, queue: true)
                 animateSelfTestEnd(true, reverse: true, queue: true)
                 stm.endTest()
-                
-                print(buttonSelfTestDefaultSize)
                 
                 if (!buttonSelfTestDefaultSize) {
                     operationQueue.addOperation(ActionOperation(node: buttonSelfTest, action: SKAction.scaleBy((1/0.6), duration: 0.1)))

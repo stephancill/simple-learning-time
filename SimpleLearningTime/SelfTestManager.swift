@@ -26,7 +26,7 @@ class SelfTestManager {
         cm.set((CGFloat(12), CGFloat(0)))
         
         let hours = CGFloat(arc4random_uniform(24))
-        let minutes = CGFloat(arc4random_uniform(13))
+        let minutes = CGFloat(arc4random_uniform(59))
         
         dtm.set((hours, minutes))
     }
@@ -35,13 +35,10 @@ class SelfTestManager {
         // End the self-test
         testActive = false
         correct = false
-//        cm.set(lastTime)
-//        dtm.set(lastTime)
     }
     
     func check() {
-        // Check the answer
-        
+        // Check answer
         if (cm.time == dtm.time) {
             correct = true
         }

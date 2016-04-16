@@ -10,6 +10,7 @@
 		D2AB93AC1C9C526A0018ABCA /* ButtonManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = D2AB93AB1C9C526A0018ABCA /* ButtonManager.swift */; };
 		D40A262F1C96A2EC00BC97EF /* DigitalTimeManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = D40A262E1C96A2EC00BC97EF /* DigitalTimeManager.swift */; };
 		D41FE65B1CB646F60078A989 /* SelfTestManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = D41FE65A1CB646F60078A989 /* SelfTestManager.swift */; };
+		D45E7B041CC2C0FC0070EE56 /* ActionManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = D45E7B031CC2C0FC0070EE56 /* ActionManager.swift */; };
 		D48CEB5D1C85BA5B00047DD3 /* ClockManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = D48CEB5C1C85BA5A00047DD3 /* ClockManager.swift */; };
 		D4936E871C9165560096357A /* .gitignore in Resources */ = {isa = PBXBuildFile; fileRef = D4936E861C9165560096357A /* .gitignore */; };
 		D4D347A51C6C77D900518E76 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = D4D347A41C6C77D900518E76 /* AppDelegate.swift */; };
@@ -46,6 +47,7 @@
 		D2AB93AB1C9C526A0018ABCA /* ButtonManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ButtonManager.swift; sourceTree = "<group>"; };
 		D40A262E1C96A2EC00BC97EF /* DigitalTimeManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DigitalTimeManager.swift; sourceTree = "<group>"; };
 		D41FE65A1CB646F60078A989 /* SelfTestManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SelfTestManager.swift; sourceTree = "<group>"; };
+		D45E7B031CC2C0FC0070EE56 /* ActionManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ActionManager.swift; sourceTree = "<group>"; };
 		D464C2211C8C345500670BF9 /* SimpleLearningTime.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = SimpleLearningTime.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		D464C2221C8C345500670BF9 /* SimpleLearningTimeTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = SimpleLearningTimeTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		D464C2231C8C345500670BF9 /* SimpleLearningTimeUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = SimpleLearningTimeUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -101,6 +103,7 @@
 				D4FD477C1C86CDB900C8FB87 /* Maths.swift */,
 				D4DE5D121C9DF49A0082D784 /* BackgroundManager.swift */,
 				D41FE65A1CB646F60078A989 /* SelfTestManager.swift */,
+				D45E7B031CC2C0FC0070EE56 /* ActionManager.swift */,
 			);
 			name = Classes;
 			sourceTree = "<group>";
@@ -340,6 +343,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				D48CEB5D1C85BA5B00047DD3 /* ClockManager.swift in Sources */,
+				D45E7B041CC2C0FC0070EE56 /* ActionManager.swift in Sources */,
 				D40A262F1C96A2EC00BC97EF /* DigitalTimeManager.swift in Sources */,
 				D4D347A91C6C77D900518E76 /* GameScene.swift in Sources */,
 				D4D347AB1C6C77D900518E76 /* GameViewController.swift in Sources */,

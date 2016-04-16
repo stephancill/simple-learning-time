@@ -12,8 +12,8 @@ import SpriteKit
 class SelfTestManager {
 
     var correct: Bool = false
-    var testActive: Bool = true
-    
+    var testActive: Bool = false
+    var lastTime: (CGFloat, CGFloat) = (0, 0)
     init() {
         
     }
@@ -22,16 +22,23 @@ class SelfTestManager {
         // Start the self-test
         testActive = true
         
+        // Store current time
+        lastTime = cm.time
+        
+        // Set clock time to 0:00
+        cm.set((CGFloat(12), CGFloat(0)))
+        dtm.set((CGFloat(12), CGFloat(0)))
+        
     }
     
     func endTest () {
         // End the self-test
-        correct = false
         testActive = false
-        
+        cm.set(lastTime)
     }
     
     func check() {
+        // Check the answer
         correct = !correct
     }
     

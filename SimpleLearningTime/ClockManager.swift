@@ -120,7 +120,7 @@ class ClockManager {
             rotate(math.deltaTouchAngle, nodeID: currentNodeID )
             
             if (!stm.testActive) {
-                dtm.set(cm.time)
+                dtm.set(calculateTime())
             }
         }
         

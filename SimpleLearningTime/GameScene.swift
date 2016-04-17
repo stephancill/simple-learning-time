@@ -12,11 +12,12 @@ let bgm: BackgroundManager = BackgroundManager()
 let dtm: DigitalTimeManager = DigitalTimeManager()
 let btnm: ButtonManager = ButtonManager()
 let stm: SelfTestManager = SelfTestManager()
+var him: HelpInfoManager = HelpInfoManager()
 let math: mf = mf()
 
 var allInteractiveElements: [String] = []
 
-class GameScene: SKScene {
+class CustomGameScene: SKScene {
 
     var middle: CGPoint = CGPoint(x: 0, y: 0)
     
@@ -51,6 +52,8 @@ class GameScene: SKScene {
         if (btnm.interactiveElements.contains(nodeName)) {
             btnm.buttonPressed(nodeName)
         }
+        
+        if (him.visible) {him.hide()}
         
     }
     
@@ -87,6 +90,10 @@ class GameScene: SKScene {
         if (node.name == nil) {node.name = "nil"}
         return node
         
+    }
+    
+    func pointConverter (point: CGPoint) {
+        convertPointFromView(point)
     }
     
 

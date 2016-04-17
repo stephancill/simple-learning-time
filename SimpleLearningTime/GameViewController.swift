@@ -9,6 +9,8 @@
 import UIKit
 import SpriteKit
 
+var masterScene: SKScene = SKScene()
+
 class GameViewController: UIViewController {
     
     var deviceType = "iPad"
@@ -16,7 +18,7 @@ class GameViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        if let scene = GameScene(fileNamed:"GameScene") {
+        if let scene = CustomGameScene(fileNamed:"GameScene") {
             // Configure the view.
             let skView = self.view as! SKView
             skView.showsFPS = false
@@ -33,9 +35,9 @@ class GameViewController: UIViewController {
             }
             
             /* Present the scene */
+            masterScene = scene
             skView.presentScene(scene)
         }
-
     }
 
     override func shouldAutorotate() -> Bool {

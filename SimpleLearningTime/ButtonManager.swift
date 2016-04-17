@@ -20,12 +20,10 @@ class ButtonManager {
                 inTexture: SKTexture(imageNamed: "animation1224HourToggle")
             )
     )
-    
     var buttonToggleDigital: SKSpriteNode =
         SKSpriteNode(
             imageNamed: "imageButtonNoDigitalEnabled"
     )
-    
     var buttonCurrentDeviceTime: SKSpriteNode =
         SKSpriteNode(
             texture: SKTexture(
@@ -33,28 +31,27 @@ class ButtonManager {
                 inTexture: SKTexture(imageNamed: "animationCurrentTimeNew")
             )
     )
-
     var buttonRandomTime: SKSpriteNode =
         SKSpriteNode(
             texture: SKTexture(rect: CGRect(x: 0.0, y: 0.75, width: 0.1428571429, height: 0.25),
                 inTexture: SKTexture(imageNamed: "animationRandomAnalogueNew")
             )
     )
-    
     var buttonSelfTest: SKSpriteNode =
         SKSpriteNode(
             texture: SKTexture(rect: CGRect(x: 0.0, y: 0.75, width: 0.1428571429, height: 0.25),
                 inTexture: SKTexture(imageNamed: "animationSelfTestStart")
             )
     )
-    
     var buttonSelfTestDefaultSize = true
-//    var buttonSelfTest: SKSpriteNode =
-//        SKSpriteNode(
-//            texture: SKTexture(rect: CGRect(x: 0.0, y: 0.5, width: 0.07142857143, height: 0.5),
-//                inTexture: SKTexture(imageNamed: "animationSelfTestEndCorrect")
-//            )
-//    )
+    
+    var buttonShowHelp: SKSpriteNode =
+        SKSpriteNode(
+            texture: SKTexture(rect: CGRect(x: 0.0, y: 0.666, width: 0.1666, height: 0.333),
+                inTexture: SKTexture(imageNamed: "animationShowHelp")
+            )
+    )
+    
     
     var interactiveElements: [String] = [
         "button1224HourToggle",
@@ -62,7 +59,8 @@ class ButtonManager {
         "buttonCurrentDeviceTime",
         "buttonRandomTime",
         "buttonSelfTest",
-        "buttonSelfTestEnd"
+        "buttonSelfTestEnd",
+        "buttonShowHelp"
     ]
     var buttonContainer: SKNode = SKNode()
     var scene: SKScene = SKScene()
@@ -78,7 +76,9 @@ class ButtonManager {
     
     func initElements (frameSize: CGSize, scalar: Double, scene: SKScene, frameDivider: CGFloat=100) {
         self.scene = scene
-
+        
+        him.instantiate(scene)
+        
         //Toggle 12/24 hour
         defaultButtonSetup(
             "button1224HourToggle",
@@ -88,7 +88,9 @@ class ButtonManager {
                 y: frameSize.height/frameDivider * 90),
             frameSize: frameSize,
             scalar: scalar*2,
-            frameDivider: frameDivider)
+            frameDivider: frameDivider,
+            container: buttonContainer
+        )
         
         //Random time
         defaultButtonSetup(
@@ -96,10 +98,12 @@ class ButtonManager {
             node: buttonRandomTime,
             position: CGPoint(
                 x: frameSize.width/frameDivider * 4,
-                y: frameSize.height/frameDivider * 80),
+                y: frameSize.height/frameDivider * 75),
             frameSize: frameSize,
             scalar: scalar*0.93,
-            frameDivider: frameDivider)
+            frameDivider: frameDivider,
+            container: buttonContainer
+        )
        
         //Current device time
         defaultButtonSetup(
@@ -107,13 +111,15 @@ class ButtonManager {
             node: buttonCurrentDeviceTime,
             position: CGPoint(
                 x: frameSize.width/frameDivider * 18,
-                y: frameSize.height/frameDivider * 80),
+                y: frameSize.height/frameDivider * 75),
             frameSize: frameSize,
             scalar: scalar*0.93,
-            frameDivider: frameDivider)
+            frameDivider: frameDivider,
+            container: buttonContainer
+        )
         
         //Toggle digital time
-        buttonToggleDigital.anchorPoint = CGPoint(x: 0, y: 0.5)
+//        buttonToggleDigital.anchorPoint = CGPoint(x: 0, y: 0.5)
         defaultButtonSetup(
             "buttonToggleDigital",
             node: buttonToggleDigital,
@@ -122,7 +128,10 @@ class ButtonManager {
                 y: dtm.center.y*2.35),
             frameSize: frameSize,
             scalar: scalar*0.9,
-            frameDivider: frameDivider)
+            frameDivider: frameDivider,
+            container: buttonContainer,
+            anchorPoint: CGPoint(x: 0, y: 0.5)
+        )
         
         //Enter self-test mode
         defaultButtonSetup(
@@ -133,7 +142,22 @@ class ButtonManager {
                 y: frameSize.height/frameDivider * 60),
             frameSize: frameSize,
             scalar: scalar*0.9,
-            frameDivider: frameDivider)
+            frameDivider: frameDivider,
+            container: buttonContainer
+        )
+        
+        //Help button
+        defaultButtonSetup(
+            "buttonShowHelp",
+            node: buttonShowHelp,
+            position: CGPoint(
+                x: frameSize.width/frameDivider * 95,
+                y: frameSize.height/frameDivider * 5),
+            frameSize: frameSize,
+            scalar: scalar*0.9,
+            frameDivider: frameDivider,
+            container: buttonContainer
+        )
         
         scene.addChild(buttonContainer)
         
@@ -174,6 +198,10 @@ class ButtonManager {
         
         if (name == "buttonSelfTest" || name == "buttonSelfTestEnd") {
             selfTest(name)
+        }
+        
+        if (name == "buttonShowHelp") {
+            if (!him.visible) { him.show(); print("hi") }
         }
 
     }
@@ -330,7 +358,7 @@ class ButtonManager {
     }
     
     func animateSelfTestEnd (correct: Bool, reverse: Bool=false, queue: Bool=false) {
-
+        
         if (correct) {
             animate(
                 buttonSelfTest,
@@ -376,7 +404,7 @@ class ButtonManager {
         
         let action = SKAction.animateWithTextures(textures, timePerFrame: Double(1)/Double(fps))
         
-        if (queue) {
+        if (queue && (operationQueue.operations.count <= 3)) {
             operationQueue.addOperation(ActionOperation(node: sprite, action: action))
         } else {
             sprite.runAction(action)
@@ -384,16 +412,16 @@ class ButtonManager {
     }
     
     func defaultButtonSetup(name: String, node: SKSpriteNode, position: CGPoint, frameSize: CGSize, scalar: Double=1,
-        
-        frameDivider: CGFloat=35) {
+                            frameDivider: CGFloat=100, container: SKNode, zPosition: CGFloat=10, anchorPoint: CGPoint=CGPoint(x: 0.5, y: 0.5)) {
         node.name = name
-        node.zPosition = 10
+        node.zPosition = zPosition
         node.size = CGSize(
             width: node.size.width * CGFloat(scalar),
             height: node.size.height * CGFloat(scalar)
         )
         node.position = position
-        buttonContainer.addChild(node)
+        node.anchorPoint = anchorPoint
+        container.addChild(node)
     
     }
 }

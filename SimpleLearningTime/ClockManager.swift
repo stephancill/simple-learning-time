@@ -56,6 +56,9 @@ class ClockManager {
         spriteClockHour.name = "hour"
         spriteClockMinute.name = "minute"
         
+        spriteClockHour.anchorPoint = CGPoint(x: 0.5, y: 0)
+        spriteClockMinute.anchorPoint = CGPoint(x: 0.5, y: 0)
+        
     }
     
     

@@ -93,6 +93,31 @@ class HelpInfoManager {
             anchorPoint: CGPoint(x: -0.005, y: -0.42)
         )
         
+        btnm.defaultButtonSetup(
+            "spriteHelpHour",
+            node: spriteHelpHour,
+            position: CGPoint(
+                x: frameSize.width,
+                y: frameSize.height),
+            frameSize: frameSize,
+            scalar: scalar,
+            container: spriteContainer,
+            zPosition: 5,
+            anchorPoint: CGPoint(x: 1, y: 1)
+        )
+        
+        btnm.defaultButtonSetup(
+            "spriteHelpMinute",
+            node: spriteHelpMinute,
+            position: CGPoint(
+                x: frameSize.width,
+                y: frameSize.height),
+            frameSize: frameSize,
+            scalar: scalar,
+            container: spriteContainer,
+            zPosition: 5,
+            anchorPoint: CGPoint(x: 1, y: 2)
+        )
         
         // Add all sprites to scene
         

@@ -13,6 +13,10 @@ class SelfTestManager {
 
     var correct: Bool = false
     var testActive: Bool = false
+    
+    var spriteSelfTestHelp: SKSpriteNode = SKSpriteNode(imageNamed: "imageSelfTestHelp")
+    var spriteContainer: SKNode = SKNode()
+    var scene: SKScene = SKScene()
 
     init() {
         
@@ -29,12 +33,17 @@ class SelfTestManager {
         let minutes = CGFloat(arc4random_uniform(59))
         
         dtm.set((hours, minutes))
+        
+        scene.addChild(spriteContainer)
+        
     }
     
     func endTest () {
         // End the self-test
         testActive = false
         correct = false
+        
+        spriteContainer.removeFromParent()
     }
     
     func check() {

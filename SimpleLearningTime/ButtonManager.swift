@@ -79,6 +79,20 @@ class ButtonManager {
         
         him.instantiate(scene)
         
+        stm.scene = scene
+        defaultButtonSetup(
+            "spriteSelfTestHelp",
+            node: stm.spriteSelfTestHelp,
+            position: CGPoint(
+                x: dtm.displayTime[4].position.x,
+                y: dtm.displayTime[4].position.y),
+            frameSize: frameSize,
+            scalar: scalar*1.5,
+            frameDivider: frameDivider,
+            container: stm.spriteContainer,
+            anchorPoint: CGPoint(x: 0.57, y: 0.5)
+        )
+        
         //Toggle 12/24 hour
         defaultButtonSetup(
             "button1224HourToggle",

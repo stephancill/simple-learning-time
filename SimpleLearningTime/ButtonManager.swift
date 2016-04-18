@@ -245,9 +245,7 @@ class ButtonManager {
                 
                 // Correct answer
                 animateSelfTestEnd(stm.correct, queue: true)
-                reversed = false
                 animateSelfTestEnd(true, reverse: true, queue: true)
-                reversed = true
                 stm.endTest()
                 
                 if (!buttonSelfTestDefaultSize) {

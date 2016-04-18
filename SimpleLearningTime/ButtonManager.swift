@@ -201,7 +201,8 @@ class ButtonManager {
         }
         
         if (name == "buttonShowHelp") {
-            if (!him.visible) { him.show(); print("hi") }
+            if (!him.visible) { him.show(); print("hi") } else {him.hide()}
+            animateShowHelp()
         }
 
     }
@@ -244,7 +245,9 @@ class ButtonManager {
                 
                 // Correct answer
                 animateSelfTestEnd(stm.correct, queue: true)
+                reversed = false
                 animateSelfTestEnd(true, reverse: true, queue: true)
+                reversed = true
                 stm.endTest()
                 
                 if (!buttonSelfTestDefaultSize) {
@@ -260,8 +263,10 @@ class ButtonManager {
                 
             } else {
                 // Incorrect answer
-                animateSelfTestEnd(stm.correct, queue: true)
-                animateSelfTestEnd(stm.correct, reverse: true, queue: true)
+                if (operationQueue.operations.count <= 1) {
+                    animateSelfTestEnd(stm.correct, queue: true)
+                    animateSelfTestEnd(stm.correct, reverse: true, queue: true)
+                }
 
             }
         } else {
@@ -358,7 +363,10 @@ class ButtonManager {
     }
     
     func animateSelfTestEnd (correct: Bool, reverse: Bool=false, queue: Bool=false) {
-        
+//        if (reverse) {
+//            reversed = false
+//        }
+        print(operationQueue.operations.count)
         if (correct) {
             animate(
                 buttonSelfTest,
@@ -380,6 +388,21 @@ class ButtonManager {
                 queue: queue
             )
         }
+//        if (reverse) {
+//            reversed = true
+//        }
+        
+    }
+    
+    func animateShowHelp (reverse: Bool=false) {
+        animate(
+            buttonShowHelp,
+            spritesheet: SKTexture(imageNamed: "animationShowHelp"),
+            frames: 18, fps: 35,
+            size: CGSize(width: 0.16666666, height: 0.333),
+            divisions: 3, framesPR: 6,
+            reverse: reverse
+        )
     }
     
     func animate (sprite: SKSpriteNode, spritesheet: SKTexture, frames: Int, fps: Int, size: CGSize, divisions: Double=1, framesPR: Int=1, reverse: Bool=false, queue: Bool=false) {
@@ -404,7 +427,7 @@ class ButtonManager {
         
         let action = SKAction.animateWithTextures(textures, timePerFrame: Double(1)/Double(fps))
         
-        if (queue && (operationQueue.operations.count <= 3)) {
+        if (queue) {
             operationQueue.addOperation(ActionOperation(node: sprite, action: action))
         } else {
             sprite.runAction(action)

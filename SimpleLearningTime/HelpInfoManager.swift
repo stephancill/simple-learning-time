@@ -53,7 +53,7 @@ class HelpInfoManager {
             zPosition: 5,
             anchorPoint: CGPoint(x: -0.08, y: -1.79)
         )
-//        
+ 
         btnm.defaultButtonSetup(
             "spriteHelpCurrentTime",
             node: spriteHelpCurrentTime,
@@ -66,7 +66,7 @@ class HelpInfoManager {
             zPosition: 5,
             anchorPoint: CGPoint(x: -0.54, y: -4.27)
         )
-//
+
         btnm.defaultButtonSetup(
             "spriteHelpSelfTest",
             node: spriteHelpSelfTest,
@@ -79,7 +79,7 @@ class HelpInfoManager {
             zPosition: 5,
             anchorPoint: CGPoint(x: -0.21, y: -0.6)
         )
-//
+
         btnm.defaultButtonSetup(
             "spriteHelpDigitalToggle",
             node: spriteHelpDigitalToggle,

@@ -148,6 +148,8 @@ class ButtonManager {
             frameDivider: frameDivider,
             container: buttonContainer
         )
+        buttonSelfTestSizeDefault = buttonSelfTest.size
+        buttonSelfTestSizeTest = CGSize(width: buttonSelfTest.size.width, height: buttonSelfTest.size.height)
         
         //Help button
         defaultButtonSetup(

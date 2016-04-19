@@ -52,6 +52,9 @@ class ButtonManager {
     
     // Misc declarations
     var buttonSelfTestDefaultSize = true
+    var buttonSelfTestSizeTest: CGSize = CGSize()
+    var buttonSelfTestSizeDefault: CGSize = CGSize()
+    
     var operationQueue = NSOperationQueue()
     var interactiveElements: [String] = [
         "button1224HourToggle",
@@ -229,7 +232,7 @@ class ButtonManager {
         }
         
         if (name == "buttonSelfTest" || name == "buttonSelfTestEnd") {
-            selfTest(name)
+            if (operationQueue.operations.count == 0) {selfTest(name)}
         }
         
         if (name == "buttonShowHelp") {
@@ -281,28 +284,23 @@ class ButtonManager {
             if (stm.correct) {
                 // Correct answer
                 stm.endTest()
-                if (operationQueue.operations.count == 0) {
-                    animateSelfTestEnd(true, queue: true)
-                    animateSelfTestEnd(true, reverse: true, queue: true)
-                    
-                    
-//                    if (!buttonSelfTestDefaultSize) {
-                        operationQueue.addOperation(ActionOperation(node: buttonSelfTest, action: SKAction.scaleBy((1/0.6), duration: 0.1)))
-//                    }
-                    buttonSelfTestDefaultSize = true
-                    
-                    operationQueue.addOperation(
-                        ActionOperation(
-                            node: buttonSelfTest,
-                            action: SKAction.animateWithTextures(
-                                [SKTexture(
-                                    rect: CGRect(x: 0.0, y: 0.75, width: 0.1428571429, height: 0.25),
-                                    inTexture: SKTexture(imageNamed: "animationSelfTestStart"))],
-                                timePerFrame: Double(1)/Double(35)
-                            )
+                animateSelfTestEnd(true, queue: true)
+                animateSelfTestEnd(true, reverse: true, queue: true)
+    
+                operationQueue.addOperation(ActionOperation(node: buttonSelfTest, action: SKAction.scaleBy((1/0.6), duration: 0.1)))
+                buttonSelfTestDefaultSize = true
+                
+                operationQueue.addOperation(
+                    ActionOperation(
+                        node: buttonSelfTest,
+                        action: SKAction.animateWithTextures(
+                            [SKTexture(
+                                rect: CGRect(x: 0.0, y: 0.75, width: 0.1428571429, height: 0.25),
+                                inTexture: SKTexture(imageNamed: "animationSelfTestStart"))],
+                            timePerFrame: Double(1)/Double(35)
                         )
                     )
-                }
+                )
             } else {
                 // Incorrect answer
                 if (operationQueue.operations.count == 0) {

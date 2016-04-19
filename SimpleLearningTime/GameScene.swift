@@ -20,6 +20,7 @@ var allInteractiveElements: [String] = []
 class CustomGameScene: SKScene {
 
     var middle: CGPoint = CGPoint(x: 0, y: 0)
+    var inverseScalar: Float = 1 /* iPhone = 3.23529, iPad = 1*/
     
     override func didMoveToView(view: SKView) {
         
@@ -27,10 +28,11 @@ class CustomGameScene: SKScene {
         self.name = "scene"
         middle = CGPoint(x: size.width * 0.5, y: size.height * 0.5)
         
-        cm.initElements(size, scalar: 0.55, scene: self, time: math.currentDeviceTime())
-        bgm.initElements(size, scalar: 0.8, scene: self, center: cm.center)
-        dtm.initElements(size, scalar: 0.6, scene: self, time: cm.time)
-        btnm.initElements(size, scalar: 0.25, scene: self)
+        cm.initElements(size, scalar: 0.55/inverseScalar, scene: self, time: math.currentDeviceTime())
+        bgm.initElements(size, scalar: 0.8/inverseScalar, scene: self, center: cm.center)
+        dtm.initElements(size, scalar: 0.6/inverseScalar, scene: self, time: cm.time)
+        btnm.initElements(size, scalar: 0.25/inverseScalar, scene: self, inverseScalar: inverseScalar)
+        // him instantiated in btnm
         
     }
     

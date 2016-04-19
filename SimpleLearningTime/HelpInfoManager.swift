@@ -23,7 +23,7 @@ class HelpInfoManager {
     var visible: Bool = false
     var scene: SKScene = SKScene()
     
-    func instantiate (scene: SKScene, visibility: Bool=false, scalar: Double=0.5) {
+    func instantiate (scene: SKScene, visibility: Bool=false, scalar: Float=0.5) {
         self.scene = scene
         let frameSize = scene.size
         visible = visibility
@@ -118,6 +118,11 @@ class HelpInfoManager {
             zPosition: 5,
             anchorPoint: CGPoint(x: 1, y: 2)
         )
+        
+        if (deviceType == "iPhone") {
+            /* Make case-specific adjustments here */
+//            spriteHelp1224Hour.anchorPoint = CGPoint(x: -0.06, y: 1.44)
+        }
         
     }
     

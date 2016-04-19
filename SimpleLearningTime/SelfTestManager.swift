@@ -10,7 +10,7 @@ import Foundation
 import SpriteKit
 
 class SelfTestManager {
-
+    /* instantiated in btnm */
     var correct: Bool = false
     var testActive: Bool = false
     

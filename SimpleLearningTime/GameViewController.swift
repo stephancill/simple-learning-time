@@ -10,11 +10,10 @@ import UIKit
 import SpriteKit
 
 var masterScene: SKScene = SKScene()
+var deviceType = "iPad"
 
 class GameViewController: UIViewController {
-    
-    var deviceType = "iPad"
-    
+
     override func viewDidLoad() {
         super.viewDidLoad()
         
@@ -30,7 +29,9 @@ class GameViewController: UIViewController {
             /* Set the scale mode to scale to fit the window */
             if (deviceType == "iPhone") {
 //                scene.scaleMode = .Fill
-                scene.scaleMode = .AspectFit
+                scene.size = CGSize( width: skView.bounds.size.height/2, height: skView.bounds.size.width/2)
+                scene.inverseScalar = 4
+                scene.scaleMode = .AspectFill
             } else {
                 scene.scaleMode = .AspectFill
             }

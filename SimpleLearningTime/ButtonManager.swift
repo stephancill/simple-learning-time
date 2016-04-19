@@ -51,8 +51,8 @@ class ButtonManager {
     )
     
     // Misc declarations
-    var buttonSelfTestDefaultSize = true
-    
+    var propertySelfTestDefaultSize = true
+    var propertySelfTestStartingSize = CGSize()
     var operationQueue = NSOperationQueue()
     var interactiveElements: [String] = [
         "button1224HourToggle",
@@ -75,11 +75,11 @@ class ButtonManager {
         operationQueue.maxConcurrentOperationCount = 1; // disallow follow actions from overlapping one another
     }
     
-    func initElements (frameSize: CGSize, scalar: Double, scene: SKScene, frameDivider: CGFloat=100) {
+    func initElements (frameSize: CGSize, scalar: Float, scene: SKScene, frameDivider: CGFloat=100, inverseScalar: Float=1) {
         
         self.scene = scene
         
-        him.instantiate(scene)
+        him.instantiate(scene, scalar: 0.5/inverseScalar)
         stm.scene = scene
         
         
@@ -149,7 +149,7 @@ class ButtonManager {
             frameDivider: frameDivider,
             container: buttonContainer
         )
-        
+        propertySelfTestStartingSize = buttonSelfTest.size
         //Help button
         defaultButtonSetup(
             "buttonShowHelp",
@@ -188,6 +188,10 @@ class ButtonManager {
             container: stm.spriteContainer,
             anchorPoint: CGPoint(x: 0.57, y: -1.5)
         )
+        if (deviceType == "iPhone") {
+            /* Make case-specific adjustments here */
+            stm.spriteSelfTestHelp.anchorPoint = CGPoint(x: -0.6, y: -0.2)
+        }
         /*---*/
         
         scene.addChild(buttonContainer)
@@ -272,6 +276,7 @@ class ButtonManager {
         dtm.toggleVisibility()
     }
     
+    // Self testing feature procedures
     func selfTest (buttonName: String) {
         if (stm.testActive) {
             // Check solutions
@@ -313,7 +318,8 @@ class ButtonManager {
         if (stm.testActive) {
             stm.endTest()
         }
-        switchSizes()
+        buttonSelfTest.size = propertySelfTestStartingSize
+        propertySelfTestDefaultSize = true
         buttonSelfTest.texture = SKTexture(
             rect: CGRect(x: 0.0, y: 0.75, width: 0.1428571429, height: 0.25),
             inTexture: SKTexture(imageNamed: "animationSelfTestStart")
@@ -321,12 +327,12 @@ class ButtonManager {
     }
     
     func switchSizes() {
-        if (!buttonSelfTestDefaultSize) {
+        if (!propertySelfTestDefaultSize) {
             operationQueue.addOperation(ActionOperation(node: buttonSelfTest, action: SKAction.scaleBy((1/0.6), duration: 0.1)))
-            buttonSelfTestDefaultSize = true
+            propertySelfTestDefaultSize = true
         } else {
             operationQueue.addOperation(ActionOperation(node: buttonSelfTest, action: SKAction.scaleBy(0.6, duration: 0.1)))
-            buttonSelfTestDefaultSize = false
+            propertySelfTestDefaultSize = false
         }
     }
     
@@ -375,10 +381,10 @@ class ButtonManager {
     
     func animateSelfTest (reverse: Bool=false, queue: Bool=false) {
         if(!stm.testActive) {
-            if (buttonSelfTestDefaultSize) {
+            if (propertySelfTestDefaultSize) {
                 operationQueue.addOperation(ActionOperation(node: buttonSelfTest, action: SKAction.scaleBy(0.6, duration: 0.1)))
             }
-            buttonSelfTestDefaultSize = false
+            propertySelfTestDefaultSize = false
             // Replace with new animation from "checklist" to "–"
             buttonSelfTest.texture = SKTexture(
                 rect: CGRect(x: 0.0, y: 0.5, width: 0.07142857143, height: 0.5),
@@ -386,10 +392,10 @@ class ButtonManager {
             )
             
         } else {
-            if (!buttonSelfTestDefaultSize) {
+            if (!propertySelfTestDefaultSize) {
                 operationQueue.addOperation(ActionOperation(node: buttonSelfTest, action: SKAction.scaleBy((1/0.6), duration: 0.1)))
             }
-            buttonSelfTestDefaultSize = true
+            propertySelfTestDefaultSize = true
             animate(
                 buttonSelfTest,
                 spritesheet: SKTexture(imageNamed: "animationSelfTestStart"),
@@ -469,7 +475,7 @@ class ButtonManager {
         }
     }
     
-    func defaultButtonSetup(name: String, node: SKSpriteNode, position: CGPoint, frameSize: CGSize, scalar: Double=1,
+    func defaultButtonSetup(name: String, node: SKSpriteNode, position: CGPoint, frameSize: CGSize, scalar: Float=1,
                             frameDivider: CGFloat=100, container: SKNode, zPosition: CGFloat=10, anchorPoint: CGPoint=CGPoint(x: 0.5, y: 0.5)) {
         node.name = name
         node.zPosition = zPosition

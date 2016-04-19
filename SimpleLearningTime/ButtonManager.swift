@@ -52,8 +52,6 @@ class ButtonManager {
     
     // Misc declarations
     var buttonSelfTestDefaultSize = true
-    var buttonSelfTestSizeTest: CGSize = CGSize()
-    var buttonSelfTestSizeDefault: CGSize = CGSize()
     
     var operationQueue = NSOperationQueue()
     var interactiveElements: [String] = [
@@ -151,8 +149,6 @@ class ButtonManager {
             frameDivider: frameDivider,
             container: buttonContainer
         )
-        buttonSelfTestSizeDefault = buttonSelfTest.size
-        buttonSelfTestSizeTest = CGSize(width: buttonSelfTest.size.width, height: buttonSelfTest.size.height)
         
         //Help button
         defaultButtonSetup(
@@ -276,7 +272,6 @@ class ButtonManager {
         dtm.toggleVisibility()
     }
     
-//    var order : [String] = []
     func selfTest (buttonName: String) {
         if (stm.testActive) {
             // Check solutions
@@ -287,8 +282,7 @@ class ButtonManager {
                 animateSelfTestEnd(true, queue: true)
                 animateSelfTestEnd(true, reverse: true, queue: true)
     
-                operationQueue.addOperation(ActionOperation(node: buttonSelfTest, action: SKAction.scaleBy((1/0.6), duration: 0.1)))
-                buttonSelfTestDefaultSize = true
+                switchSizes()
                 
                 operationQueue.addOperation(
                     ActionOperation(
@@ -319,14 +313,21 @@ class ButtonManager {
         if (stm.testActive) {
             stm.endTest()
         }
-        if (!buttonSelfTestDefaultSize) {
-            operationQueue.addOperation(ActionOperation(node: buttonSelfTest, action: SKAction.scaleBy((1/0.6), duration: 0.1)))
-        }
-        buttonSelfTestDefaultSize = true
+        switchSizes()
         buttonSelfTest.texture = SKTexture(
             rect: CGRect(x: 0.0, y: 0.75, width: 0.1428571429, height: 0.25),
             inTexture: SKTexture(imageNamed: "animationSelfTestStart")
         )
+    }
+    
+    func switchSizes() {
+        if (!buttonSelfTestDefaultSize) {
+            operationQueue.addOperation(ActionOperation(node: buttonSelfTest, action: SKAction.scaleBy((1/0.6), duration: 0.1)))
+            buttonSelfTestDefaultSize = true
+        } else {
+            operationQueue.addOperation(ActionOperation(node: buttonSelfTest, action: SKAction.scaleBy(0.6, duration: 0.1)))
+            buttonSelfTestDefaultSize = false
+        }
     }
     
     

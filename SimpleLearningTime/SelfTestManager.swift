@@ -14,7 +14,8 @@ class SelfTestManager {
     var correct: Bool = false
     var testActive: Bool = false
     
-    var spriteSelfTestHelp: SKSpriteNode = SKSpriteNode(imageNamed: "imageSelfTestHelp")
+    var spriteSelfTestHelp: SKSpriteNode = SKSpriteNode(imageNamed: "imageSelfTestHelp") // Set up in button manager (btnm)
+    var spriteSelfTestHelp2: SKSpriteNode = SKSpriteNode(imageNamed: "imageSelfTestHelp2") // Set up in button manager (btnm)
     var spriteContainer: SKNode = SKNode()
     var scene: SKScene = SKScene()
 

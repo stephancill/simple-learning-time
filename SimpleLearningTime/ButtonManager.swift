@@ -10,9 +10,7 @@ import SpriteKit
 
 class ButtonManager {
     
-    var operationQueue = NSOperationQueue()
-    
-    
+    // Button declarations
     var button1224HourToggle: SKSpriteNode =
         SKSpriteNode(
             texture: SKTexture(
@@ -43,7 +41,7 @@ class ButtonManager {
                 inTexture: SKTexture(imageNamed: "animationSelfTestStart")
             )
     )
-    var buttonSelfTestDefaultSize = true
+    
     
     var buttonShowHelp: SKSpriteNode =
         SKSpriteNode(
@@ -52,7 +50,9 @@ class ButtonManager {
             )
     )
     
-    
+    // Misc declarations
+    var buttonSelfTestDefaultSize = true
+    var operationQueue = NSOperationQueue()
     var interactiveElements: [String] = [
         "button1224HourToggle",
         "buttonToggleDigital",
@@ -75,23 +75,13 @@ class ButtonManager {
     }
     
     func initElements (frameSize: CGSize, scalar: Double, scene: SKScene, frameDivider: CGFloat=100) {
+        
         self.scene = scene
         
         him.instantiate(scene)
-        
         stm.scene = scene
-        defaultButtonSetup(
-            "spriteSelfTestHelp",
-            node: stm.spriteSelfTestHelp,
-            position: CGPoint(
-                x: dtm.displayTime[4].position.x,
-                y: dtm.displayTime[4].position.y),
-            frameSize: frameSize,
-            scalar: scalar*1.5,
-            frameDivider: frameDivider,
-            container: stm.spriteContainer,
-            anchorPoint: CGPoint(x: 0.57, y: 0.5)
-        )
+        
+        
         
         //Toggle 12/24 hour
         defaultButtonSetup(
@@ -133,7 +123,6 @@ class ButtonManager {
         )
         
         //Toggle digital time
-//        buttonToggleDigital.anchorPoint = CGPoint(x: 0, y: 0.5)
         defaultButtonSetup(
             "buttonToggleDigital",
             node: buttonToggleDigital,
@@ -172,6 +161,33 @@ class ButtonManager {
             frameDivider: frameDivider,
             container: buttonContainer
         )
+        
+        /*---*/
+        defaultButtonSetup(
+            "spriteSelfTestHelp2",
+            node: stm.spriteSelfTestHelp2,
+            position: CGPoint(
+                x: buttonSelfTest.position.x ,
+                y: buttonSelfTest.position.y),
+            frameSize: frameSize,
+            scalar: scalar*1.5,
+            frameDivider: frameDivider,
+            container: stm.spriteContainer,
+            anchorPoint: CGPoint(x: 0.1, y: 1.27)
+        )
+        defaultButtonSetup(
+            "spriteSelfTestHelp",
+            node: stm.spriteSelfTestHelp,
+            position: CGPoint(
+                x: dtm.displayTime[4].position.x,
+                y: dtm.displayTime[4].position.y),
+            frameSize: frameSize,
+            scalar: scalar*1.5,
+            frameDivider: frameDivider,
+            container: stm.spriteContainer,
+            anchorPoint: CGPoint(x: 0.57, y: -1.5)
+        )
+        /*---*/
         
         scene.addChild(buttonContainer)
         
@@ -215,7 +231,11 @@ class ButtonManager {
         }
         
         if (name == "buttonShowHelp") {
-            if (!him.visible) { him.show(); print("hi") } else {him.hide()}
+            if (!him.visible) {
+                him.show()
+            } else {
+                him.hide()
+            }
             animateShowHelp()
         }
 
@@ -251,33 +271,41 @@ class ButtonManager {
         dtm.toggleVisibility()
     }
     
+//    var order : [String] = []
     func selfTest (buttonName: String) {
         if (stm.testActive) {
             // Check solutions
             stm.check()
             if (stm.correct) {
-                
                 // Correct answer
-                animateSelfTestEnd(stm.correct, queue: true)
-                animateSelfTestEnd(true, reverse: true, queue: true)
                 stm.endTest()
-                
-                if (!buttonSelfTestDefaultSize) {
-                    operationQueue.addOperation(ActionOperation(node: buttonSelfTest, action: SKAction.scaleBy((1/0.6), duration: 0.1)))
+                if (operationQueue.operations.count == 0) {
+                    animateSelfTestEnd(true, queue: true)
+                    animateSelfTestEnd(true, reverse: true, queue: true)
+                    
+                    
+//                    if (!buttonSelfTestDefaultSize) {
+                        operationQueue.addOperation(ActionOperation(node: buttonSelfTest, action: SKAction.scaleBy((1/0.6), duration: 0.1)))
+//                    }
+                    buttonSelfTestDefaultSize = true
+                    
+                    operationQueue.addOperation(
+                        ActionOperation(
+                            node: buttonSelfTest,
+                            action: SKAction.animateWithTextures(
+                                [SKTexture(
+                                    rect: CGRect(x: 0.0, y: 0.75, width: 0.1428571429, height: 0.25),
+                                    inTexture: SKTexture(imageNamed: "animationSelfTestStart"))],
+                                timePerFrame: Double(1)/Double(35)
+                            )
+                        )
+                    )
                 }
-                buttonSelfTestDefaultSize = true
-                
-                operationQueue.addOperation(ActionOperation(node: buttonSelfTest, action: SKAction.animateWithTextures([SKTexture(rect: CGRect(x: 0.0, y: 0.75, width: 0.1428571429, height: 0.25),
-                    inTexture: SKTexture(imageNamed: "animationSelfTestStart")
-                    )], timePerFrame: Double(1)/Double(35))))
-                
-
-                
             } else {
                 // Incorrect answer
-                if (operationQueue.operations.count <= 1) {
-                    animateSelfTestEnd(stm.correct, queue: true)
-                    animateSelfTestEnd(stm.correct, reverse: true, queue: true)
+                if (operationQueue.operations.count == 0) {
+                    animateSelfTestEnd(false, queue: true)
+                    animateSelfTestEnd(false, reverse: true, queue: true)
                 }
 
             }
@@ -375,10 +403,7 @@ class ButtonManager {
     }
     
     func animateSelfTestEnd (correct: Bool, reverse: Bool=false, queue: Bool=false) {
-//        if (reverse) {
-//            reversed = false
-//        }
-        print(operationQueue.operations.count)
+        
         if (correct) {
             animate(
                 buttonSelfTest,
@@ -400,9 +425,6 @@ class ButtonManager {
                 queue: queue
             )
         }
-//        if (reverse) {
-//            reversed = true
-//        }
         
     }
     

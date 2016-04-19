@@ -121,7 +121,7 @@ class ClockManager {
             bgm.adjustBackgroundColor()
             
             rotate(math.deltaTouchAngle, nodeID: currentNodeID )
-            print(stm.testActive)
+
             if (!stm.testActive) {
                 dtm.set(calculateTime())
             }

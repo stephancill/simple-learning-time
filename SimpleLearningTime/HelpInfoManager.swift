@@ -119,9 +119,6 @@ class HelpInfoManager {
             anchorPoint: CGPoint(x: 1, y: 2)
         )
         
-        
-        // Add all sprites to scene
-        
     }
     
     func show () {

@@ -26,10 +26,11 @@ class GameViewController: UIViewController {
             
             /* Sprite Kit applies additional optimizations to improve rendering performance */
             skView.ignoresSiblingOrder = false
-            
+            print(deviceType)
             /* Set the scale mode to scale to fit the window */
             if (deviceType == "iPhone") {
-                scene.scaleMode = .Fill
+//                scene.scaleMode = .Fill
+                scene.scaleMode = .AspectFit
             } else {
                 scene.scaleMode = .AspectFill
             }

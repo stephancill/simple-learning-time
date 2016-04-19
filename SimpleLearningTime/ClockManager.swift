@@ -145,7 +145,7 @@ class ClockManager {
     func touchesEnded() {
         
         /* Snapping and time setting */
-        cm.snap()
+        cm.snap(currentNodeID)
         if (!stm.testActive) {
             dtm.set(cm.time)
         }
@@ -162,7 +162,7 @@ class ClockManager {
     
     /* Utility functions */
     
-    func snap () {
+    func snap (nodename: String="minute") {
         
         var hours = (spriteClockHour.zRotation / CGFloat(math.clockHourIntervalConst)) % 24
         var mins = (spriteClockMinute.zRotation / CGFloat(math.clockMinuteIntervalConst)) % 60
@@ -170,19 +170,21 @@ class ClockManager {
         if (hours < 0){ hours = 24 + hours}
         if (mins < 0){ mins = 60 + mins}
         
+        if (nodename == "hour") { hours += 0.2 }
+        
         mins = round(mins)
         hours = floor(hours)
-        
+
         // Hour position = (hour interval * current hour) + (hour interval/60 * minutes)
-        spriteClockHour.zRotation = CGFloat(math.clockHourIntervalConst) * floor(hours) + ((CGFloat(math.clockHourIntervalConst / 60) * mins))
+        spriteClockHour.zRotation = CGFloat(math.clockHourIntervalConst) * hours + ((CGFloat(math.clockHourIntervalConst / 60) * mins))
 
         // Minute position = minute interval * minutes
-        spriteClockMinute.zRotation = CGFloat(math.clockMinuteIntervalConst) * round(mins)
+        spriteClockMinute.zRotation = CGFloat(math.clockMinuteIntervalConst) * mins
         
         // Background's rotation is half of hour's rotation
         bgm.set((hours, mins))
         
-        time = calculateTime ()
+        time = calculateTime()
         
     }
     

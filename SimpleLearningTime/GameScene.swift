@@ -23,7 +23,7 @@ class CustomGameScene: SKScene {
     var inverseScalar: Float = 1 /* iPhone = 3.23529, iPad = 1*/
     
     override func didMoveToView(view: SKView) {
-        
+        print(inverseScalar)
         /* Setup your scene here */
         self.name = "scene"
         middle = CGPoint(x: size.width * 0.5, y: size.height * 0.5)

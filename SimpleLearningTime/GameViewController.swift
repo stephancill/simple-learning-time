@@ -28,8 +28,7 @@ class GameViewController: UIViewController {
             print(deviceType)
             /* Set the scale mode to scale to fit the window */
             if (deviceType == "iPhone") {
-//                scene.scaleMode = .Fill
-                scene.size = CGSize( width: skView.bounds.size.height/2, height: skView.bounds.size.width/2)
+                scene.size = CGSize( width: skView.bounds.size.width/2, height: skView.bounds.size.height/2)
                 scene.inverseScalar = 4
                 scene.scaleMode = .AspectFill
             } else {

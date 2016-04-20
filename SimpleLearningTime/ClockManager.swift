@@ -92,9 +92,7 @@ class ClockManager {
             scene.addChild(element)
             
             layer += 1
-            
-            
-            
+
         }
         set(time)
         print("cm initialized")

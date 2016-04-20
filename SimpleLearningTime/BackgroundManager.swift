@@ -16,7 +16,7 @@ class BackgroundManager {
     var spriteUtilitiesBackground = SKSpriteNode()
     var spriteBackgroundColor = SKSpriteNode(color: UIColor(), size: CGSize())
     
-    func initElements (frameSize: CGSize, scalar:Float, scene:SKScene, center:CGPoint, time: (CGFloat, CGFloat)=(CGFloat(0), CGFloat(0)), frameDivider:CGFloat=35) {
+    func initElements (frameSize: CGSize, scalar:Float, scene:SKScene, center:CGPoint, time: (CGFloat, CGFloat)=(CGFloat(0), CGFloat(0)), frameDivider:CGFloat=100) {
         
         let mid = CGPoint(x: frameSize.width * 0.5, y: frameSize.height * 0.5)
         
@@ -24,7 +24,7 @@ class BackgroundManager {
         spriteUtilitiesBackground = SKSpriteNode(
             color: UIColor(white: 1, alpha: 0.3),
             size: CGSize(
-                width: frameSize.width / frameDivider * 4 * 4,
+                width: frameSize.width / frameDivider * 46,
                 height: frameSize.height * 2)
         )
         spriteUtilitiesBackground.zPosition = -1

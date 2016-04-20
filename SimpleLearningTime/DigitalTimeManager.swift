@@ -29,13 +29,18 @@ class DigitalTimeManager {
     
     var enabled = true
     
-    func initElements (frameSize: CGSize, scalar:Float, scene:SKScene, time:(CGFloat, CGFloat), frameDivider: CGFloat=35) {
+    func initElements (frameSize: CGSize, scalar:Float, scene:SKScene, time:(CGFloat, CGFloat), frameDivider: CGFloat=100) {
         
         digitSpacing += (spritesheetfull.texture?.size().width)!/CGFloat(10)
         center = CGPoint(
-            x: frameSize.width / frameDivider * 4,
-            y: frameSize.height / frameDivider * 3.5
+            x: frameSize.width / frameDivider*10.2,
+            y: frameSize.height / frameDivider*10.3
         )
+        
+        if (deviceType == "iPad") {
+            /* Make case-specific adjustments here */
+            center.x = frameSize.width / frameDivider*12
+        }
         
         xpos = center.x - CGFloat(3.7 * (Double(digitSpacing)) * Double(scalar))
         

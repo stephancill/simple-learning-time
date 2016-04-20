@@ -13,14 +13,17 @@ Time: Simple Learning is an educational app designed for junior learners to assi
 * Set the in-app time to a random time
 
 
-## Included in this project:
-* Visual assets for clock elements (clock face, hour hand, minute hand, center circle)
-* Visual assets for other elements (scene background, digits for digital time)
-* Implementation of ClockManager that instantiates clock elements
-* Implementation of DigitalTimeManager that instantiates a set of 5 sprites that each display a digit of the current time. (including colon)
-* Code that rotates movable clock elements (hour and minute) and sets digital time
-* 
+Simple Learning Time is a supplementary tool that can be used to teach a student how to tell the time under the guidance of a teacher or parent.
 
-
+##Feature List
+* Interactive hour and minute pointers.
+* Hour pointer is updated in real-time as minutes change.
+* Digital time that updates in real-time as changes are made on the analogue clock.
+* 12 hour/24 hour clock toggle
+* Toggle visibility of digital time
+* Set the in-app time to the current device time
+* Set the in-app time to a random time
+* Start a self-test that sets the digital time to a new random time and prompts you to change the analogue time to correspond with the digital time.
+* In-app help feature that describes each button's function in the app
 
 

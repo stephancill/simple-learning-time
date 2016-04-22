@@ -133,7 +133,25 @@ class HelpInfoManager {
         
         if (deviceType == "iPhone") {
             /* Make case-specific adjustments here */
-//            spriteHelp1224Hour.anchorPoint = CGPoint(x: -0.06, y: 1.44)
+            let changeNodeList: [SKSpriteNode] = [
+                spriteHelp1224Hour,
+                spriteHelpRandomTime,
+                spriteHelpCurrentTime,
+                spriteHelpSelfTest,
+                spriteHelpDigitalToggle]
+            
+            for node in changeNodeList {
+                node.position.x = bgm.spriteUtilitiesBackground.size.width
+                node.anchorPoint.x = 0
+                node.removeFromParent()
+            }
+        
+//            spriteHelp1224Hour.position.x = bgm.spriteUtilitiesBackground.size.width
+//            spriteHelp1224Hour.anchorPoint.x = 0
+//            spriteHelpRandomTime.position.x = bgm.spriteUtilitiesBackground.size.width
+//            spriteHelpCurrentTime.position.x = bgm.spriteUtilitiesBackground.size.width
+//            spriteHelpSelfTest.position.x = bgm.spriteUtilitiesBackground.size.width
+//            spriteHelpDigitalToggle.position.x = bgm.spriteUtilitiesBackground.size.width
         }
         
     }

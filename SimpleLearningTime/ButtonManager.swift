@@ -186,11 +186,14 @@ class ButtonManager {
             scalar: scalar*1.5,
             frameDivider: frameDivider,
             container: stm.spriteContainer,
-            anchorPoint: CGPoint(x: 0.57, y: -1.5)
+            anchorPoint: CGPoint(x: 0.61, y: -1.5)
         )
         if (deviceType == "iPhone") {
             /* Make case-specific adjustments here */
-            stm.spriteSelfTestHelp.anchorPoint = CGPoint(x: -0.6, y: -0.2)
+            stm.spriteSelfTestHelp.position = CGPoint(
+                x: bgm.spriteUtilitiesBackground.size.width ,
+                y: dtm.displayTime[4].position.y)
+            stm.spriteSelfTestHelp.anchorPoint = CGPoint(x: 0, y: -0.5)
         }
         /*---*/
         

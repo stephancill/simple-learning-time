@@ -29,11 +29,13 @@ class GameViewController: UIViewController {
             /* Set the scale mode to scale to fit the window */
             if (deviceType == "iPhone") {
                 scene.size = CGSize( width: skView.bounds.size.width/2, height: skView.bounds.size.height/2)
-                scene.inverseScalar = 4
+                scene.inverseScalar = 1024/Float(scene.size.width)*1.1
                 scene.scaleMode = .AspectFill
             } else {
                 scene.scaleMode = .AspectFill
             }
+            
+            print(scene.size)
             
             /* Present the scene */
             masterScene = scene

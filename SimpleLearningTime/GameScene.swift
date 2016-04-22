@@ -23,12 +23,16 @@ class CustomGameScene: SKScene {
     var inverseScalar: Float = 1 /* iPhone = 3.23529, iPad = 1*/
     
     override func didMoveToView(view: SKView) {
-        print(inverseScalar)
         /* Setup your scene here */
         self.name = "scene"
         middle = CGPoint(x: size.width * 0.5, y: size.height * 0.5)
         
-        cm.initElements(size, scalar: 0.55/inverseScalar, scene: self, time: math.currentDeviceTime())
+        if (deviceType == "iPhone") {
+            cm.initElements(size, scalar: 0.55/inverseScalar*0.85, scene: self, time: math.currentDeviceTime())
+        } else {
+            cm.initElements(size, scalar: 0.55/inverseScalar, scene: self, time: math.currentDeviceTime())
+        }
+        
         bgm.initElements(size, scalar: 0.8/inverseScalar, scene: self, center: cm.center)
         dtm.initElements(size, scalar: 0.6/inverseScalar, scene: self, time: cm.time)
         btnm.initElements(size, scalar: 0.25/inverseScalar, scene: self, inverseScalar: inverseScalar)

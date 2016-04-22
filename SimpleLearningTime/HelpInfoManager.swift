@@ -23,6 +23,14 @@ class HelpInfoManager {
     var visible: Bool = false
     var scene: SKScene = SKScene()
     
+    init() {
+        spriteHelp1224Hour = SKSpriteNode(imageNamed: "imageHelp1224HouriPhone")
+        spriteHelpRandomTime = SKSpriteNode(imageNamed: "imageHelpRandomTimeiPhone")
+        spriteHelpCurrentTime = SKSpriteNode(imageNamed: "imageHelpCurrentTimeiPhone")
+        spriteHelpSelfTest = SKSpriteNode(imageNamed: "imageHelpSelfTestiPhone")
+        spriteHelpDigitalToggle = SKSpriteNode(imageNamed: "imageHelpDigitalToggleiPhone")
+    }
+    
     func instantiate (scene: SKScene, visibility: Bool=false, scalar: Float=0.5) {
         self.scene = scene
         let frameSize = scene.size

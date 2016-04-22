@@ -24,9 +24,10 @@ class BackgroundManager {
         spriteUtilitiesBackground = SKSpriteNode(
             color: UIColor(white: 1, alpha: 0.3),
             size: CGSize(
-                width: frameSize.width / frameDivider * 46,
+                width: frameSize.width / frameDivider * 22,
                 height: frameSize.height * 2)
         )
+        spriteUtilitiesBackground.anchorPoint = CGPoint(x: 0, y: 0.5)
         spriteUtilitiesBackground.zPosition = -1
         scene.addChild(spriteUtilitiesBackground)
         

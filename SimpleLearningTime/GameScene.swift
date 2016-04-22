@@ -97,10 +97,5 @@ class CustomGameScene: SKScene {
         return node
         
     }
-    
-    func pointConverter (point: CGPoint) {
-        convertPointFromView(point)
-    }
-    
 
 }

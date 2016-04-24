@@ -12,7 +12,7 @@ let bgm: BackgroundManager = BackgroundManager()
 let dtm: DigitalTimeManager = DigitalTimeManager()
 let btnm: ButtonManager = ButtonManager()
 let stm: SelfTestManager = SelfTestManager()
-var him: HelpInfoManager = HelpInfoManager()
+let him: HelpInfoManager = HelpInfoManager()
 let math: mf = mf()
 
 var allInteractiveElements: [String] = []
@@ -21,6 +21,7 @@ class CustomGameScene: SKScene {
 
     var middle: CGPoint = CGPoint(x: 0, y: 0)
     var inverseScalar: Float = 1 /* iPhone = 3.23529, iPad = 1*/
+    var pressing: Bool = false
     
     override func didMoveToView(view: SKView) {
         /* Setup your scene here */
@@ -75,6 +76,13 @@ class CustomGameScene: SKScene {
         
         btnm.buttonReleased(nodeName)
 
+    }
+    
+    override func update(currentTime: NSTimeInterval) {
+//        print(currentTime)
+        if (pressing) {
+            
+        }
     }
     
     func getTopNode (touches: Set<UITouch>) -> SKNode {

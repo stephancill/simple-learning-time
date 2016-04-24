@@ -10,6 +10,10 @@ import SpriteKit
 
 class ButtonManager {
     
+    var pressPressing: Bool = false
+    var pressLongPressDuration: Double = 1.5
+    var pressTimeOfPress: NSTimeInterval = NSTimeInterval()
+    
     // Button declarations
     var button1224HourToggle: SKSpriteNode =
         SKSpriteNode(
@@ -204,38 +208,42 @@ class ButtonManager {
     
     func buttonPressed (name: String) {
         
+        pressPressing = true
+        pressTimeOfPress = NSDate.timeIntervalSinceReferenceDate()
         touchedButtonName = name
         print(touchedButtonName)
         
     }
     
     func buttonReleased (name: String) {
-
+        
+        pressPressing = false
+        
         switch (name != touchedButtonName) {
         case(true): break
         case(false): ()
         }
         
         if (name == "button1224HourToggle") {
-            toggleTwentyFourHour()
+            buttonFunctionToggleTwentyFourHour()
         }
         
         if (name == "buttonToggleDigital") {
-            toggleDigitalTime()
+            buttonFunctionToggleDigitalTime()
         }
         
         if (name == "buttonCurrentDeviceTime") {
-            currentTime()
+            buttonFunctionCurrentTime()
             resetSTMResult()
         }
         
         if (name == "buttonRandomTime") {
-            randomTime()
+            buttonFunctionRandomTime()
             resetSTMResult()
         }
         
         if (name == "buttonSelfTest" || name == "buttonSelfTestEnd") {
-            if (operationQueue.operations.count == 0) {selfTest(name)}
+            if (operationQueue.operations.count == 0) {buttonFunctionSelfTest(name)}
         }
         
         if (name == "buttonShowHelp") {
@@ -249,14 +257,24 @@ class ButtonManager {
 
     }
     
-    func currentTime() {
+    func update() {
+        if (deviceType == "iPhone" && btnm.pressPressing) {
+            let timeNow = NSDate.timeIntervalSinceReferenceDate()
+            if ((timeNow - btnm.pressTimeOfPress)%3 >= btnm.pressLongPressDuration) {
+                print("Longpressed")
+                btnm.pressPressing = false
+            }
+        }
+    }
+    
+    func buttonFunctionCurrentTime() {
         animateCurrentDeviceTime()
         
         cm.set(math.currentDeviceTime())
         dtm.set(cm.time)
     }
     
-    func randomTime() {
+    func buttonFunctionRandomTime() {
 
         let hours = CGFloat(arc4random_uniform(24))
         let minutes = CGFloat(arc4random_uniform(59))
@@ -266,7 +284,7 @@ class ButtonManager {
         dtm.set(cm.time)
     }
     
-    func toggleTwentyFourHour() {
+    func buttonFunctionToggleTwentyFourHour() {
         
         cm.twelveHour = !cm.twelveHour
         animate1224HourToggle(!cm.twelveHour)
@@ -274,13 +292,13 @@ class ButtonManager {
         dtm.set(dtm.time)
     }
     
-    func toggleDigitalTime() {
+    func buttonFunctionToggleDigitalTime() {
         animateToggleDigital()
         dtm.toggleVisibility()
     }
     
     // Self testing feature procedures
-    func selfTest (buttonName: String) {
+    func buttonFunctionSelfTest (buttonName: String) {
         if (stm.testActive) {
             // Check solutions
             stm.check()

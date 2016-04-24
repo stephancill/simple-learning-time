@@ -21,7 +21,7 @@ class CustomGameScene: SKScene {
 
     var middle: CGPoint = CGPoint(x: 0, y: 0)
     var inverseScalar: Float = 1 /* iPhone = 3.23529, iPad = 1*/
-    var pressing: Bool = false
+    
     
     override func didMoveToView(view: SKView) {
         /* Setup your scene here */
@@ -59,9 +59,7 @@ class CustomGameScene: SKScene {
         } else {
             if (him.visible) {him.hide()}
         }
-        
-        
-        
+
     }
     
     override func touchesEnded(touches: Set<UITouch>, withEvent event: UIEvent?) {
@@ -79,10 +77,8 @@ class CustomGameScene: SKScene {
     }
     
     override func update(currentTime: NSTimeInterval) {
-//        print(currentTime)
-        if (pressing) {
-            
-        }
+        
+        btnm.update()
     }
     
     func getTopNode (touches: Set<UITouch>) -> SKNode {

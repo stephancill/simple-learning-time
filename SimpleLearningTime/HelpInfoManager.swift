@@ -151,7 +151,8 @@ class HelpInfoManager {
                 spriteHelpRandomTime,
                 spriteHelpCurrentTime,
                 spriteHelpSelfTest,
-                spriteHelpDigitalToggle]
+                spriteHelpDigitalToggle,
+            ]
             
             for node in changeNodeList {
                 node.position.x = bgm.spriteUtilitiesBackground.size.width
@@ -159,18 +160,23 @@ class HelpInfoManager {
                 node.removeFromParent()
             }
             
+            spriteHelpMinute.removeFromParent()
+            spriteHelpHour.removeFromParent()
+            
         }
         
     }
     
     func show () {
-        if (deviceType == "iPhone") {  }
+        if (deviceType == "iPhone") {spriteContainer.addChild(spriteHelpMinute); spriteContainer.addChild(spriteHelpHour)}
         scene.addChild(spriteContainer)
         visible = true
     }
     
     func showNode (nodeName: String) {
-        spriteContainer.addChild(helpDescriptions[nodeName]!)
+        if (helpDescriptions.keys.contains(nodeName)) {
+            spriteContainer.addChild(helpDescriptions[nodeName]!)
+        }
         scene.addChild(spriteContainer)
         visible = true
     }

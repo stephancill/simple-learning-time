@@ -23,6 +23,8 @@ class HelpInfoManager {
     var visible: Bool = false
     var scene: SKScene = SKScene()
     
+    var helpDescriptions = [String:SKSpriteNode]()
+    
     init() {
         
         if (deviceType == "iPhone") {
@@ -32,6 +34,17 @@ class HelpInfoManager {
             spriteHelpSelfTest = SKSpriteNode(imageNamed: "imageHelpSelfTestiPhone")
             spriteHelpDigitalToggle = SKSpriteNode(imageNamed: "imageHelpDigitalToggleiPhone")
         }
+        
+        helpDescriptions = [
+            "button1224HourToggle" : spriteHelp1224Hour,
+            "buttonRandomTime" : spriteHelpRandomTime,
+            "buttonCurrentDeviceTime" : spriteHelpCurrentTime,
+            "buttonSelfTest" : spriteHelpSelfTest,
+            "buttonSelfTestEnd" : spriteHelpSelfTest,
+            "buttonToggleDigital" : spriteHelpDigitalToggle,
+//            "spriteHelpHour" : spriteHelpHour,
+//            "spriteHelpMinute" : spriteHelpMinute
+        ]
 
     }
     
@@ -151,11 +164,19 @@ class HelpInfoManager {
     }
     
     func show () {
+        if (deviceType == "iPhone") {  }
+        scene.addChild(spriteContainer)
+        visible = true
+    }
+    
+    func showNode (nodeName: String) {
+        spriteContainer.addChild(helpDescriptions[nodeName]!)
         scene.addChild(spriteContainer)
         visible = true
     }
     
     func hide () {
+        if (deviceType == "iPhone") { spriteContainer.removeAllChildren() }
         spriteContainer.removeFromParent()
         visible = false
     }

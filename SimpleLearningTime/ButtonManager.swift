@@ -219,7 +219,7 @@ class ButtonManager {
     func buttonReleased (name: String) {
         
         pressPressing = false
-        him.hide()
+
         if (!longPressed) {
             switch (name != touchedButtonName) {
             case(true): break
@@ -251,6 +251,8 @@ class ButtonManager {
             if (name == "buttonShowHelp") {
                 buttonFunctionShowHelp()
             }
+        } else {
+            him.hide()
         }
         longPressed = false
 

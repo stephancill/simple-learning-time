@@ -57,7 +57,7 @@ class CustomGameScene: SKScene {
         } else if (btnm.interactiveElements.contains(nodeName)) {
             btnm.buttonPressed(nodeName)
         } else {
-            if (him.visible) {him.hide()}
+            if (him.visible && deviceType != "iPhone") {him.hide()}
         }
 
     }

@@ -97,7 +97,7 @@ class ButtonManager {
                 x: frameSize.width/frameDivider*11,
                 y: frameSize.height/frameDivider * 90),
             frameSize: frameSize,
-            scalar: scalar*2,
+            scalar: scalar*1.76,
             frameDivider: frameDivider,
             container: buttonContainer
         )
@@ -176,7 +176,7 @@ class ButtonManager {
                 x: buttonSelfTest.position.x ,
                 y: buttonSelfTest.position.y),
             frameSize: frameSize,
-            scalar: scalar*1.5,
+            scalar: scalar*1.2,
             frameDivider: frameDivider,
             container: stm.spriteContainer,
             anchorPoint: CGPoint(x: 0.1, y: 1.27)
@@ -188,7 +188,7 @@ class ButtonManager {
                 x: dtm.displayTime[4].position.x,
                 y: dtm.displayTime[4].position.y),
             frameSize: frameSize,
-            scalar: scalar*1.5,
+            scalar: scalar*1.2,
             frameDivider: frameDivider,
             container: stm.spriteContainer,
             anchorPoint: CGPoint(x: 0.61, y: -1.5)
@@ -209,6 +209,7 @@ class ButtonManager {
     
     func buttonPressed (name: String) {
         
+        if (deviceType == "iPhone") { him.hide() }
         pressPressing = true
         pressTimeOfPress = NSDate.timeIntervalSinceReferenceDate()
         touchedButtonName = name

@@ -36,7 +36,7 @@ class CustomGameScene: SKScene {
         
         bgm.initElements(size, scalar: 0.8/inverseScalar, scene: self, center: cm.center)
         dtm.initElements(size, scalar: 0.6/inverseScalar, scene: self, time: cm.time)
-        btnm.initElements(size, scalar: 0.25/inverseScalar, scene: self, inverseScalar: inverseScalar)
+        btnm.initElements(size, scalar: 0.3/inverseScalar, scene: self, inverseScalar: inverseScalar)
         // him instantiated in btnm
         
     }

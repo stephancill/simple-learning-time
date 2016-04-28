@@ -24,7 +24,7 @@ class BackgroundManager {
         spriteUtilitiesBackground = SKSpriteNode(
             color: UIColor(white: 1, alpha: 0.3),
             size: CGSize(
-                width: frameSize.width / frameDivider * 22,
+                width: frameSize.width / frameDivider * 22.6,
                 height: frameSize.height * 2)
         )
         spriteUtilitiesBackground.anchorPoint = CGPoint(x: 0, y: 0.5)

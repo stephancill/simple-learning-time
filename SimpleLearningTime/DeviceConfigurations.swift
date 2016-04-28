@@ -31,8 +31,6 @@ class DeviceConfigurations {
         }
         him.spriteHelp1224Hour.anchorPoint.y = 0.75
 
-        
-        
     }
 
     

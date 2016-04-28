@@ -267,6 +267,7 @@ class ButtonManager {
             if ((timeNow - btnm.pressTimeOfPress)%3 >= btnm.pressLongPressDuration) {
                 
                 if (!him.visible) {
+                    print("Longpressed")
                     longPressed = true
                     him.showNode(btnm.touchedButtonName)
                 }

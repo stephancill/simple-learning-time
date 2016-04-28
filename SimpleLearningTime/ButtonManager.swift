@@ -84,7 +84,6 @@ class ButtonManager {
         
         self.scene = scene
         
-        him.instantiate(scene, scalar: 0.5/inverseScalar)
         stm.scene = scene
         
         
@@ -199,6 +198,9 @@ class ButtonManager {
                 x: bgm.spriteUtilitiesBackground.size.width ,
                 y: dtm.displayTime[4].position.y)
             stm.spriteSelfTestHelp.anchorPoint = CGPoint(x: 0, y: -0.5)
+            
+            dc.classHimAdjust()
+            
         }
         /*---*/
         

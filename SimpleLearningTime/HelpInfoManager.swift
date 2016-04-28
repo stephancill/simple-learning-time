@@ -48,7 +48,7 @@ class HelpInfoManager {
 
     }
     
-    func instantiate (scene: SKScene, visibility: Bool=false, scalar: Float=0.5) {
+    func initElements (scene: SKScene, visibility: Bool=false, scalar: Float=0.5) {
         self.scene = scene
         let frameSize = scene.size
         visible = visibility

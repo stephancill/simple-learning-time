@@ -13,6 +13,7 @@ let dtm: DigitalTimeManager = DigitalTimeManager()
 let btnm: ButtonManager = ButtonManager()
 let stm: SelfTestManager = SelfTestManager()
 let him: HelpInfoManager = HelpInfoManager()
+let dc: DeviceConfigurations = DeviceConfigurations()
 let math: mf = mf()
 
 var allInteractiveElements: [String] = []
@@ -36,6 +37,7 @@ class CustomGameScene: SKScene {
         
         bgm.initElements(size, scalar: 0.8/inverseScalar, scene: self, center: cm.center)
         dtm.initElements(size, scalar: 0.6/inverseScalar, scene: self, time: cm.time)
+        him.initElements(self, scalar: 0.5/inverseScalar)
         btnm.initElements(size, scalar: 0.3/inverseScalar, scene: self, inverseScalar: inverseScalar)
         // him instantiated in btnm
         
@@ -57,7 +59,7 @@ class CustomGameScene: SKScene {
         } else if (btnm.interactiveElements.contains(nodeName)) {
             btnm.buttonPressed(nodeName)
         } else {
-            if (him.visible && deviceType != "iPhone") {him.hide()}
+            if (him.visible) {him.hide()}
         }
 
     }

@@ -33,6 +33,8 @@ class HelpInfoManager {
             spriteHelpCurrentTime = SKSpriteNode(imageNamed: "imageHelpCurrentTimeiPhone")
             spriteHelpSelfTest = SKSpriteNode(imageNamed: "imageHelpSelfTestiPhone")
             spriteHelpDigitalToggle = SKSpriteNode(imageNamed: "imageHelpDigitalToggleiPhone")
+            
+            
         }
         
         helpDescriptions = [
@@ -146,6 +148,8 @@ class HelpInfoManager {
         
         if (deviceType == "iPhone") {
             /* Make case-specific adjustments here */
+            
+            
             let changeNodeList: [SKSpriteNode] = [
                 spriteHelp1224Hour,
                 spriteHelpRandomTime,
@@ -164,6 +168,10 @@ class HelpInfoManager {
             spriteHelpHour.removeFromParent()
             
         }
+        
+    }
+    
+    func animateHelpHelp () {
         
     }
     

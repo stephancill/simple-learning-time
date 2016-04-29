@@ -11,6 +11,7 @@ import SpriteKit
 
 var masterScene: SKScene = SKScene()
 var deviceType = "iPad"
+var forceTouchEnabled = false
 
 class GameViewController: UIViewController {
 
@@ -31,6 +32,8 @@ class GameViewController: UIViewController {
                 scene.size = CGSize( width: skView.bounds.size.width/2, height: skView.bounds.size.height/2)
                 scene.inverseScalar = 1024/Float(scene.size.width)*1.1
                 scene.scaleMode = .AspectFill
+                forceTouchEnabled = traitCollection.forceTouchCapability == UIForceTouchCapability.Available
+                print("Force touch capability: \(forceTouchEnabled)")
             } else {
                 scene.scaleMode = .AspectFill
             }

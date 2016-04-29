@@ -57,7 +57,7 @@ class CustomGameScene: SKScene {
         if (cm.interactiveElements.contains(nodeName)) {
             cm.touchesStarted(node, touchLocation: convertPointFromView((touches.first?.locationInView(self.view))!))
         } else if (btnm.interactiveElements.contains(nodeName)) {
-            btnm.buttonPressed(nodeName)
+            btnm.buttonPressed(nodeName, touch: touches.first!)
         } else {
             if (him.visible) {him.hide()}
         }

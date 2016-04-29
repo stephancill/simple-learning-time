@@ -55,6 +55,12 @@ class ButtonManager {
             )
     )
     
+    var animationHelpHelp: SKSpriteNode = SKSpriteNode(
+        texture: SKTexture(
+            rect: CGRect(x: 0.0, y: 0.888, width: 0.1, height: 0.111),
+            inTexture: SKTexture(imageNamed: "animationHelpHelp")
+        ))
+    
     // Misc declarations
     var propertySelfTestDefaultSize = true
     var propertySelfTestStartingSize = CGSize()
@@ -192,12 +198,27 @@ class ButtonManager {
             container: stm.spriteContainer,
             anchorPoint: CGPoint(x: 0.61, y: -1.5)
         )
+        
+        
         if (deviceType == "iPhone") {
             /* Make case-specific adjustments here */
             stm.spriteSelfTestHelp.position = CGPoint(
                 x: bgm.spriteUtilitiesBackground.size.width ,
                 y: dtm.displayTime[4].position.y)
             stm.spriteSelfTestHelp.anchorPoint = CGPoint(x: 0, y: -0.5)
+            
+            btnm.defaultButtonSetup(
+                "animationHelpHelp",
+                node: animationHelpHelp,
+                position: CGPoint(
+                    x: buttonSelfTest.position.x,
+                    y: frameSize.width/frameDivider*25),
+                frameSize: frameSize,
+                scalar: scalar*7,
+                container: buttonContainer,
+                zPosition: 5,
+                anchorPoint: CGPoint(x: 0.48, y: 0.5)
+            )
             
             dc.classHimAdjust()
             
@@ -209,9 +230,13 @@ class ButtonManager {
         print("btnm initialized")
     }
     
-    func buttonPressed (name: String) {
+    func buttonPressed (name: String, touch: UITouch) {
         
-        if (deviceType == "iPhone") { him.hide() }
+        if (deviceType == "iPhone") {
+            him.hide()
+            
+            
+        }
         pressPressing = true
         pressTimeOfPress = NSDate.timeIntervalSinceReferenceDate()
         touchedButtonName = name
@@ -481,6 +506,18 @@ class ButtonManager {
             divisions: 3, framesPR: 6,
             reverse: reverse
         )
+        
+        if (deviceType == "iPhone") {
+            
+            animate(
+                animationHelpHelp,
+                spritesheet: SKTexture(imageNamed: "animationHelpHelp"),
+                frames: 83, fps: 20,
+                size: CGSize(width: 0.1, height: 0.111),
+                divisions: 9, framesPR: 10,
+                reverse: reverse
+            )
+        }
     }
     
     func animate (sprite: SKSpriteNode, spritesheet: SKTexture, frames: Int, fps: Int, size: CGSize, divisions: Double=1, framesPR: Int=1, reverse: Bool=false, queue: Bool=false) {

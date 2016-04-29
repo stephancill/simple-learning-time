@@ -189,10 +189,11 @@ class HelpInfoManager {
         visible = true
     }
     
-    func hide () {
-        if (deviceType == "iPhone") { spriteContainer.removeAllChildren() }
-        spriteContainer.removeFromParent()
-        visible = false
+    func hide (force: Bool=false) {
+        if (deviceType == "iPhone" && !btnm.forcePressed) { spriteContainer.removeAllChildren(); visible = false}
+        if (!btnm.forcePressed) {spriteContainer.removeFromParent(); visible = false}
+        if (force) { spriteContainer.removeAllChildren(); spriteContainer.removeFromParent(); visible = false }
+
     }
     
     func destroy () {

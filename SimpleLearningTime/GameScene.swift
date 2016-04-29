@@ -23,6 +23,7 @@ class CustomGameScene: SKScene {
     var middle: CGPoint = CGPoint(x: 0, y: 0)
     var inverseScalar: Float = 1 /* iPhone = 3.23529, iPad = 1*/
     
+    var lastTouch: UITouch = UITouch()
     
     override func didMoveToView(view: SKView) {
         /* Setup your scene here */
@@ -50,15 +51,19 @@ class CustomGameScene: SKScene {
     }
     
     override func touchesBegan(touches: Set<UITouch>, withEvent event: UIEvent?) {
-        
+    
         let node = getTopNode(touches)
         let nodeName = node.name!
+        lastTouch = touches.first!
         
         if (cm.interactiveElements.contains(nodeName)) {
+            print ("cm")
             cm.touchesStarted(node, touchLocation: convertPointFromView((touches.first?.locationInView(self.view))!))
         } else if (btnm.interactiveElements.contains(nodeName)) {
+            print ("btnm")
             btnm.buttonPressed(nodeName, touch: touches.first!)
         } else {
+            print ("else \(him.visible)")
             if (him.visible) {him.hide()}
         }
 
@@ -68,6 +73,7 @@ class CustomGameScene: SKScene {
         
         let node = getTopNode(touches)
         let nodeName = node.name!
+//        lastTouch = touches.first!
         // Element belongs to clock
         
         if (cm.interactivityEnabled) {
@@ -80,7 +86,7 @@ class CustomGameScene: SKScene {
     
     override func update(currentTime: NSTimeInterval) {
         
-        btnm.update()
+        btnm.update(lastTouch)
     }
     
     func getTopNode (touches: Set<UITouch>) -> SKNode {

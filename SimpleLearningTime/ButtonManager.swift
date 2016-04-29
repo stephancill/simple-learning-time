@@ -14,6 +14,8 @@ class ButtonManager {
     var pressLongPressDuration: Double = 1
     var pressTimeOfPress: NSTimeInterval = NSTimeInterval()
     var longPressed: Bool = false
+    var forcePressed: Bool = false
+    var maxForceReached: Bool = false
     
     // Button declarations
     var button1224HourToggle: SKSpriteNode =
@@ -91,8 +93,6 @@ class ButtonManager {
         self.scene = scene
         
         stm.scene = scene
-        
-        
         
         //Toggle 12/24 hour
         defaultButtonSetup(
@@ -234,8 +234,6 @@ class ButtonManager {
         
         if (deviceType == "iPhone") {
             him.hide()
-            
-            
         }
         pressPressing = true
         pressTimeOfPress = NSDate.timeIntervalSinceReferenceDate()
@@ -247,8 +245,13 @@ class ButtonManager {
     func buttonReleased (name: String) {
         
         pressPressing = false
-
-        if (!longPressed) {
+        print(maxForceReached)
+        if (forceTouchEnabled && !maxForceReached) {
+            print("hi")
+            him.hide(true)
+        }
+        
+        if (!longPressed && !forcePressed) {
             switch (name != touchedButtonName) {
             case(true): break
             case(false): ()
@@ -283,20 +286,43 @@ class ButtonManager {
             him.hide()
         }
         longPressed = false
+        maxForceReached = false
+        forcePressed = false
 
     }
     
-    func update () {
+    func update (touch: UITouch) {
         if (deviceType == "iPhone" && btnm.pressPressing) {
-            let timeNow = NSDate.timeIntervalSinceReferenceDate()
-            if ((timeNow - btnm.pressTimeOfPress)%3 >= btnm.pressLongPressDuration) {
-                
-                if (!him.visible) {
-                    print("Longpressed")
-                    longPressed = true
-                    him.showNode(btnm.touchedButtonName)
+            if (forceTouchEnabled) {
+                let force = touch.force/touch.maximumPossibleForce
+                print((force*force))
+                if (him.helpDescriptions.keys.contains(btnm.touchedButtonName) && force >= 0.2 && !maxForceReached) {
+                    (him.helpDescriptions[btnm.touchedButtonName]!).alpha = force
+                    if (force == 1) {
+                        maxForceReached = true
+                    }
+                }
+                if (!him.visible && force >= 0.2) {
+                    
+//                    if (!him.visible && touch.force/touch.maximumPossibleForce == 1) {
+                        print("Force pressed")
+                    
+                        him.showNode(btnm.touchedButtonName)
+                        forcePressed = true
+//                    }
+                }
+            } else {
+                let timeNow = NSDate.timeIntervalSinceReferenceDate()
+                if ((timeNow - btnm.pressTimeOfPress)%3 >= btnm.pressLongPressDuration) {
+                    
+                    if (!him.visible) {
+                        print("Long pressed")
+                        longPressed = true
+                        him.showNode(btnm.touchedButtonName)
+                    }
                 }
             }
+            
         }
     }
     

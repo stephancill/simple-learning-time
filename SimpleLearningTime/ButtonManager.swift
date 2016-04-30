@@ -184,7 +184,7 @@ class ButtonManager {
             scalar: scalar*1.2,
             frameDivider: frameDivider,
             container: stm.spriteContainer,
-            anchorPoint: CGPoint(x: 0.1, y: 1.27)
+            anchorPoint: CGPoint(x: 0.1, y: 1.31)
         )
         defaultButtonSetup(
             "spriteSelfTestHelp",
@@ -395,15 +395,17 @@ class ButtonManager {
     }
     
     func resetSTMResult () {
-        if (stm.testActive) {
-            stm.endTest()
+        if (operationQueue.operations.count == 0) {
+            if (stm.testActive) {
+                stm.endTest()
+            }
+            propertySelfTestDefaultSize = true
+            buttonSelfTest.texture = SKTexture(
+                rect: CGRect(x: 0.0, y: 0.75, width: 0.1428571429, height: 0.25),
+                inTexture: SKTexture(imageNamed: "animationSelfTestStart")
+            )
+            buttonSelfTest.size = propertySelfTestStartingSize
         }
-        buttonSelfTest.size = propertySelfTestStartingSize
-        propertySelfTestDefaultSize = true
-        buttonSelfTest.texture = SKTexture(
-            rect: CGRect(x: 0.0, y: 0.75, width: 0.1428571429, height: 0.25),
-            inTexture: SKTexture(imageNamed: "animationSelfTestStart")
-        )
     }
     
     func switchSizes() {

@@ -17,6 +17,7 @@ class HelpInfoManager {
     var spriteHelpDigitalToggle: SKSpriteNode = SKSpriteNode(imageNamed: "imageHelpDigitalToggle")
     var spriteHelpHour: SKSpriteNode = SKSpriteNode(imageNamed: "imageHelpHour")
     var spriteHelpMinute: SKSpriteNode = SKSpriteNode(imageNamed: "imageHelpMinute")
+    var spriteHelpInstructions: SKSpriteNode = SKSpriteNode()
     
     var spriteContainer: SKNode = SKNode()
     
@@ -34,6 +35,8 @@ class HelpInfoManager {
             spriteHelpSelfTest = SKSpriteNode(imageNamed: "imageHelpSelfTestiPhone")
             spriteHelpDigitalToggle = SKSpriteNode(imageNamed: "imageHelpDigitalToggleiPhone")
             
+            if (forceTouchEnabled) { spriteHelpInstructions = SKSpriteNode(imageNamed: "imageHelpIntructionsForcePress") }
+            else { spriteHelpInstructions = SKSpriteNode(imageNamed: "imageHelpIntructionsLongPress") }
             
         }
         
@@ -146,6 +149,19 @@ class HelpInfoManager {
             anchorPoint: CGPoint(x: 1, y: 2)
         )
         
+        btnm.defaultButtonSetup(
+            "spriteHelpInstructions",
+            node: spriteHelpInstructions,
+            position: CGPoint(
+                x: frameSize.width/100 * 99.5,
+                y: frameSize.height/100 * 5),
+            frameSize: frameSize,
+            scalar: scalar,
+            container: spriteContainer,
+            zPosition: 5,
+            anchorPoint: CGPoint(x: 1, y: 0)
+        )
+        
         if (deviceType == "iPhone") {
             /* Make case-specific adjustments here */
             
@@ -166,17 +182,14 @@ class HelpInfoManager {
             
             spriteHelpMinute.removeFromParent()
             spriteHelpHour.removeFromParent()
+            spriteHelpInstructions.removeFromParent()
             
         }
         
     }
     
-    func animateHelpHelp () {
-        
-    }
-    
     func show () {
-        if (deviceType == "iPhone") {spriteContainer.addChild(spriteHelpMinute); spriteContainer.addChild(spriteHelpHour)}
+        if (deviceType == "iPhone") {spriteContainer.addChild(spriteHelpMinute); spriteContainer.addChild(spriteHelpHour); spriteContainer.addChild(spriteHelpInstructions)}
         scene.addChild(spriteContainer)
         visible = true
     }

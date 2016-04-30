@@ -217,7 +217,7 @@ class ButtonManager {
                 scalar: scalar*7,
                 container: buttonContainer,
                 zPosition: 5,
-                anchorPoint: CGPoint(x: 0.48, y: 0.5)
+                anchorPoint: CGPoint(x: 0.48, y: 0.44)
             )
             
             dc.classHimAdjust()

@@ -35,12 +35,10 @@ class CustomGameScene: SKScene {
         } else {
             cm.initElements(size, scalar: 0.55/inverseScalar, scene: self, time: math.currentDeviceTime())
         }
-        
         bgm.initElements(size, scalar: 0.8/inverseScalar, scene: self, center: cm.center)
         dtm.initElements(size, scalar: 0.6/inverseScalar, scene: self, time: cm.time)
         him.initElements(self, scalar: 0.5/inverseScalar)
         btnm.initElements(size, scalar: 0.3/inverseScalar, scene: self, inverseScalar: inverseScalar)
-        // him instantiated in btnm
         
     }
     
@@ -57,9 +55,13 @@ class CustomGameScene: SKScene {
         lastTouch = touches.first!
         
         if (cm.interactiveElements.contains(nodeName)) {
+            
+            // Element belongs to clock
             print ("cm")
             cm.touchesStarted(node, touchLocation: convertPointFromView((touches.first?.locationInView(self.view))!))
         } else if (btnm.interactiveElements.contains(nodeName)) {
+            
+            // Element belongs to clock class
             print ("btnm")
             btnm.buttonPressed(nodeName, touch: touches.first!)
         } else {
@@ -73,9 +75,8 @@ class CustomGameScene: SKScene {
         
         let node = getTopNode(touches)
         let nodeName = node.name!
-//        lastTouch = touches.first!
+
         // Element belongs to clock
-        
         if (cm.interactivityEnabled) {
             cm.touchesEnded()
         }

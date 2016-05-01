@@ -232,9 +232,9 @@ class ButtonManager {
     
     func buttonPressed (name: String, touch: UITouch) {
         
-        if (deviceType == "iPhone") {
-            him.hide()
-        }
+//        if (deviceType == "iPhone") {
+//            him.hide()
+//        }
         pressPressing = true
         pressTimeOfPress = NSDate.timeIntervalSinceReferenceDate()
         touchedButtonName = name
@@ -247,7 +247,6 @@ class ButtonManager {
         pressPressing = false
         print(maxForceReached)
         if (forceTouchEnabled && !maxForceReached) {
-            print("hi")
             him.hide(true)
         }
         
@@ -422,6 +421,7 @@ class ButtonManager {
         animateShowHelp()
         if (!him.visible) {
             him.show()
+            
         } else {
             him.hide()
         }
@@ -535,7 +535,7 @@ class ButtonManager {
             reverse: reverse
         )
         
-        if (deviceType == "iPhone") {
+        if (deviceType == "iPhone" && !him.visible) {
             
             animate(
                 animationHelpHelp,

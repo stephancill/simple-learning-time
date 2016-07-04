@@ -10,7 +10,8 @@ import Foundation
 import SpriteKit
 
 class SelfTestManager {
-    /* instantiated in btnm */
+    
+    /* Instantiated in btnm */
     var correct: Bool = false
     var testActive: Bool = false
     
@@ -18,10 +19,6 @@ class SelfTestManager {
     var spriteSelfTestHelp2: SKSpriteNode = SKSpriteNode(imageNamed: "imageSelfTestHelp2") // Set up in button manager (btnm)
     var spriteContainer: SKNode = SKNode()
     var scene: SKScene = SKScene()
-
-    init() {
-        
-    }
     
     func startTest () {
         // Start the self-test

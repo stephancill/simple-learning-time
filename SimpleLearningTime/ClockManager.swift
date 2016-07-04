@@ -217,6 +217,12 @@ class ClockManager {
         
         // Background rotation and color
         bgm.set(time)
+		
+		// Digital time
+		if (dtm.enabled) {
+			dtm.set(time)
+		}
+
  
     }
     

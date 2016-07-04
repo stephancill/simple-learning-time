@@ -18,6 +18,19 @@
 	<string>2.1</string>
 	<key>CFBundleSignature</key>
 	<string>????</string>
+	<key>CFBundleURLTypes</key>
+	<array>
+		<dict>
+			<key>CFBundleTypeRole</key>
+			<string>Editor</string>
+			<key>CFBundleURLName</key>
+			<string>SimpleLearningTime</string>
+			<key>CFBundleURLSchemes</key>
+			<array>
+				<string>slt</string>
+			</array>
+		</dict>
+	</array>
 	<key>CFBundleVersion</key>
 	<string>4.0</string>
 	<key>ITSAppUsesNonExemptEncryption</key>

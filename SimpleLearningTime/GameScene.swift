@@ -39,7 +39,8 @@ class CustomGameScene: SKScene {
         dtm.initElements(size, scalar: 0.6/inverseScalar, scene: self, time: cm.time)
         him.initElements(self, scalar: 0.5/inverseScalar)
         btnm.initElements(size, scalar: 0.3/inverseScalar, scene: self, inverseScalar: inverseScalar)
-        
+	
+		
     }
     
     override func touchesMoved(touches: Set<UITouch>, withEvent event: UIEvent?) {
@@ -55,12 +56,10 @@ class CustomGameScene: SKScene {
         lastTouch = touches.first!
         
         if (cm.interactiveElements.contains(nodeName)) {
-            
             // Element belongs to clock
             print ("cm")
             cm.touchesStarted(node, touchLocation: convertPointFromView((touches.first?.locationInView(self.view))!))
         } else if (btnm.interactiveElements.contains(nodeName)) {
-            
             // Element belongs to clock class
             print ("btnm")
             btnm.buttonPressed(nodeName, touch: touches.first!)
@@ -110,5 +109,10 @@ class CustomGameScene: SKScene {
         return node
         
     }
+	
+	func setTime(time: (CGFloat, CGFloat)) {
+		cm.set(time)
+		dtm.set(time)
+	}
 
 }

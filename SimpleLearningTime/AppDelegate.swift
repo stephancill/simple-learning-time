@@ -41,6 +41,20 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         // Called when the application is about to terminate. Save data if appropriate. See also applicationDidEnterBackground:.
     }
 
+	func application(app: UIApplication, openURL url: NSURL, options: [String : AnyObject]) -> Bool {
 
+		print(url.absoluteURL?.pathComponents)
+		let query = url.absoluteURL?.pathComponents
+		if (query![1] == "setTime") {
+			
+			let separatedString = query![2].characters.split("-").map(String.init)
+			let time = ( CGFloat(Int(separatedString[0])!), CGFloat(Int(separatedString[1])!) )
+			print(time)
+			cm.set(time)
+			
+		}
+
+		return true
+	}
 }
 

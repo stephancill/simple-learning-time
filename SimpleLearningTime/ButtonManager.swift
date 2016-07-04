@@ -49,7 +49,9 @@ class ButtonManager {
             )
     )
     
-    
+	var buttonShare: SKSpriteNode =
+		SKSpriteNode(color: UIColor.redColor(), size: CGSize(width: 50, height: 50))
+	
     var buttonShowHelp: SKSpriteNode =
         SKSpriteNode(
             texture: SKTexture(rect: CGRect(x: 0.0, y: 0.666, width: 0.1666, height: 0.333),
@@ -62,6 +64,8 @@ class ButtonManager {
             rect: CGRect(x: 0.0, y: 0.888, width: 0.1, height: 0.111),
             inTexture: SKTexture(imageNamed: "animationHelpHelp")
         ))
+	
+	
     
     // Misc declarations
     var propertySelfTestDefaultSize = true
@@ -74,7 +78,8 @@ class ButtonManager {
         "buttonRandomTime",
         "buttonSelfTest",
         "buttonSelfTestEnd",
-        "buttonShowHelp"
+        "buttonShowHelp",
+        "buttonShare"
     ]
     var buttonContainer: SKNode = SKNode()
     var scene: SKScene = SKScene()
@@ -160,7 +165,8 @@ class ButtonManager {
             container: buttonContainer
         )
         propertySelfTestStartingSize = buttonSelfTest.size
-        //Help button
+		
+		//Help button
         defaultButtonSetup(
             "buttonShowHelp",
             node: buttonShowHelp,
@@ -198,8 +204,20 @@ class ButtonManager {
             container: stm.spriteContainer,
             anchorPoint: CGPoint(x: 0.61, y: -1.5)
         )
-        
-        
+		
+		defaultButtonSetup(
+			"buttonShare",
+			node: buttonShare,
+			position: CGPoint(
+				x: frameSize.width/frameDivider * 95,
+				y: frameSize.height/frameDivider * 95),
+			frameSize: frameSize,
+			scalar: scalar*0.9,
+			frameDivider: frameDivider,
+			container: buttonContainer
+		)
+		
+		
         if (deviceType == "iPhone") {
             /* Make case-specific adjustments here */
             stm.spriteSelfTestHelp.position = CGPoint(
@@ -245,7 +263,6 @@ class ButtonManager {
     func buttonReleased (name: String) {
         
         pressPressing = false
-        print(maxForceReached)
         if (forceTouchEnabled && !maxForceReached) {
             him.hide(true)
         }
@@ -281,6 +298,10 @@ class ButtonManager {
             if (name == "buttonShowHelp") {
                 buttonFunctionShowHelp()
             }
+			
+			if (name == "buttonShare") {
+				buttonFunctionShare()
+			}
         } else {
             him.hide()
         }
@@ -294,7 +315,6 @@ class ButtonManager {
         if (deviceType == "iPhone" && btnm.pressPressing) {
             if (forceTouchEnabled) {
                 let force = touch.force/touch.maximumPossibleForce
-                print((force*force))
                 if (him.helpDescriptions.keys.contains(btnm.touchedButtonName) && force >= 0.2 && !maxForceReached) {
                     (him.helpDescriptions[btnm.touchedButtonName]!).alpha = force
                     if (force == 1) {
@@ -392,7 +412,31 @@ class ButtonManager {
             stm.startTest()
         }
     }
-    
+	
+	func buttonFunctionShowHelp () {
+		animateShowHelp()
+		if (!him.visible) {
+			him.show()
+			
+		} else {
+			him.hide()
+		}
+	}
+	
+	func buttonFunctionShare() {
+		
+		let vc = scene.view?.window?.rootViewController
+		let dataToShare = "slt://app/setTime/\(Int(cm.time.0))-\(Int(cm.time.1))"
+		let avc = UIActivityViewController(activityItems: [dataToShare], applicationActivities: nil)
+		
+		avc.popoverPresentationController?.sourceView = masterScene.view
+		avc.popoverPresentationController?.sourceRect = CGRect(x: buttonShowHelp.position.x, y: buttonShowHelp.position.y, width: 0, height: 0)
+		
+		
+		vc?.presentViewController(avc, animated: true, completion: nil)
+		
+	}
+	
     func resetSTMResult () {
         if (operationQueue.operations.count == 0) {
             if (stm.testActive) {
@@ -414,16 +458,6 @@ class ButtonManager {
         } else {
             operationQueue.addOperation(ActionOperation(node: buttonSelfTest, action: SKAction.scaleBy(0.6, duration: 0.1)))
             propertySelfTestDefaultSize = false
-        }
-    }
-    
-    func buttonFunctionShowHelp () {
-        animateShowHelp()
-        if (!him.visible) {
-            him.show()
-            
-        } else {
-            him.hide()
         }
     }
     

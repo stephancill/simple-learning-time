@@ -27,7 +27,7 @@ class DigitalTimeManager {
     
     var time: (CGFloat, CGFloat) = (0,0)
     
-    var enabled = true
+    var enabled = false
     
     func initElements (frameSize: CGSize, scalar:Float, scene:SKScene, time:(CGFloat, CGFloat), frameDivider: CGFloat=100) {
         
@@ -95,6 +95,8 @@ class DigitalTimeManager {
             x: center.x,
             y: center.y * 1.4
         )
+		
+		enabled = true 
         scene.addChild(displayTimeContainer)
     }
     
@@ -196,7 +198,6 @@ class DigitalTimeManager {
             
             itertime.append(String(char))
         }
-        
         
         for n in 0...itertime.count-1 {
             

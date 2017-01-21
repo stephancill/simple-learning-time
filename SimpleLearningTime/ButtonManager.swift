@@ -50,7 +50,8 @@ class ButtonManager {
     )
     
 	var buttonShare: SKSpriteNode =
-		SKSpriteNode(color: UIColor.redColor(), size: CGSize(width: 50, height: 50))
+//		SKSpriteNode(color: UIColor.redColor(), size: CGSize(width: 50, height: 50))
+		SKSpriteNode()
 	
     var buttonShowHelp: SKSpriteNode =
         SKSpriteNode(
